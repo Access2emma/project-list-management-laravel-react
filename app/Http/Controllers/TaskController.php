@@ -9,7 +9,7 @@ use App\Task;
 class TaskController extends Controller
 {
     public function index(Project $project){
-        $projectTasks = $project->load('tasks');
+        $projectTasks = $project->load(['tasks' => function($task){ $task->latest(); }]);
 
         return response()->json(['data' => $projectTasks]);
     }

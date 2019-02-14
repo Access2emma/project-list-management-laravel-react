@@ -28,6 +28,8 @@
     },
     "dependencies": {
         "classnames": "^2.2.6",
+        "laravel-echo": "^1.5.2",
+        "pusher-js": "^4.3.1",
         "react-modal": "^3.8.1",
         "react-router-dom": "^4.3.1"
     }

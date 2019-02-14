@@ -10,7 +10,7 @@ class ProjectTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function projet_has_many_task()
+    public function project_has_many_task()
     {
         $project = factory('App\Project')->create();
         $tasks = factory('App\Task', 3)->create(['project_id' => $project->id]);

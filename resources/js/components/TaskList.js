@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
 import axios from "axios";
+import ReactModal from 'react-modal';
+import {Link} from 'react-router-dom';
 
 import LoadingComponent from './Loading';
 import TaskItem from './TaskItem';
+import NewProject from './NewProject';
 
 import CreateTask from './CreateTask';
+
+ReactModal.setAppElement('#root');
 
 export default class TaskList extends Component {
     constructor(props){
@@ -13,7 +17,9 @@ export default class TaskList extends Component {
 
         this.state = {
             project: null,
-            loading: true
+            loading: true,
+            openNewTaskModal: false,
+            openEditProjectModal: false,
         }
     }
 
@@ -29,13 +35,17 @@ export default class TaskList extends Component {
 
     displayTaskList = (project) => {
         if (project.tasks.length) {
-            return project.tasks.map(task => (
-                <TaskItem
-                    task={task}
-                    key={task.id}
-                    onTaskCompleted={this.handleTaskCompleted}
-                />
-            ));
+            return (
+                <ul className="list-group list-group-flush">
+                    {project.tasks.map(task => (
+                        <TaskItem
+                            task={task}
+                            key={task.id}
+                            onTaskCompleted={this.handleTaskCompleted}
+                        />
+                    ))}
+                </ul>
+            )
         } else {
             return (<p>Task list is empty!</p>)
         }
@@ -43,9 +53,16 @@ export default class TaskList extends Component {
 
     handleTaskCreated = (newTask) => {
         this.setState(state => ({
-            project: {...state.project, tasks: [...state.project.tasks, newTask]}
+            project: {...state.project, tasks: [newTask, ...state.project.tasks]},
+            openNewTaskModal: false
         }));
     };
+
+    handleNewTaskModalOpen = () => this.setState({openNewTaskModal: true});
+    handleNewTaskModalClose = () => this.setState({openNewTaskModal: false});
+
+    openProjectEditModal = () => this.setState({openEditProjectModal: true});
+    closeProjectEditModal = () => this.setState({openEditProjectModal: false});
 
     deleteProject = () => {
         const {project} = this.state;
@@ -61,7 +78,6 @@ export default class TaskList extends Component {
     };
 
     handleTaskCompleted = (id) => {
-        console.log("Updating completed for Project: ", id);
         const newTaskList = this.state.project.tasks.map(function(task){
             if(task.id === id){
                 return {...task, completed: 1};
@@ -69,7 +85,6 @@ export default class TaskList extends Component {
                 return task;
             }
         });
-        console.log("Task List: ", newTaskList);
 
         this.setState(({project}) => {
             const newTaskList = project.tasks.map(function(task){
@@ -84,8 +99,15 @@ export default class TaskList extends Component {
         });
     };
 
+    handleUpdate = ({name, description}) => {
+        this.setState(({project}) =>({
+            project: {...project, name, description},
+            openEditProjectModal: false
+        }));
+    };
+
     render(){
-        const {project, loading} = this.state;
+        const {project, loading, openNewTaskModal, openEditProjectModal} = this.state;
 
         return (
             <div className="row">
@@ -93,7 +115,11 @@ export default class TaskList extends Component {
                     <div className="card">
                         <div className="card-header d-flex justify-content-between">
                             <div className="align-self-center">Project Detail</div>
-                            <button onClick={this.deleteProject} className='btn btn-danger btn-sm'>Delete</button>
+
+                            <div className="btn-group" role="group" aria-label="Basic example">
+                                <button onClick={this.openProjectEditModal} type="button" className="btn btn-sm btn-secondary">Edit</button>
+                                <button onClick={this.deleteProject} className='btn btn-danger btn-sm' type="button">Delete</button>
+                            </div>
                         </div>
 
                         <div className="card-body">
@@ -129,7 +155,7 @@ export default class TaskList extends Component {
                     <div className="card">
                         <div className="card-header d-flex justify-content-between">
                             <div className="align-self-center">Project Task Lists</div>
-                            <Link className='btn btn-success btn-sm' to='/projects/create'>Add Task</Link>
+                            <button onClick={this.handleNewTaskModalOpen} className='btn btn-success btn-sm'>Add Task</button>
                         </div>
 
                         <div className="card-body">
@@ -141,6 +167,57 @@ export default class TaskList extends Component {
                         </div>
                     </div>
                 </div>
+                <ReactModal
+                    closeTimeoutMS={500}
+                    isOpen={openNewTaskModal}
+                    contentLabel="Create New task"
+                    className="new-task-modal"
+                    overlayClassName="modal-overlay"
+                    onRequestClose={this.handleNewTaskModalClose}
+                >
+                    <div className="card">
+                        <button
+                            type="button"
+                            onClick={this.handleNewTaskModalClose}
+                            className="close"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div className="card-header">New Task</div>
+                        <div className="card-body">
+                            <CreateTask
+                                projectID={this.props.match.params.project}
+                                onTaskCreated={this.handleTaskCreated}
+                            />
+                        </div>
+                    </div>
+                </ReactModal>
+
+                <ReactModal
+                    closeTimeoutMS={500}
+                    isOpen={openEditProjectModal}
+                    contentLabel="Edit Project"
+                    className="edit-project-modal"
+                    overlayClassName="modal-overlay"
+                    onRequestClose={this.closeProjectEditModal}
+                >
+                    <div className="card">
+                        <button
+                            type="button"
+                            onClick={this.closeProjectEditModal}
+                            className="close"
+                            aria-label="Close Modal"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <NewProject
+                            project={project}
+                            editMode={true}
+                            onUpdate={this.handleUpdate}
+                        />
+                    </div>
+                </ReactModal>
             </div>
         );
     }

@@ -4,7 +4,7 @@ import axios from "axios";
 
 import LoadingComponent from './Loading';
 
-export default class ProjectList extends Component {
+export default class PublicProjects extends Component {
     constructor(props){
         super(props);
 
@@ -17,16 +17,27 @@ export default class ProjectList extends Component {
 
     componentDidMount() {
         this.loadProjects();
+        this.subscribeToProjectEvent();
+    }
+
+    componentWillUnmount(){
+        Echo.leave('project');
     }
 
     loadProjects = () => {
-        axios.get('/api/projects').then(({data}) => {
+        axios.get('/api/projects/public').then(({data}) => {
             this.setState({projects: data.data, loading: false})
         }).catch(error => {
             this.handleErrors(error);
         })
     };
 
+    subscribeToProjectEvent = () => {
+        Echo.channel('project')
+            .listen('NewProjectCreated', (e) => {
+                this.setState(({projects}) => ({projects: [e.project, ...projects]}));
+            })
+    };
 
     handleErrors = (error) => {
         let message = '';
@@ -47,10 +58,7 @@ export default class ProjectList extends Component {
                 <div className="col-md-8">
                     <div className="card">
                         <div className="card-header d-flex justify-content-between">
-                            <div className="align-self-center">All Project List</div>
-                            {!!projects && (
-                                <Link className='btn btn-primary btn-sm' to='/projects/create'>New Project</Link>
-                            )}
+                            <div className="align-self-center">Public Projects</div>
                         </div>
 
                         <div className="card-body">

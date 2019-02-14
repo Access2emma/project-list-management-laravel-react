@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import axios from "axios";
-import {Link} from "react-router-dom";
 
 export default class TaskItem extends PureComponent{
     markAsComplete = (taskID, onTaskCompleted) => {
@@ -12,18 +11,18 @@ export default class TaskItem extends PureComponent{
         const {task, onTaskCompleted} = this.props;
 
         return (
-            <li className='list-group-item list-group-item-action d-flex justify-content-between align-items-center' key={task.id}>
-                <Link
-                    className='d-flex flex-grow-1'
-                    to={`/tasks/${task.id}/tasks`}
-                >{task.title}</Link>
-
+            <li className='list-group-item'>
+                <h5 className="mb-1">{task.title}</h5>
+                <p className='mb-1'>{task.description}</p>
                 {task.completed === 1 ? (
-                    <span className='badge badge-success badge-pill'>Completed</span>
+                    <div className="d-flex">
+                        <span className="d-flex flex-grow-1 align-self-center">Status</span>
+                        <span className='d-inline-block bg-success text-white px-2 py-1'>Completed</span>
+                    </div>
                 ) : (
                     <button
                         onClick={() => this.markAsComplete(task.id, onTaskCompleted)}
-                        className="btn btn-warning btn-sm"
+                        className="btn btn-warning btn-sm btn-block mt-1"
                     >Mark as Completed</button>
                 )}
             </li>

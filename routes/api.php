@@ -16,14 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('/projects', 'ProjectController@index');
-Route::post('/projects', 'ProjectController@store');
-Route::get('/projects/{project}', 'ProjectController@show');
-Route::patch('/projects/{project}', 'ProjectController@markAsComplete');
-Route::delete('/projects/{project}', 'ProjectController@destroy');
-
-Route::get('/projects/{project}/tasks', 'TaskController@index');
-Route::post('/tasks', 'TaskController@store');
-Route::patch('/tasks/{task}', 'TaskController@markAsComplete');
-

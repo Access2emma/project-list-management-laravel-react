@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'public'];
+
+    protected $casts = ['public' => 'boolean'];
 
     protected static function boot()
     {
@@ -17,12 +19,6 @@ class Project extends Model
         });
     }
 
-    public static function LatestWithTaskCount()
-    {
-        return static::withCount(['tasks' => function($task){$task->incomplete();}])
-            ->latest()
-            ->get(['id', 'name', 'description']);
-    }
 
     public function addTask(array $taskData){
         return $this->tasks()->create($taskData);
@@ -30,5 +26,13 @@ class Project extends Model
     
     public function tasks(){
         return $this->hasMany(Task::class);
+    }
+
+    public function owner(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function scopePublic($query){
+        return $query->wherePublic(true);
     }
 }

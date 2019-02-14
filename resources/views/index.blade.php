@@ -3,7 +3,5 @@
 @section('title', 'Welcome to Project Manager')
 
 @section('content')
-    <div class="container py-4">
-        <a href="{{ url('/projects') }}">Project</a>
-    </div>
+    <div class="container py-4" id="root"></div>
 @endsection

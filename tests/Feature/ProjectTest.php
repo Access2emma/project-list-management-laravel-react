@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Project;
 use App\Task;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -11,58 +12,85 @@ class ProjectTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $user;
+
+    public function setUp(){
+        parent::setUp();
+
+        $this->user = factory('App\User')->create();
+    }
+
+
     /** @test */
-    public function it_return_emtpy_project_on_fresh_installation(){
-        $this->get('/api/projects')
-            ->assertStatus(200);
+    public function unauthenticated_user_can_not_view_all_project(){
+        $this->json('GET', '/api/projects')
+            ->assertStatus(401);
+            $this->assertGuest();
     }
 
     /** @test */
-    public function it_throw_validation_error_when_submitting_invalid_data(){
+    public function unauthenticated_user_can_not_create_project(){
+        $this->json('POST', '/api/projects')
+            ->assertStatus(401);
+        $this->assertGuest();
+    }
+
+    /** @test */
+    public function authenticated_user_can_view_all_his_projects()
+    {
+        $project = factory('App\Project')->create(['user_id' => $this->user->id]);
+
+        $this->actingAs($this->user)
+            ->json('GET', '/api/projects')
+            ->assertOk();
+    }
+
+    /** @test */
+    public function it_throw_validation_error_when_authenticated_user_submitting_invalid_data(){
         $project_information = [
             'name' => 'Random project'
         ];
 
-        $this->json('POST', '/api/projects', $project_information)
+        $this->actingAs($this->user)->json('POST', '/api/projects', $project_information)
             ->assertJsonValidationErrors('description');
 
         $project_information = [
             'description' => 'Random project'
         ];
 
-        $this->json('POST', '/api/projects', $project_information)
+        $this->actingAs($this->user)->json('POST', '/api/projects', $project_information)
             ->assertJsonValidationErrors('name');
 
-        $this->json('POST', '/api/projects', [])
+        $this->actingAs($this->user)->json('POST', '/api/projects', [])
             ->assertJsonValidationErrors(['name', 'description']);
     }
     
     /** @test */
-    public function it_create_project_successfully(){
-        $project_information = factory(Project::class)->make()->toArray();
+    public function authenticated_user_can_create_project_successfully(){
+        $project_information = factory(Project::class)->make()
+            ->only(['name', 'description']);
 
-        $this->json('POST', '/api/projects', $project_information)
+        $this->actingAs($this->user)->json('POST', '/api/projects', $project_information)
             ->assertStatus(201);
 
         $this->assertDatabaseHas('projects', $project_information);
     }
 
     /** @test */
-    public function it_display_single_project(){
-        $project = factory(Project::class)->create();
+    public function authenticated_user_can_view_single_project(){
+        $project = factory(Project::class)->create(['user_id' => $this->user->id]);
 
-        $this->json('GET', "/api/projects/{$project->id}")
+        $this->actingAs($this->user)->json('GET', "/api/projects/{$project->id}")
             ->assertOk()
-            ->assertJson(['data' => $project->toArray()]);
+            ->assertJson($project->toArray());
     }
 
     /** @test */
     public function it_404_when_viewing_unavailable_project(){
         $project = 100;
 
-        $this->json('GET', "/api/projects/{$project}")
-            ->assertNotFound()
-            ->assertJson(['error' => 'Project not found']);
+        $this->actingAs($this->user)->json('GET', "/api/projects/{$project}")
+            ->assertNotFound();
     }
 
     /** @test */
