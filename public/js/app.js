@@ -86,6 +86,798 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@emotion/hash/dist/hash.esm.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@emotion/hash/dist/hash.esm.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* eslint-disable */
+// murmurhash2 via https://github.com/garycourt/murmurhash-js/blob/master/murmurhash2_gc.js
+function murmurhash2_32_gc(str) {
+  var l = str.length,
+      h = l ^ l,
+      i = 0,
+      k;
+
+  while (l >= 4) {
+    k = str.charCodeAt(i) & 0xff | (str.charCodeAt(++i) & 0xff) << 8 | (str.charCodeAt(++i) & 0xff) << 16 | (str.charCodeAt(++i) & 0xff) << 24;
+    k = (k & 0xffff) * 0x5bd1e995 + (((k >>> 16) * 0x5bd1e995 & 0xffff) << 16);
+    k ^= k >>> 24;
+    k = (k & 0xffff) * 0x5bd1e995 + (((k >>> 16) * 0x5bd1e995 & 0xffff) << 16);
+    h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16) ^ k;
+    l -= 4;
+    ++i;
+  }
+
+  switch (l) {
+    case 3:
+      h ^= (str.charCodeAt(i + 2) & 0xff) << 16;
+
+    case 2:
+      h ^= (str.charCodeAt(i + 1) & 0xff) << 8;
+
+    case 1:
+      h ^= str.charCodeAt(i) & 0xff;
+      h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16);
+  }
+
+  h ^= h >>> 13;
+  h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16);
+  h ^= h >>> 15;
+  return (h >>> 0).toString(36);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (murmurhash2_32_gc);
+
+
+/***/ }),
+
+/***/ "./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.esm.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.esm.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/memoize/dist/memoize.esm.js");
+
+
+var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|default|defer|dir|disabled|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|itemProp|itemScope|itemType|itemID|itemRef|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class)|(on[A-Z].*)|((data|aria|x)-.*))$/i;
+var index = Object(_emotion_memoize__WEBPACK_IMPORTED_MODULE_0__["default"])(reactPropsRegex.test.bind(reactPropsRegex));
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
+
+/***/ }),
+
+/***/ "./node_modules/@emotion/memoize/dist/memoize.esm.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@emotion/memoize/dist/memoize.esm.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function memoize(fn) {
+  var cache = {};
+  return function (arg) {
+    if (cache[arg] === undefined) cache[arg] = fn(arg);
+    return cache[arg];
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (memoize);
+
+
+/***/ }),
+
+/***/ "./node_modules/@emotion/stylis/dist/stylis.esm.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@emotion/stylis/dist/stylis.esm.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function stylis_min (W) {
+  function M(d, c, e, h, a) {
+    for (var m = 0, b = 0, v = 0, n = 0, q, g, x = 0, K = 0, k, u = k = q = 0, l = 0, r = 0, I = 0, t = 0, B = e.length, J = B - 1, y, f = '', p = '', F = '', G = '', C; l < B;) {
+      g = e.charCodeAt(l);
+      l === J && 0 !== b + n + v + m && (0 !== b && (g = 47 === b ? 10 : 47), n = v = m = 0, B++, J++);
+
+      if (0 === b + n + v + m) {
+        if (l === J && (0 < r && (f = f.replace(N, '')), 0 < f.trim().length)) {
+          switch (g) {
+            case 32:
+            case 9:
+            case 59:
+            case 13:
+            case 10:
+              break;
+
+            default:
+              f += e.charAt(l);
+          }
+
+          g = 59;
+        }
+
+        switch (g) {
+          case 123:
+            f = f.trim();
+            q = f.charCodeAt(0);
+            k = 1;
+
+            for (t = ++l; l < B;) {
+              switch (g = e.charCodeAt(l)) {
+                case 123:
+                  k++;
+                  break;
+
+                case 125:
+                  k--;
+                  break;
+
+                case 47:
+                  switch (g = e.charCodeAt(l + 1)) {
+                    case 42:
+                    case 47:
+                      a: {
+                        for (u = l + 1; u < J; ++u) {
+                          switch (e.charCodeAt(u)) {
+                            case 47:
+                              if (42 === g && 42 === e.charCodeAt(u - 1) && l + 2 !== u) {
+                                l = u + 1;
+                                break a;
+                              }
+
+                              break;
+
+                            case 10:
+                              if (47 === g) {
+                                l = u + 1;
+                                break a;
+                              }
+
+                          }
+                        }
+
+                        l = u;
+                      }
+
+                  }
+
+                  break;
+
+                case 91:
+                  g++;
+
+                case 40:
+                  g++;
+
+                case 34:
+                case 39:
+                  for (; l++ < J && e.charCodeAt(l) !== g;) {
+                  }
+
+              }
+
+              if (0 === k) break;
+              l++;
+            }
+
+            k = e.substring(t, l);
+            0 === q && (q = (f = f.replace(ca, '').trim()).charCodeAt(0));
+
+            switch (q) {
+              case 64:
+                0 < r && (f = f.replace(N, ''));
+                g = f.charCodeAt(1);
+
+                switch (g) {
+                  case 100:
+                  case 109:
+                  case 115:
+                  case 45:
+                    r = c;
+                    break;
+
+                  default:
+                    r = O;
+                }
+
+                k = M(c, r, k, g, a + 1);
+                t = k.length;
+                0 < A && (r = X(O, f, I), C = H(3, k, r, c, D, z, t, g, a, h), f = r.join(''), void 0 !== C && 0 === (t = (k = C.trim()).length) && (g = 0, k = ''));
+                if (0 < t) switch (g) {
+                  case 115:
+                    f = f.replace(da, ea);
+
+                  case 100:
+                  case 109:
+                  case 45:
+                    k = f + '{' + k + '}';
+                    break;
+
+                  case 107:
+                    f = f.replace(fa, '$1 $2');
+                    k = f + '{' + k + '}';
+                    k = 1 === w || 2 === w && L('@' + k, 3) ? '@-webkit-' + k + '@' + k : '@' + k;
+                    break;
+
+                  default:
+                    k = f + k, 112 === h && (k = (p += k, ''));
+                } else k = '';
+                break;
+
+              default:
+                k = M(c, X(c, f, I), k, h, a + 1);
+            }
+
+            F += k;
+            k = I = r = u = q = 0;
+            f = '';
+            g = e.charCodeAt(++l);
+            break;
+
+          case 125:
+          case 59:
+            f = (0 < r ? f.replace(N, '') : f).trim();
+            if (1 < (t = f.length)) switch (0 === u && (q = f.charCodeAt(0), 45 === q || 96 < q && 123 > q) && (t = (f = f.replace(' ', ':')).length), 0 < A && void 0 !== (C = H(1, f, c, d, D, z, p.length, h, a, h)) && 0 === (t = (f = C.trim()).length) && (f = '\x00\x00'), q = f.charCodeAt(0), g = f.charCodeAt(1), q) {
+              case 0:
+                break;
+
+              case 64:
+                if (105 === g || 99 === g) {
+                  G += f + e.charAt(l);
+                  break;
+                }
+
+              default:
+                58 !== f.charCodeAt(t - 1) && (p += P(f, q, g, f.charCodeAt(2)));
+            }
+            I = r = u = q = 0;
+            f = '';
+            g = e.charCodeAt(++l);
+        }
+      }
+
+      switch (g) {
+        case 13:
+        case 10:
+          47 === b ? b = 0 : 0 === 1 + q && 107 !== h && 0 < f.length && (r = 1, f += '\x00');
+          0 < A * Y && H(0, f, c, d, D, z, p.length, h, a, h);
+          z = 1;
+          D++;
+          break;
+
+        case 59:
+        case 125:
+          if (0 === b + n + v + m) {
+            z++;
+            break;
+          }
+
+        default:
+          z++;
+          y = e.charAt(l);
+
+          switch (g) {
+            case 9:
+            case 32:
+              if (0 === n + m + b) switch (x) {
+                case 44:
+                case 58:
+                case 9:
+                case 32:
+                  y = '';
+                  break;
+
+                default:
+                  32 !== g && (y = ' ');
+              }
+              break;
+
+            case 0:
+              y = '\\0';
+              break;
+
+            case 12:
+              y = '\\f';
+              break;
+
+            case 11:
+              y = '\\v';
+              break;
+
+            case 38:
+              0 === n + b + m && (r = I = 1, y = '\f' + y);
+              break;
+
+            case 108:
+              if (0 === n + b + m + E && 0 < u) switch (l - u) {
+                case 2:
+                  112 === x && 58 === e.charCodeAt(l - 3) && (E = x);
+
+                case 8:
+                  111 === K && (E = K);
+              }
+              break;
+
+            case 58:
+              0 === n + b + m && (u = l);
+              break;
+
+            case 44:
+              0 === b + v + n + m && (r = 1, y += '\r');
+              break;
+
+            case 34:
+            case 39:
+              0 === b && (n = n === g ? 0 : 0 === n ? g : n);
+              break;
+
+            case 91:
+              0 === n + b + v && m++;
+              break;
+
+            case 93:
+              0 === n + b + v && m--;
+              break;
+
+            case 41:
+              0 === n + b + m && v--;
+              break;
+
+            case 40:
+              if (0 === n + b + m) {
+                if (0 === q) switch (2 * x + 3 * K) {
+                  case 533:
+                    break;
+
+                  default:
+                    q = 1;
+                }
+                v++;
+              }
+
+              break;
+
+            case 64:
+              0 === b + v + n + m + u + k && (k = 1);
+              break;
+
+            case 42:
+            case 47:
+              if (!(0 < n + m + v)) switch (b) {
+                case 0:
+                  switch (2 * g + 3 * e.charCodeAt(l + 1)) {
+                    case 235:
+                      b = 47;
+                      break;
+
+                    case 220:
+                      t = l, b = 42;
+                  }
+
+                  break;
+
+                case 42:
+                  47 === g && 42 === x && t + 2 !== l && (33 === e.charCodeAt(t + 2) && (p += e.substring(t, l + 1)), y = '', b = 0);
+              }
+          }
+
+          0 === b && (f += y);
+      }
+
+      K = x;
+      x = g;
+      l++;
+    }
+
+    t = p.length;
+
+    if (0 < t) {
+      r = c;
+      if (0 < A && (C = H(2, p, r, d, D, z, t, h, a, h), void 0 !== C && 0 === (p = C).length)) return G + p + F;
+      p = r.join(',') + '{' + p + '}';
+
+      if (0 !== w * E) {
+        2 !== w || L(p, 2) || (E = 0);
+
+        switch (E) {
+          case 111:
+            p = p.replace(ha, ':-moz-$1') + p;
+            break;
+
+          case 112:
+            p = p.replace(Q, '::-webkit-input-$1') + p.replace(Q, '::-moz-$1') + p.replace(Q, ':-ms-input-$1') + p;
+        }
+
+        E = 0;
+      }
+    }
+
+    return G + p + F;
+  }
+
+  function X(d, c, e) {
+    var h = c.trim().split(ia);
+    c = h;
+    var a = h.length,
+        m = d.length;
+
+    switch (m) {
+      case 0:
+      case 1:
+        var b = 0;
+
+        for (d = 0 === m ? '' : d[0] + ' '; b < a; ++b) {
+          c[b] = Z(d, c[b], e, m).trim();
+        }
+
+        break;
+
+      default:
+        var v = b = 0;
+
+        for (c = []; b < a; ++b) {
+          for (var n = 0; n < m; ++n) {
+            c[v++] = Z(d[n] + ' ', h[b], e, m).trim();
+          }
+        }
+
+    }
+
+    return c;
+  }
+
+  function Z(d, c, e) {
+    var h = c.charCodeAt(0);
+    33 > h && (h = (c = c.trim()).charCodeAt(0));
+
+    switch (h) {
+      case 38:
+        return c.replace(F, '$1' + d.trim());
+
+      case 58:
+        return d.trim() + c.replace(F, '$1' + d.trim());
+
+      default:
+        if (0 < 1 * e && 0 < c.indexOf('\f')) return c.replace(F, (58 === d.charCodeAt(0) ? '' : '$1') + d.trim());
+    }
+
+    return d + c;
+  }
+
+  function P(d, c, e, h) {
+    var a = d + ';',
+        m = 2 * c + 3 * e + 4 * h;
+
+    if (944 === m) {
+      d = a.indexOf(':', 9) + 1;
+      var b = a.substring(d, a.length - 1).trim();
+      b = a.substring(0, d).trim() + b + ';';
+      return 1 === w || 2 === w && L(b, 1) ? '-webkit-' + b + b : b;
+    }
+
+    if (0 === w || 2 === w && !L(a, 1)) return a;
+
+    switch (m) {
+      case 1015:
+        return 97 === a.charCodeAt(10) ? '-webkit-' + a + a : a;
+
+      case 951:
+        return 116 === a.charCodeAt(3) ? '-webkit-' + a + a : a;
+
+      case 963:
+        return 110 === a.charCodeAt(5) ? '-webkit-' + a + a : a;
+
+      case 1009:
+        if (100 !== a.charCodeAt(4)) break;
+
+      case 969:
+      case 942:
+        return '-webkit-' + a + a;
+
+      case 978:
+        return '-webkit-' + a + '-moz-' + a + a;
+
+      case 1019:
+      case 983:
+        return '-webkit-' + a + '-moz-' + a + '-ms-' + a + a;
+
+      case 883:
+        if (45 === a.charCodeAt(8)) return '-webkit-' + a + a;
+        if (0 < a.indexOf('image-set(', 11)) return a.replace(ja, '$1-webkit-$2') + a;
+        break;
+
+      case 932:
+        if (45 === a.charCodeAt(4)) switch (a.charCodeAt(5)) {
+          case 103:
+            return '-webkit-box-' + a.replace('-grow', '') + '-webkit-' + a + '-ms-' + a.replace('grow', 'positive') + a;
+
+          case 115:
+            return '-webkit-' + a + '-ms-' + a.replace('shrink', 'negative') + a;
+
+          case 98:
+            return '-webkit-' + a + '-ms-' + a.replace('basis', 'preferred-size') + a;
+        }
+        return '-webkit-' + a + '-ms-' + a + a;
+
+      case 964:
+        return '-webkit-' + a + '-ms-flex-' + a + a;
+
+      case 1023:
+        if (99 !== a.charCodeAt(8)) break;
+        b = a.substring(a.indexOf(':', 15)).replace('flex-', '').replace('space-between', 'justify');
+        return '-webkit-box-pack' + b + '-webkit-' + a + '-ms-flex-pack' + b + a;
+
+      case 1005:
+        return ka.test(a) ? a.replace(aa, ':-webkit-') + a.replace(aa, ':-moz-') + a : a;
+
+      case 1e3:
+        b = a.substring(13).trim();
+        c = b.indexOf('-') + 1;
+
+        switch (b.charCodeAt(0) + b.charCodeAt(c)) {
+          case 226:
+            b = a.replace(G, 'tb');
+            break;
+
+          case 232:
+            b = a.replace(G, 'tb-rl');
+            break;
+
+          case 220:
+            b = a.replace(G, 'lr');
+            break;
+
+          default:
+            return a;
+        }
+
+        return '-webkit-' + a + '-ms-' + b + a;
+
+      case 1017:
+        if (-1 === a.indexOf('sticky', 9)) break;
+
+      case 975:
+        c = (a = d).length - 10;
+        b = (33 === a.charCodeAt(c) ? a.substring(0, c) : a).substring(d.indexOf(':', 7) + 1).trim();
+
+        switch (m = b.charCodeAt(0) + (b.charCodeAt(7) | 0)) {
+          case 203:
+            if (111 > b.charCodeAt(8)) break;
+
+          case 115:
+            a = a.replace(b, '-webkit-' + b) + ';' + a;
+            break;
+
+          case 207:
+          case 102:
+            a = a.replace(b, '-webkit-' + (102 < m ? 'inline-' : '') + 'box') + ';' + a.replace(b, '-webkit-' + b) + ';' + a.replace(b, '-ms-' + b + 'box') + ';' + a;
+        }
+
+        return a + ';';
+
+      case 938:
+        if (45 === a.charCodeAt(5)) switch (a.charCodeAt(6)) {
+          case 105:
+            return b = a.replace('-items', ''), '-webkit-' + a + '-webkit-box-' + b + '-ms-flex-' + b + a;
+
+          case 115:
+            return '-webkit-' + a + '-ms-flex-item-' + a.replace(ba, '') + a;
+
+          default:
+            return '-webkit-' + a + '-ms-flex-line-pack' + a.replace('align-content', '').replace(ba, '') + a;
+        }
+        break;
+
+      case 973:
+      case 989:
+        if (45 !== a.charCodeAt(3) || 122 === a.charCodeAt(4)) break;
+
+      case 931:
+      case 953:
+        if (!0 === la.test(d)) return 115 === (b = d.substring(d.indexOf(':') + 1)).charCodeAt(0) ? P(d.replace('stretch', 'fill-available'), c, e, h).replace(':fill-available', ':stretch') : a.replace(b, '-webkit-' + b) + a.replace(b, '-moz-' + b.replace('fill-', '')) + a;
+        break;
+
+      case 962:
+        if (a = '-webkit-' + a + (102 === a.charCodeAt(5) ? '-ms-' + a : '') + a, 211 === e + h && 105 === a.charCodeAt(13) && 0 < a.indexOf('transform', 10)) return a.substring(0, a.indexOf(';', 27) + 1).replace(ma, '$1-webkit-$2') + a;
+    }
+
+    return a;
+  }
+
+  function L(d, c) {
+    var e = d.indexOf(1 === c ? ':' : '{'),
+        h = d.substring(0, 3 !== c ? e : 10);
+    e = d.substring(e + 1, d.length - 1);
+    return R(2 !== c ? h : h.replace(na, '$1'), e, c);
+  }
+
+  function ea(d, c) {
+    var e = P(c, c.charCodeAt(0), c.charCodeAt(1), c.charCodeAt(2));
+    return e !== c + ';' ? e.replace(oa, ' or ($1)').substring(4) : '(' + c + ')';
+  }
+
+  function H(d, c, e, h, a, m, b, v, n, q) {
+    for (var g = 0, x = c, w; g < A; ++g) {
+      switch (w = S[g].call(B, d, x, e, h, a, m, b, v, n, q)) {
+        case void 0:
+        case !1:
+        case !0:
+        case null:
+          break;
+
+        default:
+          x = w;
+      }
+    }
+
+    if (x !== c) return x;
+  }
+
+  function T(d) {
+    switch (d) {
+      case void 0:
+      case null:
+        A = S.length = 0;
+        break;
+
+      default:
+        switch (d.constructor) {
+          case Array:
+            for (var c = 0, e = d.length; c < e; ++c) {
+              T(d[c]);
+            }
+
+            break;
+
+          case Function:
+            S[A++] = d;
+            break;
+
+          case Boolean:
+            Y = !!d | 0;
+        }
+
+    }
+
+    return T;
+  }
+
+  function U(d) {
+    d = d.prefix;
+    void 0 !== d && (R = null, d ? 'function' !== typeof d ? w = 1 : (w = 2, R = d) : w = 0);
+    return U;
+  }
+
+  function B(d, c) {
+    var e = d;
+    33 > e.charCodeAt(0) && (e = e.trim());
+    V = e;
+    e = [V];
+
+    if (0 < A) {
+      var h = H(-1, c, e, e, D, z, 0, 0, 0, 0);
+      void 0 !== h && 'string' === typeof h && (c = h);
+    }
+
+    var a = M(O, e, c, 0, 0);
+    0 < A && (h = H(-2, a, e, e, D, z, a.length, 0, 0, 0), void 0 !== h && (a = h));
+    V = '';
+    E = 0;
+    z = D = 1;
+    return a;
+  }
+
+  var ca = /^\0+/g,
+      N = /[\0\r\f]/g,
+      aa = /: */g,
+      ka = /zoo|gra/,
+      ma = /([,: ])(transform)/g,
+      ia = /,\r+?/g,
+      F = /([\t\r\n ])*\f?&/g,
+      fa = /@(k\w+)\s*(\S*)\s*/,
+      Q = /::(place)/g,
+      ha = /:(read-only)/g,
+      G = /[svh]\w+-[tblr]{2}/,
+      da = /\(\s*(.*)\s*\)/g,
+      oa = /([\s\S]*?);/g,
+      ba = /-self|flex-/g,
+      na = /[^]*?(:[rp][el]a[\w-]+)[^]*/,
+      la = /stretch|:\s*\w+\-(?:conte|avail)/,
+      ja = /([^-])(image-set\()/,
+      z = 1,
+      D = 1,
+      E = 0,
+      w = 1,
+      O = [],
+      S = [],
+      A = 0,
+      R = null,
+      Y = 0,
+      V = '';
+  B.use = T;
+  B.set = U;
+  void 0 !== W && U(W);
+  return B;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (stylis_min);
+
+
+/***/ }),
+
+/***/ "./node_modules/@emotion/unitless/dist/unitless.esm.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@emotion/unitless/dist/unitless.esm.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var unitlessKeys = {
+  animationIterationCount: 1,
+  borderImageOutset: 1,
+  borderImageSlice: 1,
+  borderImageWidth: 1,
+  boxFlex: 1,
+  boxFlexGroup: 1,
+  boxOrdinalGroup: 1,
+  columnCount: 1,
+  columns: 1,
+  flex: 1,
+  flexGrow: 1,
+  flexPositive: 1,
+  flexShrink: 1,
+  flexNegative: 1,
+  flexOrder: 1,
+  gridRow: 1,
+  gridRowEnd: 1,
+  gridRowSpan: 1,
+  gridRowStart: 1,
+  gridColumn: 1,
+  gridColumnEnd: 1,
+  gridColumnSpan: 1,
+  gridColumnStart: 1,
+  fontWeight: 1,
+  lineHeight: 1,
+  opacity: 1,
+  order: 1,
+  orphans: 1,
+  tabSize: 1,
+  widows: 1,
+  zIndex: 1,
+  zoom: 1,
+  WebkitLineClamp: 1,
+  // SVG-related properties
+  fillOpacity: 1,
+  floodOpacity: 1,
+  stopOpacity: 1,
+  strokeDasharray: 1,
+  strokeDashoffset: 1,
+  strokeMiterlimit: 1,
+  strokeOpacity: 1,
+  strokeWidth: 1
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (unitlessKeys);
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -6072,6 +6864,907 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	} else {}
 }());
 
+
+/***/ }),
+
+/***/ "./node_modules/create-emotion-styled/dist/index.esm.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/create-emotion-styled/dist/index.esm.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _emotion_is_prop_valid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/is-prop-valid */ "./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.esm.js");
+
+
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+var channel = '__EMOTION_THEMING__';
+
+// https://github.com/styled-components/styled-components/blob/e05b3fe247e9d956bcde786cec376e32afb85bca/src/utils/create-broadcast.js
+
+var _contextTypes;
+var contextTypes = (_contextTypes = {}, _contextTypes[channel] = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object, _contextTypes);
+
+function setTheme(theme) {
+  this.setState({
+    theme: theme
+  });
+}
+var testPickPropsOnStringTag = _emotion_is_prop_valid__WEBPACK_IMPORTED_MODULE_1__["default"];
+var testPickPropsOnComponent = function testPickPropsOnComponent(key) {
+  return key !== 'theme' && key !== 'innerRef';
+};
+var testAlwaysTrue = function testAlwaysTrue() {
+  return true;
+};
+var pickAssign = function pickAssign(testFn, target) {
+  var i = 2;
+  var length = arguments.length;
+
+  for (; i < length; i++) {
+    var source = arguments[i];
+
+    var _key = void 0;
+
+    for (_key in source) {
+      if (testFn(_key)) {
+        target[_key] = source[_key];
+      }
+    }
+  }
+
+  return target;
+};
+
+var warnedAboutExtractStatic = false;
+
+function createEmotionStyled(emotion, view) {
+  var _createStyled = function createStyled(tag, options) {
+    if (true) {
+      if (tag === undefined) {
+        throw new Error('You are trying to create a styled element with an undefined component.\nYou may have forgotten to import it.');
+      }
+    }
+
+    var staticClassName;
+    var identifierName;
+    var stableClassName;
+    var shouldForwardProp;
+
+    if (options !== undefined) {
+      staticClassName = options.e;
+      identifierName = options.label;
+      stableClassName = options.target;
+      shouldForwardProp = tag.__emotion_forwardProp && options.shouldForwardProp ? function (propName) {
+        return tag.__emotion_forwardProp(propName) && // $FlowFixMe
+        options.shouldForwardProp(propName);
+      } : options.shouldForwardProp;
+    }
+
+    var isReal = tag.__emotion_real === tag;
+    var baseTag = staticClassName === undefined ? isReal && tag.__emotion_base || tag : tag;
+
+    if (typeof shouldForwardProp !== 'function') {
+      shouldForwardProp = typeof baseTag === 'string' && baseTag.charAt(0) === baseTag.charAt(0).toLowerCase() ? testPickPropsOnStringTag : testPickPropsOnComponent;
+    }
+
+    return function () {
+      var args = arguments;
+      var styles = isReal && tag.__emotion_styles !== undefined ? tag.__emotion_styles.slice(0) : [];
+
+      if (identifierName !== undefined) {
+        styles.push("label:" + identifierName + ";");
+      }
+
+      if (staticClassName === undefined) {
+        if (args[0] == null || args[0].raw === undefined) {
+          styles.push.apply(styles, args);
+        } else {
+          styles.push(args[0][0]);
+          var len = args.length;
+          var i = 1;
+
+          for (; i < len; i++) {
+            styles.push(args[i], args[0][i]);
+          }
+        }
+      } else if ( true && !warnedAboutExtractStatic) {
+        console.warn('extractStatic is deprecated and will be removed in emotion@10. We recommend disabling extractStatic or using other libraries like linaria or css-literal-loader');
+        warnedAboutExtractStatic = true;
+      }
+
+      var Styled =
+      /*#__PURE__*/
+      function (_view$Component) {
+        _inheritsLoose(Styled, _view$Component);
+
+        function Styled() {
+          return _view$Component.apply(this, arguments) || this;
+        }
+
+        var _proto = Styled.prototype;
+
+        _proto.componentWillMount = function componentWillMount() {
+          if (this.context[channel] !== undefined) {
+            this.unsubscribe = this.context[channel].subscribe(setTheme.bind(this));
+          }
+        };
+
+        _proto.componentWillUnmount = function componentWillUnmount() {
+          if (this.unsubscribe !== undefined) {
+            this.context[channel].unsubscribe(this.unsubscribe);
+          }
+        };
+
+        _proto.render = function render() {
+          var props = this.props,
+              state = this.state;
+          this.mergedProps = pickAssign(testAlwaysTrue, {}, props, {
+            theme: state !== null && state.theme || props.theme || {}
+          });
+          var className = '';
+          var classInterpolations = [];
+
+          if (props.className) {
+            if (staticClassName === undefined) {
+              className += emotion.getRegisteredStyles(classInterpolations, props.className);
+            } else {
+              className += props.className + " ";
+            }
+          }
+
+          if (staticClassName === undefined) {
+            className += emotion.css.apply(this, styles.concat(classInterpolations));
+          } else {
+            className += staticClassName;
+          }
+
+          if (stableClassName !== undefined) {
+            className += " " + stableClassName;
+          }
+
+          return view.createElement(baseTag, // $FlowFixMe
+          pickAssign(shouldForwardProp, {}, props, {
+            className: className,
+            ref: props.innerRef
+          }));
+        };
+
+        return Styled;
+      }(view.Component);
+
+      Styled.displayName = identifierName !== undefined ? identifierName : "Styled(" + (typeof baseTag === 'string' ? baseTag : baseTag.displayName || baseTag.name || 'Component') + ")";
+
+      if (tag.defaultProps !== undefined) {
+        // $FlowFixMe
+        Styled.defaultProps = tag.defaultProps;
+      }
+
+      Styled.contextTypes = contextTypes;
+      Styled.__emotion_styles = styles;
+      Styled.__emotion_base = baseTag;
+      Styled.__emotion_real = Styled;
+      Styled.__emotion_forwardProp = shouldForwardProp;
+      Object.defineProperty(Styled, 'toString', {
+        value: function value() {
+          if ( true && stableClassName === undefined) {
+            return 'NO_COMPONENT_SELECTOR';
+          } // $FlowFixMe
+
+
+          return "." + stableClassName;
+        }
+      });
+
+      Styled.withComponent = function (nextTag, nextOptions) {
+        return _createStyled(nextTag, nextOptions !== undefined ? // $FlowFixMe
+        pickAssign(testAlwaysTrue, {}, options, nextOptions) : options).apply(void 0, styles);
+      };
+
+      return Styled;
+    };
+  };
+
+  if ( true && typeof Proxy !== 'undefined') {
+    _createStyled = new Proxy(_createStyled, {
+      get: function get(target, property) {
+        switch (property) {
+          // react-hot-loader tries to access this stuff
+          case '__proto__':
+          case 'name':
+          case 'prototype':
+          case 'displayName':
+            {
+              return target[property];
+            }
+
+          default:
+            {
+              throw new Error("You're trying to use the styled shorthand without babel-plugin-emotion." + ("\nPlease install and setup babel-plugin-emotion or use the function call syntax(`styled('" + property + "')` instead of `styled." + property + "`)"));
+            }
+        }
+      }
+    });
+  }
+
+  return _createStyled;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (createEmotionStyled);
+
+
+/***/ }),
+
+/***/ "./node_modules/create-emotion/dist/index.esm.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/create-emotion/dist/index.esm.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/memoize/dist/memoize.esm.js");
+/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/unitless */ "./node_modules/@emotion/unitless/dist/unitless.esm.js");
+/* harmony import */ var _emotion_hash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/hash */ "./node_modules/@emotion/hash/dist/hash.esm.js");
+/* harmony import */ var _emotion_stylis__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/stylis */ "./node_modules/@emotion/stylis/dist/stylis.esm.js");
+/* harmony import */ var stylis_rule_sheet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! stylis-rule-sheet */ "./node_modules/stylis-rule-sheet/index.js");
+/* harmony import */ var stylis_rule_sheet__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(stylis_rule_sheet__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+var hyphenateRegex = /[A-Z]|^ms/g;
+var processStyleName = Object(_emotion_memoize__WEBPACK_IMPORTED_MODULE_0__["default"])(function (styleName) {
+  return styleName.replace(hyphenateRegex, '-$&').toLowerCase();
+});
+var processStyleValue = function processStyleValue(key, value) {
+  if (value == null || typeof value === 'boolean') {
+    return '';
+  }
+
+  if (_emotion_unitless__WEBPACK_IMPORTED_MODULE_1__["default"][key] !== 1 && key.charCodeAt(1) !== 45 && // custom properties
+  !isNaN(value) && value !== 0) {
+    return value + 'px';
+  }
+
+  return value;
+};
+
+if (true) {
+  var contentValuePattern = /(attr|calc|counters?|url)\(/;
+  var contentValues = ['normal', 'none', 'counter', 'open-quote', 'close-quote', 'no-open-quote', 'no-close-quote', 'initial', 'inherit', 'unset'];
+  var oldProcessStyleValue = processStyleValue;
+
+  processStyleValue = function processStyleValue(key, value) {
+    if (key === 'content') {
+      if (typeof value !== 'string' || contentValues.indexOf(value) === -1 && !contentValuePattern.test(value) && (value.charAt(0) !== value.charAt(value.length - 1) || value.charAt(0) !== '"' && value.charAt(0) !== "'")) {
+        console.error("You seem to be using a value for 'content' without quotes, try replacing it with `content: '\"" + value + "\"'`");
+      }
+    }
+
+    return oldProcessStyleValue(key, value);
+  };
+}
+
+var classnames = function classnames(args) {
+  var len = args.length;
+  var i = 0;
+  var cls = '';
+
+  for (; i < len; i++) {
+    var arg = args[i];
+    if (arg == null) continue;
+    var toAdd = void 0;
+
+    switch (typeof arg) {
+      case 'boolean':
+        break;
+
+      case 'function':
+        if (true) {
+          console.error('Passing functions to cx is deprecated and will be removed in the next major version of Emotion.\n' + 'Please call the function before passing it to cx.');
+        }
+
+        toAdd = classnames([arg()]);
+        break;
+
+      case 'object':
+        {
+          if (Array.isArray(arg)) {
+            toAdd = classnames(arg);
+          } else {
+            toAdd = '';
+
+            for (var k in arg) {
+              if (arg[k] && k) {
+                toAdd && (toAdd += ' ');
+                toAdd += k;
+              }
+            }
+          }
+
+          break;
+        }
+
+      default:
+        {
+          toAdd = arg;
+        }
+    }
+
+    if (toAdd) {
+      cls && (cls += ' ');
+      cls += toAdd;
+    }
+  }
+
+  return cls;
+};
+var isBrowser = typeof document !== 'undefined';
+
+/*
+
+high performance StyleSheet for css-in-js systems
+
+- uses multiple style tags behind the scenes for millions of rules
+- uses `insertRule` for appending in production for *much* faster performance
+- 'polyfills' on server side
+
+// usage
+
+import StyleSheet from 'glamor/lib/sheet'
+let styleSheet = new StyleSheet()
+
+styleSheet.inject()
+- 'injects' the stylesheet into the page (or into memory if on server)
+
+styleSheet.insert('#box { border: 1px solid red; }')
+- appends a css rule into the stylesheet
+
+styleSheet.flush()
+- empties the stylesheet of all its contents
+
+*/
+// $FlowFixMe
+function sheetForTag(tag) {
+  if (tag.sheet) {
+    // $FlowFixMe
+    return tag.sheet;
+  } // this weirdness brought to you by firefox
+
+
+  for (var i = 0; i < document.styleSheets.length; i++) {
+    if (document.styleSheets[i].ownerNode === tag) {
+      // $FlowFixMe
+      return document.styleSheets[i];
+    }
+  }
+}
+
+function makeStyleTag(opts) {
+  var tag = document.createElement('style');
+  tag.setAttribute('data-emotion', opts.key || '');
+
+  if (opts.nonce !== undefined) {
+    tag.setAttribute('nonce', opts.nonce);
+  }
+
+  tag.appendChild(document.createTextNode('')) // $FlowFixMe
+  ;
+  (opts.container !== undefined ? opts.container : document.head).appendChild(tag);
+  return tag;
+}
+
+var StyleSheet =
+/*#__PURE__*/
+function () {
+  function StyleSheet(options) {
+    this.isSpeedy = "development" === 'production'; // the big drawback here is that the css won't be editable in devtools
+
+    this.tags = [];
+    this.ctr = 0;
+    this.opts = options;
+  }
+
+  var _proto = StyleSheet.prototype;
+
+  _proto.inject = function inject() {
+    if (this.injected) {
+      throw new Error('already injected!');
+    }
+
+    this.tags[0] = makeStyleTag(this.opts);
+    this.injected = true;
+  };
+
+  _proto.speedy = function speedy(bool) {
+    if (this.ctr !== 0) {
+      // cannot change speedy mode after inserting any rule to sheet. Either call speedy(${bool}) earlier in your app, or call flush() before speedy(${bool})
+      throw new Error("cannot change speedy now");
+    }
+
+    this.isSpeedy = !!bool;
+  };
+
+  _proto.insert = function insert(rule, sourceMap) {
+    // this is the ultrafast version, works across browsers
+    if (this.isSpeedy) {
+      var tag = this.tags[this.tags.length - 1];
+      var sheet = sheetForTag(tag);
+
+      try {
+        sheet.insertRule(rule, sheet.cssRules.length);
+      } catch (e) {
+        if (true) {
+          console.warn('illegal rule', rule); // eslint-disable-line no-console
+        }
+      }
+    } else {
+      var _tag = makeStyleTag(this.opts);
+
+      this.tags.push(_tag);
+
+      _tag.appendChild(document.createTextNode(rule + (sourceMap || '')));
+    }
+
+    this.ctr++;
+
+    if (this.ctr % 65000 === 0) {
+      this.tags.push(makeStyleTag(this.opts));
+    }
+  };
+
+  _proto.flush = function flush() {
+    // $FlowFixMe
+    this.tags.forEach(function (tag) {
+      return tag.parentNode.removeChild(tag);
+    });
+    this.tags = [];
+    this.ctr = 0; // todo - look for remnants in document.styleSheets
+
+    this.injected = false;
+  };
+
+  return StyleSheet;
+}();
+
+function createEmotion(context, options) {
+  if (context.__SECRET_EMOTION__ !== undefined) {
+    return context.__SECRET_EMOTION__;
+  }
+
+  if (options === undefined) options = {};
+  var key = options.key || 'css';
+
+  if (true) {
+    if (/[^a-z-]/.test(key)) {
+      throw new Error("Emotion key must only contain lower case alphabetical characters and - but \"" + key + "\" was passed");
+    }
+  }
+
+  var current;
+
+  function insertRule(rule) {
+    current += rule;
+
+    if (isBrowser) {
+      sheet.insert(rule, currentSourceMap);
+    }
+  }
+
+  var insertionPlugin = stylis_rule_sheet__WEBPACK_IMPORTED_MODULE_4___default()(insertRule);
+  var stylisOptions;
+
+  if (options.prefix !== undefined) {
+    stylisOptions = {
+      prefix: options.prefix
+    };
+  }
+
+  var caches = {
+    registered: {},
+    inserted: {},
+    nonce: options.nonce,
+    key: key
+  };
+  var sheet = new StyleSheet(options);
+
+  if (isBrowser) {
+    // 🚀
+    sheet.inject();
+  }
+
+  var stylis = new _emotion_stylis__WEBPACK_IMPORTED_MODULE_3__["default"](stylisOptions);
+  stylis.use(options.stylisPlugins)(insertionPlugin);
+  var currentSourceMap = '';
+
+  function handleInterpolation(interpolation, couldBeSelectorInterpolation) {
+    if (interpolation == null) {
+      return '';
+    }
+
+    switch (typeof interpolation) {
+      case 'boolean':
+        return '';
+
+      case 'function':
+        if (interpolation.__emotion_styles !== undefined) {
+          var selector = interpolation.toString();
+
+          if (selector === 'NO_COMPONENT_SELECTOR' && "development" !== 'production') {
+            throw new Error('Component selectors can only be used in conjunction with babel-plugin-emotion.');
+          }
+
+          return selector;
+        }
+
+        if (this === undefined && "development" !== 'production') {
+          console.error('Interpolating functions in css calls is deprecated and will be removed in the next major version of Emotion.\n' + 'If you want to have a css call based on props, create a function that returns a css call like this\n' + 'let dynamicStyle = (props) => css`color: ${props.color}`\n' + 'It can be called directly with props or interpolated in a styled call like this\n' + "let SomeComponent = styled('div')`${dynamicStyle}`");
+        }
+
+        return handleInterpolation.call(this, this === undefined ? interpolation() : // $FlowFixMe
+        interpolation(this.mergedProps, this.context), couldBeSelectorInterpolation);
+
+      case 'object':
+        return createStringFromObject.call(this, interpolation);
+
+      default:
+        var cached = caches.registered[interpolation];
+        return couldBeSelectorInterpolation === false && cached !== undefined ? cached : interpolation;
+    }
+  }
+
+  var objectToStringCache = new WeakMap();
+
+  function createStringFromObject(obj) {
+    if (objectToStringCache.has(obj)) {
+      // $FlowFixMe
+      return objectToStringCache.get(obj);
+    }
+
+    var string = '';
+
+    if (Array.isArray(obj)) {
+      obj.forEach(function (interpolation) {
+        string += handleInterpolation.call(this, interpolation, false);
+      }, this);
+    } else {
+      Object.keys(obj).forEach(function (key) {
+        if (typeof obj[key] !== 'object') {
+          if (caches.registered[obj[key]] !== undefined) {
+            string += key + "{" + caches.registered[obj[key]] + "}";
+          } else {
+            string += processStyleName(key) + ":" + processStyleValue(key, obj[key]) + ";";
+          }
+        } else {
+          if (key === 'NO_COMPONENT_SELECTOR' && "development" !== 'production') {
+            throw new Error('Component selectors can only be used in conjunction with babel-plugin-emotion.');
+          }
+
+          if (Array.isArray(obj[key]) && typeof obj[key][0] === 'string' && caches.registered[obj[key][0]] === undefined) {
+            obj[key].forEach(function (value) {
+              string += processStyleName(key) + ":" + processStyleValue(key, value) + ";";
+            });
+          } else {
+            string += key + "{" + handleInterpolation.call(this, obj[key], false) + "}";
+          }
+        }
+      }, this);
+    }
+
+    objectToStringCache.set(obj, string);
+    return string;
+  }
+
+  var name;
+  var stylesWithLabel;
+  var labelPattern = /label:\s*([^\s;\n{]+)\s*;/g;
+
+  var createClassName = function createClassName(styles, identifierName) {
+    return Object(_emotion_hash__WEBPACK_IMPORTED_MODULE_2__["default"])(styles + identifierName) + identifierName;
+  };
+
+  if (true) {
+    var oldCreateClassName = createClassName;
+    var sourceMappingUrlPattern = /\/\*#\ssourceMappingURL=data:application\/json;\S+\s+\*\//g;
+
+    createClassName = function createClassName(styles, identifierName) {
+      return oldCreateClassName(styles.replace(sourceMappingUrlPattern, function (sourceMap) {
+        currentSourceMap = sourceMap;
+        return '';
+      }), identifierName);
+    };
+  }
+
+  var createStyles = function createStyles(strings) {
+    var stringMode = true;
+    var styles = '';
+    var identifierName = '';
+
+    if (strings == null || strings.raw === undefined) {
+      stringMode = false;
+      styles += handleInterpolation.call(this, strings, false);
+    } else {
+      styles += strings[0];
+    }
+
+    for (var _len = arguments.length, interpolations = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      interpolations[_key - 1] = arguments[_key];
+    }
+
+    interpolations.forEach(function (interpolation, i) {
+      styles += handleInterpolation.call(this, interpolation, styles.charCodeAt(styles.length - 1) === 46 // .
+      );
+
+      if (stringMode === true && strings[i + 1] !== undefined) {
+        styles += strings[i + 1];
+      }
+    }, this);
+    stylesWithLabel = styles;
+    styles = styles.replace(labelPattern, function (match, p1) {
+      identifierName += "-" + p1;
+      return '';
+    });
+    name = createClassName(styles, identifierName);
+    return styles;
+  };
+
+  if (true) {
+    var oldStylis = stylis;
+
+    stylis = function stylis(selector, styles) {
+      oldStylis(selector, styles);
+      currentSourceMap = '';
+    };
+  }
+
+  function insert(scope, styles) {
+    if (caches.inserted[name] === undefined) {
+      current = '';
+      stylis(scope, styles);
+      caches.inserted[name] = current;
+    }
+  }
+
+  var css = function css() {
+    var styles = createStyles.apply(this, arguments);
+    var selector = key + "-" + name;
+
+    if (caches.registered[selector] === undefined) {
+      caches.registered[selector] = stylesWithLabel;
+    }
+
+    insert("." + selector, styles);
+    return selector;
+  };
+
+  var keyframes = function keyframes() {
+    var styles = createStyles.apply(this, arguments);
+    var animation = "animation-" + name;
+    insert('', "@keyframes " + animation + "{" + styles + "}");
+    return animation;
+  };
+
+  var injectGlobal = function injectGlobal() {
+    var styles = createStyles.apply(this, arguments);
+    insert('', styles);
+  };
+
+  function getRegisteredStyles(registeredStyles, classNames) {
+    var rawClassName = '';
+    classNames.split(' ').forEach(function (className) {
+      if (caches.registered[className] !== undefined) {
+        registeredStyles.push(className);
+      } else {
+        rawClassName += className + " ";
+      }
+    });
+    return rawClassName;
+  }
+
+  function merge(className, sourceMap) {
+    var registeredStyles = [];
+    var rawClassName = getRegisteredStyles(registeredStyles, className);
+
+    if (registeredStyles.length < 2) {
+      return className;
+    }
+
+    return rawClassName + css(registeredStyles, sourceMap);
+  }
+
+  function cx() {
+    for (var _len2 = arguments.length, classNames = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      classNames[_key2] = arguments[_key2];
+    }
+
+    return merge(classnames(classNames));
+  }
+
+  function hydrateSingleId(id) {
+    caches.inserted[id] = true;
+  }
+
+  function hydrate(ids) {
+    ids.forEach(hydrateSingleId);
+  }
+
+  function flush() {
+    if (isBrowser) {
+      sheet.flush();
+      sheet.inject();
+    }
+
+    caches.inserted = {};
+    caches.registered = {};
+  }
+
+  if (isBrowser) {
+    var chunks = document.querySelectorAll("[data-emotion-" + key + "]");
+    Array.prototype.forEach.call(chunks, function (node) {
+      // $FlowFixMe
+      sheet.tags[0].parentNode.insertBefore(node, sheet.tags[0]); // $FlowFixMe
+
+      node.getAttribute("data-emotion-" + key).split(' ').forEach(hydrateSingleId);
+    });
+  }
+
+  var emotion = {
+    flush: flush,
+    hydrate: hydrate,
+    cx: cx,
+    merge: merge,
+    getRegisteredStyles: getRegisteredStyles,
+    injectGlobal: injectGlobal,
+    keyframes: keyframes,
+    css: css,
+    sheet: sheet,
+    caches: caches
+  };
+  context.__SECRET_EMOTION__ = emotion;
+  return emotion;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (createEmotion);
+
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/class/addClass.js":
+/*!****************************************************!*\
+  !*** ./node_modules/dom-helpers/class/addClass.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/dom-helpers/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+exports.__esModule = true;
+exports.default = addClass;
+
+var _hasClass = _interopRequireDefault(__webpack_require__(/*! ./hasClass */ "./node_modules/dom-helpers/class/hasClass.js"));
+
+function addClass(element, className) {
+  if (element.classList) element.classList.add(className);else if (!(0, _hasClass.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + ' ' + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + ' ' + className);
+}
+
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/class/hasClass.js":
+/*!****************************************************!*\
+  !*** ./node_modules/dom-helpers/class/hasClass.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = hasClass;
+
+function hasClass(element, className) {
+  if (element.classList) return !!className && element.classList.contains(className);else return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
+}
+
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/class/removeClass.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/dom-helpers/class/removeClass.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function replaceClassName(origClass, classToRemove) {
+  return origClass.replace(new RegExp('(^|\\s)' + classToRemove + '(?:\\s|$)', 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
+}
+
+module.exports = function removeClass(element, className) {
+  if (element.classList) element.classList.remove(className);else if (typeof element.className === 'string') element.className = replaceClassName(element.className, className);else element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
+};
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/node_modules/@babel/runtime/helpers/interopRequireDefault.js":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/dom-helpers/node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+
+/***/ }),
+
+/***/ "./node_modules/emotion/dist/index.esm.js":
+/*!************************************************!*\
+  !*** ./node_modules/emotion/dist/index.esm.js ***!
+  \************************************************/
+/*! exports provided: flush, hydrate, cx, merge, getRegisteredStyles, injectGlobal, keyframes, css, sheet, caches */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "flush", function() { return flush; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hydrate", function() { return hydrate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cx", function() { return cx; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return merge; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRegisteredStyles", function() { return getRegisteredStyles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "injectGlobal", function() { return injectGlobal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return keyframes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "css", function() { return css; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sheet", function() { return sheet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "caches", function() { return caches; });
+/* harmony import */ var create_emotion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! create-emotion */ "./node_modules/create-emotion/dist/index.esm.js");
+
+
+var context = typeof global !== 'undefined' ? global : {};
+
+var _createEmotion = Object(create_emotion__WEBPACK_IMPORTED_MODULE_0__["default"])(context),
+    flush = _createEmotion.flush,
+    hydrate = _createEmotion.hydrate,
+    cx = _createEmotion.cx,
+    merge = _createEmotion.merge,
+    getRegisteredStyles = _createEmotion.getRegisteredStyles,
+    injectGlobal = _createEmotion.injectGlobal,
+    keyframes = _createEmotion.keyframes,
+    css = _createEmotion.css,
+    sheet = _createEmotion.sheet,
+    caches = _createEmotion.caches;
+
+
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -69258,6 +70951,51 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-emotion/dist/index.esm.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-emotion/dist/index.esm.js ***!
+  \******************************************************/
+/*! exports provided: flush, hydrate, cx, merge, getRegisteredStyles, injectGlobal, keyframes, css, sheet, caches, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var emotion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! emotion */ "./node_modules/emotion/dist/index.esm.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "flush", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["flush"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hydrate", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["hydrate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cx", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["cx"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["merge"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getRegisteredStyles", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["getRegisteredStyles"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "injectGlobal", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["injectGlobal"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["keyframes"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "css", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["css"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sheet", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["sheet"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "caches", function() { return emotion__WEBPACK_IMPORTED_MODULE_1__["caches"]; });
+
+/* harmony import */ var create_emotion_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! create-emotion-styled */ "./node_modules/create-emotion-styled/dist/index.esm.js");
+
+
+
+
+
+var index = Object(create_emotion_styled__WEBPACK_IMPORTED_MODULE_2__["default"])(emotion__WEBPACK_IMPORTED_MODULE_1__, react__WEBPACK_IMPORTED_MODULE_0___default.a);
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
+
+/***/ }),
+
 /***/ "./node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js ***!
@@ -72457,6 +74195,2440 @@ module.exports = warning;
 
 /***/ }),
 
+/***/ "./node_modules/react-toast-notifications/dist/ToastContainer.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/ToastContainer.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ToastContainer = undefined;
+
+var _emotion = __webpack_require__(/*! emotion */ "./node_modules/emotion/dist/index.esm.js");
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactTransitionGroup = __webpack_require__(/*! react-transition-group */ "./node_modules/react-transition-group/index.js");
+
+var _ToastElement = __webpack_require__(/*! ./ToastElement */ "./node_modules/react-toast-notifications/dist/ToastElement.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var placements = {
+  'top-left': { top: 0, left: 0 },
+  'top-center': { top: 0, left: '50%', transform: 'translateX(-50%)' },
+  'top-right': { top: 0, right: 0 },
+  'bottom-left': { bottom: 0, left: 0 },
+  'bottom-center': { bottom: 0, left: '50%', transform: 'translateX(-50%)' },
+  'bottom-right': { bottom: 0, right: 0 }
+};
+
+var ToastContainer = exports.ToastContainer = function ToastContainer(_ref) {
+  var children = _ref.children,
+      placement = _ref.placement;
+  return _react2.default.createElement(
+    'div',
+    {
+      className: (0, _emotion.css)(_extends({
+        boxSizing: 'border-box',
+        maxHeight: '100%',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        padding: _ToastElement.gutter,
+        pointerEvents: _react.Children.count(children) ? 'auto' : 'none',
+        position: 'fixed'
+      }, placements[placement]), '\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdENvbnRhaW5lci5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUF3QkkiLCJmaWxlIjoiLi4vc3JjL1RvYXN0Q29udGFpbmVyLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQGZsb3dcblxuaW1wb3J0IFJlYWN0LCB7IENoaWxkcmVuIH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgVHJhbnNpdGlvbkdyb3VwIH0gZnJvbSAncmVhY3QtdHJhbnNpdGlvbi1ncm91cCc7XG5cbmltcG9ydCB0eXBlIHsgUGxhY2VtZW50IH0gZnJvbSAnLi90eXBlcyc7XG5pbXBvcnQgeyBndXR0ZXIgfSBmcm9tICcuL1RvYXN0RWxlbWVudCc7XG5cbmNvbnN0IHBsYWNlbWVudHMgPSB7XG4gICd0b3AtbGVmdCc6IHsgdG9wOiAwLCBsZWZ0OiAwIH0sXG4gICd0b3AtY2VudGVyJzogeyB0b3A6IDAsIGxlZnQ6ICc1MCUnLCB0cmFuc2Zvcm06ICd0cmFuc2xhdGVYKC01MCUpJyB9LFxuICAndG9wLXJpZ2h0JzogeyB0b3A6IDAsIHJpZ2h0OiAwIH0sXG4gICdib3R0b20tbGVmdCc6IHsgYm90dG9tOiAwLCBsZWZ0OiAwIH0sXG4gICdib3R0b20tY2VudGVyJzogeyBib3R0b206IDAsIGxlZnQ6ICc1MCUnLCB0cmFuc2Zvcm06ICd0cmFuc2xhdGVYKC01MCUpJyB9LFxuICAnYm90dG9tLXJpZ2h0JzogeyBib3R0b206IDAsIHJpZ2h0OiAwIH0sXG59O1xuXG5leHBvcnQgdHlwZSBUb2FzdENvbnRhaW5lclByb3BzID0geyBjaGlsZHJlbjogTm9kZSwgcGxhY2VtZW50OiBQbGFjZW1lbnQgfTtcblxuZXhwb3J0IGNvbnN0IFRvYXN0Q29udGFpbmVyID0gKHtcbiAgY2hpbGRyZW4sXG4gIHBsYWNlbWVudCxcbn06IFRvYXN0Q29udGFpbmVyUHJvcHMpID0+IChcbiAgPGRpdlxuICAgIGNzcz17e1xuICAgICAgYm94U2l6aW5nOiAnYm9yZGVyLWJveCcsXG4gICAgICBtYXhIZWlnaHQ6ICcxMDAlJyxcbiAgICAgIG92ZXJmbG93WDogJ2hpZGRlbicsXG4gICAgICBvdmVyZmxvd1k6ICdhdXRvJyxcbiAgICAgIHBhZGRpbmc6IGd1dHRlcixcbiAgICAgIHBvaW50ZXJFdmVudHM6IENoaWxkcmVuLmNvdW50KGNoaWxkcmVuKSA/ICdhdXRvJyA6ICdub25lJyxcbiAgICAgIHBvc2l0aW9uOiAnZml4ZWQnLFxuICAgICAgLi4ucGxhY2VtZW50c1twbGFjZW1lbnRdLFxuICAgIH19XG4gID5cbiAgICA8VHJhbnNpdGlvbkdyb3VwIGNvbXBvbmVudD17bnVsbH0+e2NoaWxkcmVufTwvVHJhbnNpdGlvbkdyb3VwPlxuICA8L2Rpdj5cbik7XG4iXX0= */')
+    },
+    _react2.default.createElement(
+      _reactTransitionGroup.TransitionGroup,
+      { component: null },
+      children
+    )
+  );
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/ToastController.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/ToastController.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ToastController = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactEmotion = __webpack_require__(/*! react-emotion */ "./node_modules/react-emotion/dist/index.esm.js");
+
+var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
+
+var _reactTransitionGroup = __webpack_require__(/*! react-transition-group */ "./node_modules/react-transition-group/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var defaultAutoDismissTimeout = 5000;
+
+var ToastController = exports.ToastController = function (_Component) {
+  _inherits(ToastController, _Component);
+
+  function ToastController() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, ToastController);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ToastController.__proto__ || Object.getPrototypeOf(ToastController)).call.apply(_ref, [this].concat(args))), _this), _this.state = { autoDismissTimeout: _this.props.autoDismissTimeout }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(ToastController, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          autoDismiss = _props.autoDismiss,
+          onDismiss = _props.onDismiss;
+      var autoDismissTimeout = this.state.autoDismissTimeout;
+
+
+      if (autoDismiss) {
+        this.timeout = setTimeout(onDismiss, autoDismissTimeout);
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          Toast = _props2.Toast,
+          props = _objectWithoutProperties(_props2, ['Toast']);
+
+      var autoDismissTimeout = this.state.autoDismissTimeout;
+
+      var time = props.transitionDuration;
+
+      return _react2.default.createElement(
+        _reactTransitionGroup.Transition,
+        _extends({ appear: true, mountOnEnter: true, unmountOnExit: true, timeout: time }, props),
+        function (transitionState) {
+          return _react2.default.createElement(Toast, _extends({
+            autoDismissTimeout: autoDismissTimeout,
+            transitionState: transitionState
+          }, props));
+        }
+      );
+    }
+  }], [{
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(_ref2) {
+      var autoDismiss = _ref2.autoDismiss,
+          autoDismissTimeout = _ref2.autoDismissTimeout;
+
+      if (!autoDismiss) return null;
+
+      var timeout = typeof autoDismiss === 'number' ? autoDismiss : autoDismissTimeout;
+
+      return { autoDismissTimeout: timeout };
+    }
+  }]);
+
+  return ToastController;
+}(_react.Component);
+
+ToastController.defaultProps = {
+  autoDismiss: false
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/ToastElement.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/ToastElement.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DefaultToast = exports.shrink = exports.toastWidth = exports.gutter = exports.borderRadius = undefined;
+
+var _emotion = __webpack_require__(/*! emotion */ "./node_modules/emotion/dist/index.esm.js");
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactEmotion = __webpack_require__(/*! react-emotion */ "./node_modules/react-emotion/dist/index.esm.js");
+
+var _reactEmotion2 = _interopRequireDefault(_reactEmotion);
+
+var _reactTransitionGroup = __webpack_require__(/*! react-transition-group */ "./node_modules/react-transition-group/index.js");
+
+var _icons = __webpack_require__(/*! ./icons */ "./node_modules/react-toast-notifications/dist/icons.js");
+
+var _colors = __webpack_require__(/*! ./colors */ "./node_modules/react-toast-notifications/dist/colors.js");
+
+var colors = _interopRequireWildcard(_colors);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+// common
+var borderRadius = exports.borderRadius = 4;
+var gutter = exports.gutter = 8;
+var toastWidth = exports.toastWidth = 360;
+var shrink = /*#__PURE__*/exports.shrink = (0, _reactEmotion.keyframes)('from{height:100%;}to{height:0%}/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBYytCIiwiZmlsZSI6Ii4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBAZmxvd1xuXG5pbXBvcnQgUmVhY3QsIHsgQ2hpbGRyZW4sIENvbXBvbmVudCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCBzdHlsZWQsIHsga2V5ZnJhbWVzIH0gZnJvbSAncmVhY3QtZW1vdGlvbic7XG5pbXBvcnQgeyBUcmFuc2l0aW9uLCBUcmFuc2l0aW9uR3JvdXAgfSBmcm9tICdyZWFjdC10cmFuc2l0aW9uLWdyb3VwJztcblxuaW1wb3J0IHsgQ2hlY2tJY29uLCBGbGFtZUljb24sIEluZm9JY29uLCBDbG9zZUljb24sIEFsZXJ0SWNvbiB9IGZyb20gJy4vaWNvbnMnO1xuaW1wb3J0ICogYXMgY29sb3JzIGZyb20gJy4vY29sb3JzJztcbmltcG9ydCB0eXBlIHsgUGxhY2VtZW50IH0gZnJvbSAnLi90eXBlcyc7XG5cbi8vIGNvbW1vblxuZXhwb3J0IGNvbnN0IGJvcmRlclJhZGl1cyA9IDQ7XG5leHBvcnQgY29uc3QgZ3V0dGVyID0gODtcbmV4cG9ydCBjb25zdCB0b2FzdFdpZHRoID0gMzYwO1xuZXhwb3J0IGNvbnN0IHNocmluayA9IGtleWZyYW1lc2Bmcm9tIHsgaGVpZ2h0OiAxMDAlOyB9IHRvIHsgaGVpZ2h0OiAwJSB9YDtcblxuLy8gYTExeSBoZWxwZXJcbmNvbnN0IEExMXlUZXh0ID0gKHsgdGFnOiBUYWcsIC4uLnByb3BzIH0pID0+IChcbiAgPFRhZ1xuICAgIGNzcz17e1xuICAgICAgYm9yZGVyOiAwLFxuICAgICAgY2xpcDogJ3JlY3QoMXB4LCAxcHgsIDFweCwgMXB4KScsXG4gICAgICBoZWlnaHQ6IDEsXG4gICAgICBvdmVyZmxvdzogJ2hpZGRlbicsXG4gICAgICBwYWRkaW5nOiAwLFxuICAgICAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gICAgICB3aGl0ZVNwYWNlOiAnbm93cmFwJyxcbiAgICAgIHdpZHRoOiAxLFxuICAgIH19XG4gICAgey4uLnByb3BzfVxuICAvPlxuKTtcbkExMXlUZXh0LmRlZmF1bHRQcm9wcyA9IHtcbiAgdGFnOiAnc3BhbicsXG59O1xuXG4vLyBkZWZhdWx0IGFwcGVhcmFuY2VzXG5cbmNvbnN0IGFwcGVhcmFuY2VzID0ge1xuICBzdWNjZXNzOiB7XG4gICAgaWNvbjogQ2hlY2tJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5HNTAwLFxuICAgIGZnOiBjb2xvcnMuRzMwMCxcbiAgICBiZzogY29sb3JzLkc1MCxcbiAgfSxcbiAgZXJyb3I6IHtcbiAgICBpY29uOiBGbGFtZUljb24sXG4gICAgdGV4dDogY29sb3JzLlI1MDAsXG4gICAgZmc6IGNvbG9ycy5SMzAwLFxuICAgIGJnOiBjb2xvcnMuUjUwLFxuICB9LFxuICB3YXJuaW5nOiB7XG4gICAgaWNvbjogQWxlcnRJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ZNTAwLFxuICAgIGZnOiBjb2xvcnMuWTMwMCxcbiAgICBiZzogY29sb3JzLlk1MCxcbiAgfSxcbiAgaW5mbzoge1xuICAgIGljb246IEluZm9JY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ONDAwLFxuICAgIGZnOiBjb2xvcnMuQjIwMCxcbiAgICBiZzogJ3doaXRlJyxcbiAgfSxcbn07XG5leHBvcnQgdHlwZSBBcHBlYXJhbmNlVHlwZXMgPSAkS2V5czx0eXBlb2YgYXBwZWFyYW5jZXM+O1xuXG5jb25zdCBCdXR0b24gPSBzdHlsZWQuZGl2KHtcbiAgY3Vyc29yOiAncG9pbnRlcicsXG4gIGZsZXhTaHJpbms6IDAsXG4gIG9wYWNpdHk6IDAuNSxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbiAgdHJhbnNpdGlvbjogJ29wYWNpdHkgMTUwbXMnLFxuXG4gICc6aG92ZXInOiB7IG9wYWNpdHk6IDEgfSxcbn0pO1xuXG5jb25zdCBDb250ZW50ID0gc3R5bGVkLmRpdih7XG4gIGZsZXhHcm93OiAxLFxuICBmb250U2l6ZTogMTQsXG4gIGxpbmVIZWlnaHQ6IDEuNCxcbiAgbWluSGVpZ2h0OiA0MCxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbn0pO1xuXG4vLyBOT1RFOiBpbnZva2UgYW5pbWF0aW9uIHdoZW4gTk9UIGBhdXRvRGlzbWlzc2Agd2l0aCBvcGFjaXR5IG9mIDAgdG8gYXZvaWQgYVxuLy8gcGFpbnQgYnVnIGluIEZpcmVGb3guXG4vLyBodHRwczovL2J1Z3ppbGxhLm1vemlsbGEub3JnL3Nob3dfYnVnLmNnaT9pZD02MjUyODlcbmNvbnN0IENvdW50ZG93biA9IHN0eWxlZC5kaXYoKHsgYXV0b0Rpc21pc3NUaW1lb3V0LCBvcGFjaXR5IH0pID0+ICh7XG4gIGFuaW1hdGlvbjogYCR7c2hyaW5rfSAke2F1dG9EaXNtaXNzVGltZW91dH1tcyBsaW5lYXJgLFxuICBiYWNrZ3JvdW5kQ29sb3I6ICdyZ2JhKDAsMCwwLDAuMSknLFxuICBib3R0b206IDAsXG4gIGhlaWdodDogMCxcbiAgbGVmdDogMCxcbiAgb3BhY2l0eSxcbiAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gIHdpZHRoOiAnMTAwJScsXG59KSk7XG5jb25zdCBJY29uID0gKHsgYXBwZWFyYW5jZSwgYXV0b0Rpc21pc3MsIGF1dG9EaXNtaXNzVGltZW91dCB9KSA9PiB7XG4gIGNvbnN0IG1ldGEgPSBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXTtcbiAgY29uc3QgR2x5cGggPSBtZXRhLmljb247XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2XG4gICAgICBjc3M9e3tcbiAgICAgICAgYmFja2dyb3VuZENvbG9yOiBtZXRhLmZnLFxuICAgICAgICBib3JkZXJUb3BMZWZ0UmFkaXVzOiBib3JkZXJSYWRpdXMsXG4gICAgICAgIGJvcmRlckJvdHRvbUxlZnRSYWRpdXM6IGJvcmRlclJhZGl1cyxcbiAgICAgICAgY29sb3I6IG1ldGEuYmcsXG4gICAgICAgIGZsZXhTaHJpbms6IDAsXG4gICAgICAgIHBhZGRpbmdCb3R0b206IGd1dHRlcixcbiAgICAgICAgcGFkZGluZ1RvcDogZ3V0dGVyLFxuICAgICAgICBwb3NpdGlvbjogJ3JlbGF0aXZlJyxcbiAgICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgICB0ZXh0QWxpZ246ICdjZW50ZXInLFxuICAgICAgICB3aWR0aDogMzAsXG4gICAgICB9fVxuICAgID5cbiAgICAgIDxDb3VudGRvd25cbiAgICAgICAgb3BhY2l0eT17YXV0b0Rpc21pc3MgPyAxIDogMH1cbiAgICAgICAgYXV0b0Rpc21pc3NUaW1lb3V0PXthdXRvRGlzbWlzc1RpbWVvdXR9XG4gICAgICAvPlxuICAgICAgPEdseXBoIGNzcz17eyBwb3NpdGlvbjogJ3JlbGF0aXZlJywgekluZGV4OiAxIH19IC8+XG4gICAgPC9kaXY+XG4gICk7XG59O1xuZnVuY3Rpb24gZ2V0VHJhbnNsYXRlKHBsYWNlbWVudCkge1xuICBjb25zdCBwb3MgPSBwbGFjZW1lbnQuc3BsaXQoJy0nKTtcbiAgY29uc3QgcmVsZXZhbnRQbGFjZW1lbnQgPSBwb3NbMV0gPT09ICdjZW50ZXInID8gcG9zWzBdIDogcG9zWzFdO1xuICBjb25zdCB0cmFuc2xhdGVNYXAgPSB7XG4gICAgcmlnaHQ6ICd0cmFuc2xhdGUzZCgxMjAlLCAwLCAwKScsXG4gICAgbGVmdDogJ3RyYW5zbGF0ZTNkKC0xMjAlLCAwLCAwKScsXG4gICAgYm90dG9tOiAndHJhbnNsYXRlM2QoMCwgMTIwJSwgMCknLFxuICAgIHRvcDogJ3RyYW5zbGF0ZTNkKDAsIC0xMjAlLCAwKScsXG4gIH07XG5cbiAgcmV0dXJuIHRyYW5zbGF0ZU1hcFtyZWxldmFudFBsYWNlbWVudF07XG59XG5leHBvcnQgdHlwZSBUcmFuc2l0aW9uU3RhdGUgPSAnZW50ZXJpbmcnIHwgJ2VudGVyZWQnIHwgJ2V4aXRpbmcnIHwgJ2V4aXRlZCc7XG5jb25zdCB0b2FzdFN0YXRlcyA9IChwbGFjZW1lbnQ6IFBsYWNlbWVudCkgPT4gKHtcbiAgZW50ZXJpbmc6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxuICBlbnRlcmVkOiB7IHRyYW5zZm9ybTogJ3RyYW5zbGF0ZTNkKDAsMCwwKScgfSxcbiAgZXhpdGluZzogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG4gIGV4aXRlZDogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG59KTtcbmNvbnN0IFRvYXN0RWxlbWVudCA9IHN0eWxlZC5kaXYoXG4gICh7IGFwcGVhcmFuY2UsIHBsYWNlbWVudCwgdHJhbnNpdGlvbkR1cmF0aW9uLCB0cmFuc2l0aW9uU3RhdGUgfSkgPT4ge1xuICAgIHJldHVybiB7XG4gICAgICBiYWNrZ3JvdW5kQ29sb3I6IGFwcGVhcmFuY2VzW2FwcGVhcmFuY2VdLmJnLFxuICAgICAgYm9yZGVyUmFkaXVzLFxuICAgICAgYm94U2hhZG93OiAnMCAzcHggOHB4IHJnYmEoMCwgMCwgMCwgMC4xNzUpJyxcbiAgICAgIGNvbG9yOiBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXS50ZXh0LFxuICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgbWFyZ2luQm90dG9tOiBndXR0ZXIsXG4gICAgICB0cmFuc2l0aW9uOiBgdHJhbnNmb3JtICR7dHJhbnNpdGlvbkR1cmF0aW9ufW1zIGN1YmljLWJlemllcigwLjIsIDAsIDAsIDEpYCxcbiAgICAgIHdpZHRoOiB0b2FzdFdpZHRoLFxuICAgICAgLi4udG9hc3RTdGF0ZXMocGxhY2VtZW50KVt0cmFuc2l0aW9uU3RhdGVdLFxuICAgIH07XG4gIH1cbik7XG5cbi8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuLy8gRGVmYXVsdFRvYXN0XG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cblxuZXhwb3J0IHR5cGUgVG9hc3RQcm9wcyA9IHtcbiAgYXBwZWFyYW5jZTogQXBwZWFyYW5jZVR5cGVzLFxuICBhdXRvRGlzbWlzczogYm9vbGVhbiB8IG51bWJlcixcbiAgYXV0b0Rpc21pc3NUaW1lb3V0OiBudW1iZXIsIC8vIGluaGVyaXRlZCBmcm9tIFRvYXN0UHJvdmlkZXJcbiAgY2hpbGRyZW46IE5vZGUsXG4gIG9uRGlzbWlzczogRXZlbnQgPT4gKixcbiAgcGxhY2VtZW50OiBQbGFjZW1lbnQsXG4gIHRyYW5zaXRpb25EdXJhdGlvbjogbnVtYmVyLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG4gIHRyYW5zaXRpb25TdGF0ZTogVHJhbnNpdGlvblN0YXRlLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG59O1xuXG5leHBvcnQgY29uc3QgRGVmYXVsdFRvYXN0ID0gKHtcbiAgYXBwZWFyYW5jZSxcbiAgYXV0b0Rpc21pc3MsXG4gIGF1dG9EaXNtaXNzVGltZW91dCxcbiAgY2hpbGRyZW4sXG4gIG9uRGlzbWlzcyxcbiAgcGxhY2VtZW50LFxuICB0cmFuc2l0aW9uRHVyYXRpb24sXG4gIHRyYW5zaXRpb25TdGF0ZSxcbn06IFRvYXN0UHJvcHMpID0+IChcbiAgPFRvYXN0RWxlbWVudFxuICAgIGFwcGVhcmFuY2U9e2FwcGVhcmFuY2V9XG4gICAgcGxhY2VtZW50PXtwbGFjZW1lbnR9XG4gICAgdHJhbnNpdGlvblN0YXRlPXt0cmFuc2l0aW9uU3RhdGV9XG4gICAgdHJhbnNpdGlvbkR1cmF0aW9uPXt0cmFuc2l0aW9uRHVyYXRpb259XG4gID5cbiAgICA8SWNvblxuICAgICAgYXBwZWFyYW5jZT17YXBwZWFyYW5jZX1cbiAgICAgIGF1dG9EaXNtaXNzPXthdXRvRGlzbWlzc31cbiAgICAgIGF1dG9EaXNtaXNzVGltZW91dD17YXV0b0Rpc21pc3NUaW1lb3V0fVxuICAgIC8+XG4gICAgPENvbnRlbnQ+e2NoaWxkcmVufTwvQ29udGVudD5cbiAgICB7b25EaXNtaXNzID8gKFxuICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtvbkRpc21pc3N9IHJvbGU9XCJidXR0b25cIj5cbiAgICAgICAgPENsb3NlSWNvbiAvPlxuICAgICAgICA8QTExeVRleHQ+Q2xvc2U8L0ExMXlUZXh0PlxuICAgICAgPC9CdXR0b24+XG4gICAgKSA6IG51bGx9XG4gIDwvVG9hc3RFbGVtZW50PlxuKTtcbiJdfQ== */', 'label:shrink;');
+
+// a11y helper
+var A11yText = function A11yText(_ref) {
+  var Tag = _ref.tag,
+      props = _objectWithoutProperties(_ref, ['tag']);
+
+  return _react2.default.createElement(Tag, _extends({
+    className: (0, _emotion.css)({
+      border: 0,
+      clip: 'rect(1px, 1px, 1px, 1px)',
+      height: 1,
+      overflow: 'hidden',
+      padding: 0,
+      position: 'absolute',
+      whiteSpace: 'nowrap',
+      width: 1
+    }, '\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBbUJJIiwiZmlsZSI6Ii4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBAZmxvd1xuXG5pbXBvcnQgUmVhY3QsIHsgQ2hpbGRyZW4sIENvbXBvbmVudCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCBzdHlsZWQsIHsga2V5ZnJhbWVzIH0gZnJvbSAncmVhY3QtZW1vdGlvbic7XG5pbXBvcnQgeyBUcmFuc2l0aW9uLCBUcmFuc2l0aW9uR3JvdXAgfSBmcm9tICdyZWFjdC10cmFuc2l0aW9uLWdyb3VwJztcblxuaW1wb3J0IHsgQ2hlY2tJY29uLCBGbGFtZUljb24sIEluZm9JY29uLCBDbG9zZUljb24sIEFsZXJ0SWNvbiB9IGZyb20gJy4vaWNvbnMnO1xuaW1wb3J0ICogYXMgY29sb3JzIGZyb20gJy4vY29sb3JzJztcbmltcG9ydCB0eXBlIHsgUGxhY2VtZW50IH0gZnJvbSAnLi90eXBlcyc7XG5cbi8vIGNvbW1vblxuZXhwb3J0IGNvbnN0IGJvcmRlclJhZGl1cyA9IDQ7XG5leHBvcnQgY29uc3QgZ3V0dGVyID0gODtcbmV4cG9ydCBjb25zdCB0b2FzdFdpZHRoID0gMzYwO1xuZXhwb3J0IGNvbnN0IHNocmluayA9IGtleWZyYW1lc2Bmcm9tIHsgaGVpZ2h0OiAxMDAlOyB9IHRvIHsgaGVpZ2h0OiAwJSB9YDtcblxuLy8gYTExeSBoZWxwZXJcbmNvbnN0IEExMXlUZXh0ID0gKHsgdGFnOiBUYWcsIC4uLnByb3BzIH0pID0+IChcbiAgPFRhZ1xuICAgIGNzcz17e1xuICAgICAgYm9yZGVyOiAwLFxuICAgICAgY2xpcDogJ3JlY3QoMXB4LCAxcHgsIDFweCwgMXB4KScsXG4gICAgICBoZWlnaHQ6IDEsXG4gICAgICBvdmVyZmxvdzogJ2hpZGRlbicsXG4gICAgICBwYWRkaW5nOiAwLFxuICAgICAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gICAgICB3aGl0ZVNwYWNlOiAnbm93cmFwJyxcbiAgICAgIHdpZHRoOiAxLFxuICAgIH19XG4gICAgey4uLnByb3BzfVxuICAvPlxuKTtcbkExMXlUZXh0LmRlZmF1bHRQcm9wcyA9IHtcbiAgdGFnOiAnc3BhbicsXG59O1xuXG4vLyBkZWZhdWx0IGFwcGVhcmFuY2VzXG5cbmNvbnN0IGFwcGVhcmFuY2VzID0ge1xuICBzdWNjZXNzOiB7XG4gICAgaWNvbjogQ2hlY2tJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5HNTAwLFxuICAgIGZnOiBjb2xvcnMuRzMwMCxcbiAgICBiZzogY29sb3JzLkc1MCxcbiAgfSxcbiAgZXJyb3I6IHtcbiAgICBpY29uOiBGbGFtZUljb24sXG4gICAgdGV4dDogY29sb3JzLlI1MDAsXG4gICAgZmc6IGNvbG9ycy5SMzAwLFxuICAgIGJnOiBjb2xvcnMuUjUwLFxuICB9LFxuICB3YXJuaW5nOiB7XG4gICAgaWNvbjogQWxlcnRJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ZNTAwLFxuICAgIGZnOiBjb2xvcnMuWTMwMCxcbiAgICBiZzogY29sb3JzLlk1MCxcbiAgfSxcbiAgaW5mbzoge1xuICAgIGljb246IEluZm9JY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ONDAwLFxuICAgIGZnOiBjb2xvcnMuQjIwMCxcbiAgICBiZzogJ3doaXRlJyxcbiAgfSxcbn07XG5leHBvcnQgdHlwZSBBcHBlYXJhbmNlVHlwZXMgPSAkS2V5czx0eXBlb2YgYXBwZWFyYW5jZXM+O1xuXG5jb25zdCBCdXR0b24gPSBzdHlsZWQuZGl2KHtcbiAgY3Vyc29yOiAncG9pbnRlcicsXG4gIGZsZXhTaHJpbms6IDAsXG4gIG9wYWNpdHk6IDAuNSxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbiAgdHJhbnNpdGlvbjogJ29wYWNpdHkgMTUwbXMnLFxuXG4gICc6aG92ZXInOiB7IG9wYWNpdHk6IDEgfSxcbn0pO1xuXG5jb25zdCBDb250ZW50ID0gc3R5bGVkLmRpdih7XG4gIGZsZXhHcm93OiAxLFxuICBmb250U2l6ZTogMTQsXG4gIGxpbmVIZWlnaHQ6IDEuNCxcbiAgbWluSGVpZ2h0OiA0MCxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbn0pO1xuXG4vLyBOT1RFOiBpbnZva2UgYW5pbWF0aW9uIHdoZW4gTk9UIGBhdXRvRGlzbWlzc2Agd2l0aCBvcGFjaXR5IG9mIDAgdG8gYXZvaWQgYVxuLy8gcGFpbnQgYnVnIGluIEZpcmVGb3guXG4vLyBodHRwczovL2J1Z3ppbGxhLm1vemlsbGEub3JnL3Nob3dfYnVnLmNnaT9pZD02MjUyODlcbmNvbnN0IENvdW50ZG93biA9IHN0eWxlZC5kaXYoKHsgYXV0b0Rpc21pc3NUaW1lb3V0LCBvcGFjaXR5IH0pID0+ICh7XG4gIGFuaW1hdGlvbjogYCR7c2hyaW5rfSAke2F1dG9EaXNtaXNzVGltZW91dH1tcyBsaW5lYXJgLFxuICBiYWNrZ3JvdW5kQ29sb3I6ICdyZ2JhKDAsMCwwLDAuMSknLFxuICBib3R0b206IDAsXG4gIGhlaWdodDogMCxcbiAgbGVmdDogMCxcbiAgb3BhY2l0eSxcbiAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gIHdpZHRoOiAnMTAwJScsXG59KSk7XG5jb25zdCBJY29uID0gKHsgYXBwZWFyYW5jZSwgYXV0b0Rpc21pc3MsIGF1dG9EaXNtaXNzVGltZW91dCB9KSA9PiB7XG4gIGNvbnN0IG1ldGEgPSBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXTtcbiAgY29uc3QgR2x5cGggPSBtZXRhLmljb247XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2XG4gICAgICBjc3M9e3tcbiAgICAgICAgYmFja2dyb3VuZENvbG9yOiBtZXRhLmZnLFxuICAgICAgICBib3JkZXJUb3BMZWZ0UmFkaXVzOiBib3JkZXJSYWRpdXMsXG4gICAgICAgIGJvcmRlckJvdHRvbUxlZnRSYWRpdXM6IGJvcmRlclJhZGl1cyxcbiAgICAgICAgY29sb3I6IG1ldGEuYmcsXG4gICAgICAgIGZsZXhTaHJpbms6IDAsXG4gICAgICAgIHBhZGRpbmdCb3R0b206IGd1dHRlcixcbiAgICAgICAgcGFkZGluZ1RvcDogZ3V0dGVyLFxuICAgICAgICBwb3NpdGlvbjogJ3JlbGF0aXZlJyxcbiAgICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgICB0ZXh0QWxpZ246ICdjZW50ZXInLFxuICAgICAgICB3aWR0aDogMzAsXG4gICAgICB9fVxuICAgID5cbiAgICAgIDxDb3VudGRvd25cbiAgICAgICAgb3BhY2l0eT17YXV0b0Rpc21pc3MgPyAxIDogMH1cbiAgICAgICAgYXV0b0Rpc21pc3NUaW1lb3V0PXthdXRvRGlzbWlzc1RpbWVvdXR9XG4gICAgICAvPlxuICAgICAgPEdseXBoIGNzcz17eyBwb3NpdGlvbjogJ3JlbGF0aXZlJywgekluZGV4OiAxIH19IC8+XG4gICAgPC9kaXY+XG4gICk7XG59O1xuZnVuY3Rpb24gZ2V0VHJhbnNsYXRlKHBsYWNlbWVudCkge1xuICBjb25zdCBwb3MgPSBwbGFjZW1lbnQuc3BsaXQoJy0nKTtcbiAgY29uc3QgcmVsZXZhbnRQbGFjZW1lbnQgPSBwb3NbMV0gPT09ICdjZW50ZXInID8gcG9zWzBdIDogcG9zWzFdO1xuICBjb25zdCB0cmFuc2xhdGVNYXAgPSB7XG4gICAgcmlnaHQ6ICd0cmFuc2xhdGUzZCgxMjAlLCAwLCAwKScsXG4gICAgbGVmdDogJ3RyYW5zbGF0ZTNkKC0xMjAlLCAwLCAwKScsXG4gICAgYm90dG9tOiAndHJhbnNsYXRlM2QoMCwgMTIwJSwgMCknLFxuICAgIHRvcDogJ3RyYW5zbGF0ZTNkKDAsIC0xMjAlLCAwKScsXG4gIH07XG5cbiAgcmV0dXJuIHRyYW5zbGF0ZU1hcFtyZWxldmFudFBsYWNlbWVudF07XG59XG5leHBvcnQgdHlwZSBUcmFuc2l0aW9uU3RhdGUgPSAnZW50ZXJpbmcnIHwgJ2VudGVyZWQnIHwgJ2V4aXRpbmcnIHwgJ2V4aXRlZCc7XG5jb25zdCB0b2FzdFN0YXRlcyA9IChwbGFjZW1lbnQ6IFBsYWNlbWVudCkgPT4gKHtcbiAgZW50ZXJpbmc6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxuICBlbnRlcmVkOiB7IHRyYW5zZm9ybTogJ3RyYW5zbGF0ZTNkKDAsMCwwKScgfSxcbiAgZXhpdGluZzogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG4gIGV4aXRlZDogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG59KTtcbmNvbnN0IFRvYXN0RWxlbWVudCA9IHN0eWxlZC5kaXYoXG4gICh7IGFwcGVhcmFuY2UsIHBsYWNlbWVudCwgdHJhbnNpdGlvbkR1cmF0aW9uLCB0cmFuc2l0aW9uU3RhdGUgfSkgPT4ge1xuICAgIHJldHVybiB7XG4gICAgICBiYWNrZ3JvdW5kQ29sb3I6IGFwcGVhcmFuY2VzW2FwcGVhcmFuY2VdLmJnLFxuICAgICAgYm9yZGVyUmFkaXVzLFxuICAgICAgYm94U2hhZG93OiAnMCAzcHggOHB4IHJnYmEoMCwgMCwgMCwgMC4xNzUpJyxcbiAgICAgIGNvbG9yOiBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXS50ZXh0LFxuICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgbWFyZ2luQm90dG9tOiBndXR0ZXIsXG4gICAgICB0cmFuc2l0aW9uOiBgdHJhbnNmb3JtICR7dHJhbnNpdGlvbkR1cmF0aW9ufW1zIGN1YmljLWJlemllcigwLjIsIDAsIDAsIDEpYCxcbiAgICAgIHdpZHRoOiB0b2FzdFdpZHRoLFxuICAgICAgLi4udG9hc3RTdGF0ZXMocGxhY2VtZW50KVt0cmFuc2l0aW9uU3RhdGVdLFxuICAgIH07XG4gIH1cbik7XG5cbi8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuLy8gRGVmYXVsdFRvYXN0XG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cblxuZXhwb3J0IHR5cGUgVG9hc3RQcm9wcyA9IHtcbiAgYXBwZWFyYW5jZTogQXBwZWFyYW5jZVR5cGVzLFxuICBhdXRvRGlzbWlzczogYm9vbGVhbiB8IG51bWJlcixcbiAgYXV0b0Rpc21pc3NUaW1lb3V0OiBudW1iZXIsIC8vIGluaGVyaXRlZCBmcm9tIFRvYXN0UHJvdmlkZXJcbiAgY2hpbGRyZW46IE5vZGUsXG4gIG9uRGlzbWlzczogRXZlbnQgPT4gKixcbiAgcGxhY2VtZW50OiBQbGFjZW1lbnQsXG4gIHRyYW5zaXRpb25EdXJhdGlvbjogbnVtYmVyLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG4gIHRyYW5zaXRpb25TdGF0ZTogVHJhbnNpdGlvblN0YXRlLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG59O1xuXG5leHBvcnQgY29uc3QgRGVmYXVsdFRvYXN0ID0gKHtcbiAgYXBwZWFyYW5jZSxcbiAgYXV0b0Rpc21pc3MsXG4gIGF1dG9EaXNtaXNzVGltZW91dCxcbiAgY2hpbGRyZW4sXG4gIG9uRGlzbWlzcyxcbiAgcGxhY2VtZW50LFxuICB0cmFuc2l0aW9uRHVyYXRpb24sXG4gIHRyYW5zaXRpb25TdGF0ZSxcbn06IFRvYXN0UHJvcHMpID0+IChcbiAgPFRvYXN0RWxlbWVudFxuICAgIGFwcGVhcmFuY2U9e2FwcGVhcmFuY2V9XG4gICAgcGxhY2VtZW50PXtwbGFjZW1lbnR9XG4gICAgdHJhbnNpdGlvblN0YXRlPXt0cmFuc2l0aW9uU3RhdGV9XG4gICAgdHJhbnNpdGlvbkR1cmF0aW9uPXt0cmFuc2l0aW9uRHVyYXRpb259XG4gID5cbiAgICA8SWNvblxuICAgICAgYXBwZWFyYW5jZT17YXBwZWFyYW5jZX1cbiAgICAgIGF1dG9EaXNtaXNzPXthdXRvRGlzbWlzc31cbiAgICAgIGF1dG9EaXNtaXNzVGltZW91dD17YXV0b0Rpc21pc3NUaW1lb3V0fVxuICAgIC8+XG4gICAgPENvbnRlbnQ+e2NoaWxkcmVufTwvQ29udGVudD5cbiAgICB7b25EaXNtaXNzID8gKFxuICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtvbkRpc21pc3N9IHJvbGU9XCJidXR0b25cIj5cbiAgICAgICAgPENsb3NlSWNvbiAvPlxuICAgICAgICA8QTExeVRleHQ+Q2xvc2U8L0ExMXlUZXh0PlxuICAgICAgPC9CdXR0b24+XG4gICAgKSA6IG51bGx9XG4gIDwvVG9hc3RFbGVtZW50PlxuKTtcbiJdfQ== */')
+  }, props));
+};
+A11yText.defaultProps = {
+  tag: 'span'
+};
+
+// default appearances
+
+var appearances = {
+  success: {
+    icon: _icons.CheckIcon,
+    text: colors.G500,
+    fg: colors.G300,
+    bg: colors.G50
+  },
+  error: {
+    icon: _icons.FlameIcon,
+    text: colors.R500,
+    fg: colors.R300,
+    bg: colors.R50
+  },
+  warning: {
+    icon: _icons.AlertIcon,
+    text: colors.Y500,
+    fg: colors.Y300,
+    bg: colors.Y50
+  },
+  info: {
+    icon: _icons.InfoIcon,
+    text: colors.N400,
+    fg: colors.B200,
+    bg: 'white'
+  }
+};
+
+
+var Button = /*#__PURE__*/(0, _reactEmotion2.default)('div', {
+  target: 'e1rce5zx0',
+  label: 'Button'
+})({
+  cursor: 'pointer',
+  flexShrink: 0,
+  opacity: 0.5,
+  padding: gutter + 'px ' + gutter * 1.5 + 'px',
+  transition: 'opacity 150ms',
+
+  ':hover': { opacity: 1 }
+}, '\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBa0VlIiwiZmlsZSI6Ii4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBAZmxvd1xuXG5pbXBvcnQgUmVhY3QsIHsgQ2hpbGRyZW4sIENvbXBvbmVudCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCBzdHlsZWQsIHsga2V5ZnJhbWVzIH0gZnJvbSAncmVhY3QtZW1vdGlvbic7XG5pbXBvcnQgeyBUcmFuc2l0aW9uLCBUcmFuc2l0aW9uR3JvdXAgfSBmcm9tICdyZWFjdC10cmFuc2l0aW9uLWdyb3VwJztcblxuaW1wb3J0IHsgQ2hlY2tJY29uLCBGbGFtZUljb24sIEluZm9JY29uLCBDbG9zZUljb24sIEFsZXJ0SWNvbiB9IGZyb20gJy4vaWNvbnMnO1xuaW1wb3J0ICogYXMgY29sb3JzIGZyb20gJy4vY29sb3JzJztcbmltcG9ydCB0eXBlIHsgUGxhY2VtZW50IH0gZnJvbSAnLi90eXBlcyc7XG5cbi8vIGNvbW1vblxuZXhwb3J0IGNvbnN0IGJvcmRlclJhZGl1cyA9IDQ7XG5leHBvcnQgY29uc3QgZ3V0dGVyID0gODtcbmV4cG9ydCBjb25zdCB0b2FzdFdpZHRoID0gMzYwO1xuZXhwb3J0IGNvbnN0IHNocmluayA9IGtleWZyYW1lc2Bmcm9tIHsgaGVpZ2h0OiAxMDAlOyB9IHRvIHsgaGVpZ2h0OiAwJSB9YDtcblxuLy8gYTExeSBoZWxwZXJcbmNvbnN0IEExMXlUZXh0ID0gKHsgdGFnOiBUYWcsIC4uLnByb3BzIH0pID0+IChcbiAgPFRhZ1xuICAgIGNzcz17e1xuICAgICAgYm9yZGVyOiAwLFxuICAgICAgY2xpcDogJ3JlY3QoMXB4LCAxcHgsIDFweCwgMXB4KScsXG4gICAgICBoZWlnaHQ6IDEsXG4gICAgICBvdmVyZmxvdzogJ2hpZGRlbicsXG4gICAgICBwYWRkaW5nOiAwLFxuICAgICAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gICAgICB3aGl0ZVNwYWNlOiAnbm93cmFwJyxcbiAgICAgIHdpZHRoOiAxLFxuICAgIH19XG4gICAgey4uLnByb3BzfVxuICAvPlxuKTtcbkExMXlUZXh0LmRlZmF1bHRQcm9wcyA9IHtcbiAgdGFnOiAnc3BhbicsXG59O1xuXG4vLyBkZWZhdWx0IGFwcGVhcmFuY2VzXG5cbmNvbnN0IGFwcGVhcmFuY2VzID0ge1xuICBzdWNjZXNzOiB7XG4gICAgaWNvbjogQ2hlY2tJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5HNTAwLFxuICAgIGZnOiBjb2xvcnMuRzMwMCxcbiAgICBiZzogY29sb3JzLkc1MCxcbiAgfSxcbiAgZXJyb3I6IHtcbiAgICBpY29uOiBGbGFtZUljb24sXG4gICAgdGV4dDogY29sb3JzLlI1MDAsXG4gICAgZmc6IGNvbG9ycy5SMzAwLFxuICAgIGJnOiBjb2xvcnMuUjUwLFxuICB9LFxuICB3YXJuaW5nOiB7XG4gICAgaWNvbjogQWxlcnRJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ZNTAwLFxuICAgIGZnOiBjb2xvcnMuWTMwMCxcbiAgICBiZzogY29sb3JzLlk1MCxcbiAgfSxcbiAgaW5mbzoge1xuICAgIGljb246IEluZm9JY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ONDAwLFxuICAgIGZnOiBjb2xvcnMuQjIwMCxcbiAgICBiZzogJ3doaXRlJyxcbiAgfSxcbn07XG5leHBvcnQgdHlwZSBBcHBlYXJhbmNlVHlwZXMgPSAkS2V5czx0eXBlb2YgYXBwZWFyYW5jZXM+O1xuXG5jb25zdCBCdXR0b24gPSBzdHlsZWQuZGl2KHtcbiAgY3Vyc29yOiAncG9pbnRlcicsXG4gIGZsZXhTaHJpbms6IDAsXG4gIG9wYWNpdHk6IDAuNSxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbiAgdHJhbnNpdGlvbjogJ29wYWNpdHkgMTUwbXMnLFxuXG4gICc6aG92ZXInOiB7IG9wYWNpdHk6IDEgfSxcbn0pO1xuXG5jb25zdCBDb250ZW50ID0gc3R5bGVkLmRpdih7XG4gIGZsZXhHcm93OiAxLFxuICBmb250U2l6ZTogMTQsXG4gIGxpbmVIZWlnaHQ6IDEuNCxcbiAgbWluSGVpZ2h0OiA0MCxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbn0pO1xuXG4vLyBOT1RFOiBpbnZva2UgYW5pbWF0aW9uIHdoZW4gTk9UIGBhdXRvRGlzbWlzc2Agd2l0aCBvcGFjaXR5IG9mIDAgdG8gYXZvaWQgYVxuLy8gcGFpbnQgYnVnIGluIEZpcmVGb3guXG4vLyBodHRwczovL2J1Z3ppbGxhLm1vemlsbGEub3JnL3Nob3dfYnVnLmNnaT9pZD02MjUyODlcbmNvbnN0IENvdW50ZG93biA9IHN0eWxlZC5kaXYoKHsgYXV0b0Rpc21pc3NUaW1lb3V0LCBvcGFjaXR5IH0pID0+ICh7XG4gIGFuaW1hdGlvbjogYCR7c2hyaW5rfSAke2F1dG9EaXNtaXNzVGltZW91dH1tcyBsaW5lYXJgLFxuICBiYWNrZ3JvdW5kQ29sb3I6ICdyZ2JhKDAsMCwwLDAuMSknLFxuICBib3R0b206IDAsXG4gIGhlaWdodDogMCxcbiAgbGVmdDogMCxcbiAgb3BhY2l0eSxcbiAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gIHdpZHRoOiAnMTAwJScsXG59KSk7XG5jb25zdCBJY29uID0gKHsgYXBwZWFyYW5jZSwgYXV0b0Rpc21pc3MsIGF1dG9EaXNtaXNzVGltZW91dCB9KSA9PiB7XG4gIGNvbnN0IG1ldGEgPSBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXTtcbiAgY29uc3QgR2x5cGggPSBtZXRhLmljb247XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2XG4gICAgICBjc3M9e3tcbiAgICAgICAgYmFja2dyb3VuZENvbG9yOiBtZXRhLmZnLFxuICAgICAgICBib3JkZXJUb3BMZWZ0UmFkaXVzOiBib3JkZXJSYWRpdXMsXG4gICAgICAgIGJvcmRlckJvdHRvbUxlZnRSYWRpdXM6IGJvcmRlclJhZGl1cyxcbiAgICAgICAgY29sb3I6IG1ldGEuYmcsXG4gICAgICAgIGZsZXhTaHJpbms6IDAsXG4gICAgICAgIHBhZGRpbmdCb3R0b206IGd1dHRlcixcbiAgICAgICAgcGFkZGluZ1RvcDogZ3V0dGVyLFxuICAgICAgICBwb3NpdGlvbjogJ3JlbGF0aXZlJyxcbiAgICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgICB0ZXh0QWxpZ246ICdjZW50ZXInLFxuICAgICAgICB3aWR0aDogMzAsXG4gICAgICB9fVxuICAgID5cbiAgICAgIDxDb3VudGRvd25cbiAgICAgICAgb3BhY2l0eT17YXV0b0Rpc21pc3MgPyAxIDogMH1cbiAgICAgICAgYXV0b0Rpc21pc3NUaW1lb3V0PXthdXRvRGlzbWlzc1RpbWVvdXR9XG4gICAgICAvPlxuICAgICAgPEdseXBoIGNzcz17eyBwb3NpdGlvbjogJ3JlbGF0aXZlJywgekluZGV4OiAxIH19IC8+XG4gICAgPC9kaXY+XG4gICk7XG59O1xuZnVuY3Rpb24gZ2V0VHJhbnNsYXRlKHBsYWNlbWVudCkge1xuICBjb25zdCBwb3MgPSBwbGFjZW1lbnQuc3BsaXQoJy0nKTtcbiAgY29uc3QgcmVsZXZhbnRQbGFjZW1lbnQgPSBwb3NbMV0gPT09ICdjZW50ZXInID8gcG9zWzBdIDogcG9zWzFdO1xuICBjb25zdCB0cmFuc2xhdGVNYXAgPSB7XG4gICAgcmlnaHQ6ICd0cmFuc2xhdGUzZCgxMjAlLCAwLCAwKScsXG4gICAgbGVmdDogJ3RyYW5zbGF0ZTNkKC0xMjAlLCAwLCAwKScsXG4gICAgYm90dG9tOiAndHJhbnNsYXRlM2QoMCwgMTIwJSwgMCknLFxuICAgIHRvcDogJ3RyYW5zbGF0ZTNkKDAsIC0xMjAlLCAwKScsXG4gIH07XG5cbiAgcmV0dXJuIHRyYW5zbGF0ZU1hcFtyZWxldmFudFBsYWNlbWVudF07XG59XG5leHBvcnQgdHlwZSBUcmFuc2l0aW9uU3RhdGUgPSAnZW50ZXJpbmcnIHwgJ2VudGVyZWQnIHwgJ2V4aXRpbmcnIHwgJ2V4aXRlZCc7XG5jb25zdCB0b2FzdFN0YXRlcyA9IChwbGFjZW1lbnQ6IFBsYWNlbWVudCkgPT4gKHtcbiAgZW50ZXJpbmc6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxuICBlbnRlcmVkOiB7IHRyYW5zZm9ybTogJ3RyYW5zbGF0ZTNkKDAsMCwwKScgfSxcbiAgZXhpdGluZzogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG4gIGV4aXRlZDogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG59KTtcbmNvbnN0IFRvYXN0RWxlbWVudCA9IHN0eWxlZC5kaXYoXG4gICh7IGFwcGVhcmFuY2UsIHBsYWNlbWVudCwgdHJhbnNpdGlvbkR1cmF0aW9uLCB0cmFuc2l0aW9uU3RhdGUgfSkgPT4ge1xuICAgIHJldHVybiB7XG4gICAgICBiYWNrZ3JvdW5kQ29sb3I6IGFwcGVhcmFuY2VzW2FwcGVhcmFuY2VdLmJnLFxuICAgICAgYm9yZGVyUmFkaXVzLFxuICAgICAgYm94U2hhZG93OiAnMCAzcHggOHB4IHJnYmEoMCwgMCwgMCwgMC4xNzUpJyxcbiAgICAgIGNvbG9yOiBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXS50ZXh0LFxuICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgbWFyZ2luQm90dG9tOiBndXR0ZXIsXG4gICAgICB0cmFuc2l0aW9uOiBgdHJhbnNmb3JtICR7dHJhbnNpdGlvbkR1cmF0aW9ufW1zIGN1YmljLWJlemllcigwLjIsIDAsIDAsIDEpYCxcbiAgICAgIHdpZHRoOiB0b2FzdFdpZHRoLFxuICAgICAgLi4udG9hc3RTdGF0ZXMocGxhY2VtZW50KVt0cmFuc2l0aW9uU3RhdGVdLFxuICAgIH07XG4gIH1cbik7XG5cbi8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuLy8gRGVmYXVsdFRvYXN0XG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cblxuZXhwb3J0IHR5cGUgVG9hc3RQcm9wcyA9IHtcbiAgYXBwZWFyYW5jZTogQXBwZWFyYW5jZVR5cGVzLFxuICBhdXRvRGlzbWlzczogYm9vbGVhbiB8IG51bWJlcixcbiAgYXV0b0Rpc21pc3NUaW1lb3V0OiBudW1iZXIsIC8vIGluaGVyaXRlZCBmcm9tIFRvYXN0UHJvdmlkZXJcbiAgY2hpbGRyZW46IE5vZGUsXG4gIG9uRGlzbWlzczogRXZlbnQgPT4gKixcbiAgcGxhY2VtZW50OiBQbGFjZW1lbnQsXG4gIHRyYW5zaXRpb25EdXJhdGlvbjogbnVtYmVyLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG4gIHRyYW5zaXRpb25TdGF0ZTogVHJhbnNpdGlvblN0YXRlLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG59O1xuXG5leHBvcnQgY29uc3QgRGVmYXVsdFRvYXN0ID0gKHtcbiAgYXBwZWFyYW5jZSxcbiAgYXV0b0Rpc21pc3MsXG4gIGF1dG9EaXNtaXNzVGltZW91dCxcbiAgY2hpbGRyZW4sXG4gIG9uRGlzbWlzcyxcbiAgcGxhY2VtZW50LFxuICB0cmFuc2l0aW9uRHVyYXRpb24sXG4gIHRyYW5zaXRpb25TdGF0ZSxcbn06IFRvYXN0UHJvcHMpID0+IChcbiAgPFRvYXN0RWxlbWVudFxuICAgIGFwcGVhcmFuY2U9e2FwcGVhcmFuY2V9XG4gICAgcGxhY2VtZW50PXtwbGFjZW1lbnR9XG4gICAgdHJhbnNpdGlvblN0YXRlPXt0cmFuc2l0aW9uU3RhdGV9XG4gICAgdHJhbnNpdGlvbkR1cmF0aW9uPXt0cmFuc2l0aW9uRHVyYXRpb259XG4gID5cbiAgICA8SWNvblxuICAgICAgYXBwZWFyYW5jZT17YXBwZWFyYW5jZX1cbiAgICAgIGF1dG9EaXNtaXNzPXthdXRvRGlzbWlzc31cbiAgICAgIGF1dG9EaXNtaXNzVGltZW91dD17YXV0b0Rpc21pc3NUaW1lb3V0fVxuICAgIC8+XG4gICAgPENvbnRlbnQ+e2NoaWxkcmVufTwvQ29udGVudD5cbiAgICB7b25EaXNtaXNzID8gKFxuICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtvbkRpc21pc3N9IHJvbGU9XCJidXR0b25cIj5cbiAgICAgICAgPENsb3NlSWNvbiAvPlxuICAgICAgICA8QTExeVRleHQ+Q2xvc2U8L0ExMXlUZXh0PlxuICAgICAgPC9CdXR0b24+XG4gICAgKSA6IG51bGx9XG4gIDwvVG9hc3RFbGVtZW50PlxuKTtcbiJdfQ== */');
+
+var Content = /*#__PURE__*/(0, _reactEmotion2.default)('div', {
+  target: 'e1rce5zx1',
+  label: 'Content'
+})({
+  flexGrow: 1,
+  fontSize: 14,
+  lineHeight: 1.4,
+  minHeight: 40,
+  padding: gutter + 'px ' + gutter * 1.5 + 'px'
+}, '\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNEVnQiIsImZpbGUiOiIuLi9zcmMvVG9hc3RFbGVtZW50LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQGZsb3dcblxuaW1wb3J0IFJlYWN0LCB7IENoaWxkcmVuLCBDb21wb25lbnQgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgc3R5bGVkLCB7IGtleWZyYW1lcyB9IGZyb20gJ3JlYWN0LWVtb3Rpb24nO1xuaW1wb3J0IHsgVHJhbnNpdGlvbiwgVHJhbnNpdGlvbkdyb3VwIH0gZnJvbSAncmVhY3QtdHJhbnNpdGlvbi1ncm91cCc7XG5cbmltcG9ydCB7IENoZWNrSWNvbiwgRmxhbWVJY29uLCBJbmZvSWNvbiwgQ2xvc2VJY29uLCBBbGVydEljb24gfSBmcm9tICcuL2ljb25zJztcbmltcG9ydCAqIGFzIGNvbG9ycyBmcm9tICcuL2NvbG9ycyc7XG5pbXBvcnQgdHlwZSB7IFBsYWNlbWVudCB9IGZyb20gJy4vdHlwZXMnO1xuXG4vLyBjb21tb25cbmV4cG9ydCBjb25zdCBib3JkZXJSYWRpdXMgPSA0O1xuZXhwb3J0IGNvbnN0IGd1dHRlciA9IDg7XG5leHBvcnQgY29uc3QgdG9hc3RXaWR0aCA9IDM2MDtcbmV4cG9ydCBjb25zdCBzaHJpbmsgPSBrZXlmcmFtZXNgZnJvbSB7IGhlaWdodDogMTAwJTsgfSB0byB7IGhlaWdodDogMCUgfWA7XG5cbi8vIGExMXkgaGVscGVyXG5jb25zdCBBMTF5VGV4dCA9ICh7IHRhZzogVGFnLCAuLi5wcm9wcyB9KSA9PiAoXG4gIDxUYWdcbiAgICBjc3M9e3tcbiAgICAgIGJvcmRlcjogMCxcbiAgICAgIGNsaXA6ICdyZWN0KDFweCwgMXB4LCAxcHgsIDFweCknLFxuICAgICAgaGVpZ2h0OiAxLFxuICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgcGFkZGluZzogMCxcbiAgICAgIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICAgICAgd2hpdGVTcGFjZTogJ25vd3JhcCcsXG4gICAgICB3aWR0aDogMSxcbiAgICB9fVxuICAgIHsuLi5wcm9wc31cbiAgLz5cbik7XG5BMTF5VGV4dC5kZWZhdWx0UHJvcHMgPSB7XG4gIHRhZzogJ3NwYW4nLFxufTtcblxuLy8gZGVmYXVsdCBhcHBlYXJhbmNlc1xuXG5jb25zdCBhcHBlYXJhbmNlcyA9IHtcbiAgc3VjY2Vzczoge1xuICAgIGljb246IENoZWNrSWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuRzUwMCxcbiAgICBmZzogY29sb3JzLkczMDAsXG4gICAgYmc6IGNvbG9ycy5HNTAsXG4gIH0sXG4gIGVycm9yOiB7XG4gICAgaWNvbjogRmxhbWVJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5SNTAwLFxuICAgIGZnOiBjb2xvcnMuUjMwMCxcbiAgICBiZzogY29sb3JzLlI1MCxcbiAgfSxcbiAgd2FybmluZzoge1xuICAgIGljb246IEFsZXJ0SWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuWTUwMCxcbiAgICBmZzogY29sb3JzLlkzMDAsXG4gICAgYmc6IGNvbG9ycy5ZNTAsXG4gIH0sXG4gIGluZm86IHtcbiAgICBpY29uOiBJbmZvSWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuTjQwMCxcbiAgICBmZzogY29sb3JzLkIyMDAsXG4gICAgYmc6ICd3aGl0ZScsXG4gIH0sXG59O1xuZXhwb3J0IHR5cGUgQXBwZWFyYW5jZVR5cGVzID0gJEtleXM8dHlwZW9mIGFwcGVhcmFuY2VzPjtcblxuY29uc3QgQnV0dG9uID0gc3R5bGVkLmRpdih7XG4gIGN1cnNvcjogJ3BvaW50ZXInLFxuICBmbGV4U2hyaW5rOiAwLFxuICBvcGFjaXR5OiAwLjUsXG4gIHBhZGRpbmc6IGAke2d1dHRlcn1weCAke2d1dHRlciAqIDEuNX1weGAsXG4gIHRyYW5zaXRpb246ICdvcGFjaXR5IDE1MG1zJyxcblxuICAnOmhvdmVyJzogeyBvcGFjaXR5OiAxIH0sXG59KTtcblxuY29uc3QgQ29udGVudCA9IHN0eWxlZC5kaXYoe1xuICBmbGV4R3JvdzogMSxcbiAgZm9udFNpemU6IDE0LFxuICBsaW5lSGVpZ2h0OiAxLjQsXG4gIG1pbkhlaWdodDogNDAsXG4gIHBhZGRpbmc6IGAke2d1dHRlcn1weCAke2d1dHRlciAqIDEuNX1weGAsXG59KTtcblxuLy8gTk9URTogaW52b2tlIGFuaW1hdGlvbiB3aGVuIE5PVCBgYXV0b0Rpc21pc3NgIHdpdGggb3BhY2l0eSBvZiAwIHRvIGF2b2lkIGFcbi8vIHBhaW50IGJ1ZyBpbiBGaXJlRm94LlxuLy8gaHR0cHM6Ly9idWd6aWxsYS5tb3ppbGxhLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9NjI1Mjg5XG5jb25zdCBDb3VudGRvd24gPSBzdHlsZWQuZGl2KCh7IGF1dG9EaXNtaXNzVGltZW91dCwgb3BhY2l0eSB9KSA9PiAoe1xuICBhbmltYXRpb246IGAke3Nocmlua30gJHthdXRvRGlzbWlzc1RpbWVvdXR9bXMgbGluZWFyYCxcbiAgYmFja2dyb3VuZENvbG9yOiAncmdiYSgwLDAsMCwwLjEpJyxcbiAgYm90dG9tOiAwLFxuICBoZWlnaHQ6IDAsXG4gIGxlZnQ6IDAsXG4gIG9wYWNpdHksXG4gIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICB3aWR0aDogJzEwMCUnLFxufSkpO1xuY29uc3QgSWNvbiA9ICh7IGFwcGVhcmFuY2UsIGF1dG9EaXNtaXNzLCBhdXRvRGlzbWlzc1RpbWVvdXQgfSkgPT4ge1xuICBjb25zdCBtZXRhID0gYXBwZWFyYW5jZXNbYXBwZWFyYW5jZV07XG4gIGNvbnN0IEdseXBoID0gbWV0YS5pY29uO1xuXG4gIHJldHVybiAoXG4gICAgPGRpdlxuICAgICAgY3NzPXt7XG4gICAgICAgIGJhY2tncm91bmRDb2xvcjogbWV0YS5mZyxcbiAgICAgICAgYm9yZGVyVG9wTGVmdFJhZGl1czogYm9yZGVyUmFkaXVzLFxuICAgICAgICBib3JkZXJCb3R0b21MZWZ0UmFkaXVzOiBib3JkZXJSYWRpdXMsXG4gICAgICAgIGNvbG9yOiBtZXRhLmJnLFxuICAgICAgICBmbGV4U2hyaW5rOiAwLFxuICAgICAgICBwYWRkaW5nQm90dG9tOiBndXR0ZXIsXG4gICAgICAgIHBhZGRpbmdUb3A6IGd1dHRlcixcbiAgICAgICAgcG9zaXRpb246ICdyZWxhdGl2ZScsXG4gICAgICAgIG92ZXJmbG93OiAnaGlkZGVuJyxcbiAgICAgICAgdGV4dEFsaWduOiAnY2VudGVyJyxcbiAgICAgICAgd2lkdGg6IDMwLFxuICAgICAgfX1cbiAgICA+XG4gICAgICA8Q291bnRkb3duXG4gICAgICAgIG9wYWNpdHk9e2F1dG9EaXNtaXNzID8gMSA6IDB9XG4gICAgICAgIGF1dG9EaXNtaXNzVGltZW91dD17YXV0b0Rpc21pc3NUaW1lb3V0fVxuICAgICAgLz5cbiAgICAgIDxHbHlwaCBjc3M9e3sgcG9zaXRpb246ICdyZWxhdGl2ZScsIHpJbmRleDogMSB9fSAvPlxuICAgIDwvZGl2PlxuICApO1xufTtcbmZ1bmN0aW9uIGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIHtcbiAgY29uc3QgcG9zID0gcGxhY2VtZW50LnNwbGl0KCctJyk7XG4gIGNvbnN0IHJlbGV2YW50UGxhY2VtZW50ID0gcG9zWzFdID09PSAnY2VudGVyJyA/IHBvc1swXSA6IHBvc1sxXTtcbiAgY29uc3QgdHJhbnNsYXRlTWFwID0ge1xuICAgIHJpZ2h0OiAndHJhbnNsYXRlM2QoMTIwJSwgMCwgMCknLFxuICAgIGxlZnQ6ICd0cmFuc2xhdGUzZCgtMTIwJSwgMCwgMCknLFxuICAgIGJvdHRvbTogJ3RyYW5zbGF0ZTNkKDAsIDEyMCUsIDApJyxcbiAgICB0b3A6ICd0cmFuc2xhdGUzZCgwLCAtMTIwJSwgMCknLFxuICB9O1xuXG4gIHJldHVybiB0cmFuc2xhdGVNYXBbcmVsZXZhbnRQbGFjZW1lbnRdO1xufVxuZXhwb3J0IHR5cGUgVHJhbnNpdGlvblN0YXRlID0gJ2VudGVyaW5nJyB8ICdlbnRlcmVkJyB8ICdleGl0aW5nJyB8ICdleGl0ZWQnO1xuY29uc3QgdG9hc3RTdGF0ZXMgPSAocGxhY2VtZW50OiBQbGFjZW1lbnQpID0+ICh7XG4gIGVudGVyaW5nOiB7IHRyYW5zZm9ybTogZ2V0VHJhbnNsYXRlKHBsYWNlbWVudCkgfSxcbiAgZW50ZXJlZDogeyB0cmFuc2Zvcm06ICd0cmFuc2xhdGUzZCgwLDAsMCknIH0sXG4gIGV4aXRpbmc6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxuICBleGl0ZWQ6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxufSk7XG5jb25zdCBUb2FzdEVsZW1lbnQgPSBzdHlsZWQuZGl2KFxuICAoeyBhcHBlYXJhbmNlLCBwbGFjZW1lbnQsIHRyYW5zaXRpb25EdXJhdGlvbiwgdHJhbnNpdGlvblN0YXRlIH0pID0+IHtcbiAgICByZXR1cm4ge1xuICAgICAgYmFja2dyb3VuZENvbG9yOiBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXS5iZyxcbiAgICAgIGJvcmRlclJhZGl1cyxcbiAgICAgIGJveFNoYWRvdzogJzAgM3B4IDhweCByZ2JhKDAsIDAsIDAsIDAuMTc1KScsXG4gICAgICBjb2xvcjogYXBwZWFyYW5jZXNbYXBwZWFyYW5jZV0udGV4dCxcbiAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgIG1hcmdpbkJvdHRvbTogZ3V0dGVyLFxuICAgICAgdHJhbnNpdGlvbjogYHRyYW5zZm9ybSAke3RyYW5zaXRpb25EdXJhdGlvbn1tcyBjdWJpYy1iZXppZXIoMC4yLCAwLCAwLCAxKWAsXG4gICAgICB3aWR0aDogdG9hc3RXaWR0aCxcbiAgICAgIC4uLnRvYXN0U3RhdGVzKHBsYWNlbWVudClbdHJhbnNpdGlvblN0YXRlXSxcbiAgICB9O1xuICB9XG4pO1xuXG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbi8vIERlZmF1bHRUb2FzdFxuLy8gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XG5cbmV4cG9ydCB0eXBlIFRvYXN0UHJvcHMgPSB7XG4gIGFwcGVhcmFuY2U6IEFwcGVhcmFuY2VUeXBlcyxcbiAgYXV0b0Rpc21pc3M6IGJvb2xlYW4gfCBudW1iZXIsXG4gIGF1dG9EaXNtaXNzVGltZW91dDogbnVtYmVyLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG4gIGNoaWxkcmVuOiBOb2RlLFxuICBvbkRpc21pc3M6IEV2ZW50ID0+ICosXG4gIHBsYWNlbWVudDogUGxhY2VtZW50LFxuICB0cmFuc2l0aW9uRHVyYXRpb246IG51bWJlciwgLy8gaW5oZXJpdGVkIGZyb20gVG9hc3RQcm92aWRlclxuICB0cmFuc2l0aW9uU3RhdGU6IFRyYW5zaXRpb25TdGF0ZSwgLy8gaW5oZXJpdGVkIGZyb20gVG9hc3RQcm92aWRlclxufTtcblxuZXhwb3J0IGNvbnN0IERlZmF1bHRUb2FzdCA9ICh7XG4gIGFwcGVhcmFuY2UsXG4gIGF1dG9EaXNtaXNzLFxuICBhdXRvRGlzbWlzc1RpbWVvdXQsXG4gIGNoaWxkcmVuLFxuICBvbkRpc21pc3MsXG4gIHBsYWNlbWVudCxcbiAgdHJhbnNpdGlvbkR1cmF0aW9uLFxuICB0cmFuc2l0aW9uU3RhdGUsXG59OiBUb2FzdFByb3BzKSA9PiAoXG4gIDxUb2FzdEVsZW1lbnRcbiAgICBhcHBlYXJhbmNlPXthcHBlYXJhbmNlfVxuICAgIHBsYWNlbWVudD17cGxhY2VtZW50fVxuICAgIHRyYW5zaXRpb25TdGF0ZT17dHJhbnNpdGlvblN0YXRlfVxuICAgIHRyYW5zaXRpb25EdXJhdGlvbj17dHJhbnNpdGlvbkR1cmF0aW9ufVxuICA+XG4gICAgPEljb25cbiAgICAgIGFwcGVhcmFuY2U9e2FwcGVhcmFuY2V9XG4gICAgICBhdXRvRGlzbWlzcz17YXV0b0Rpc21pc3N9XG4gICAgICBhdXRvRGlzbWlzc1RpbWVvdXQ9e2F1dG9EaXNtaXNzVGltZW91dH1cbiAgICAvPlxuICAgIDxDb250ZW50PntjaGlsZHJlbn08L0NvbnRlbnQ+XG4gICAge29uRGlzbWlzcyA/IChcbiAgICAgIDxCdXR0b24gb25DbGljaz17b25EaXNtaXNzfSByb2xlPVwiYnV0dG9uXCI+XG4gICAgICAgIDxDbG9zZUljb24gLz5cbiAgICAgICAgPEExMXlUZXh0PkNsb3NlPC9BMTF5VGV4dD5cbiAgICAgIDwvQnV0dG9uPlxuICAgICkgOiBudWxsfVxuICA8L1RvYXN0RWxlbWVudD5cbik7XG4iXX0= */');
+
+// NOTE: invoke animation when NOT `autoDismiss` with opacity of 0 to avoid a
+// paint bug in FireFox.
+// https://bugzilla.mozilla.org/show_bug.cgi?id=625289
+var Countdown = /*#__PURE__*/(0, _reactEmotion2.default)('div', {
+  target: 'e1rce5zx2',
+  label: 'Countdown'
+})(function (_ref2) {
+  var autoDismissTimeout = _ref2.autoDismissTimeout,
+      opacity = _ref2.opacity;
+  return {
+    animation: shrink + ' ' + autoDismissTimeout + 'ms linear',
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    bottom: 0,
+    height: 0,
+    left: 0,
+    opacity: opacity,
+    position: 'absolute',
+    width: '100%'
+  };
+}, '\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBdUZrQiIsImZpbGUiOiIuLi9zcmMvVG9hc3RFbGVtZW50LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQGZsb3dcblxuaW1wb3J0IFJlYWN0LCB7IENoaWxkcmVuLCBDb21wb25lbnQgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgc3R5bGVkLCB7IGtleWZyYW1lcyB9IGZyb20gJ3JlYWN0LWVtb3Rpb24nO1xuaW1wb3J0IHsgVHJhbnNpdGlvbiwgVHJhbnNpdGlvbkdyb3VwIH0gZnJvbSAncmVhY3QtdHJhbnNpdGlvbi1ncm91cCc7XG5cbmltcG9ydCB7IENoZWNrSWNvbiwgRmxhbWVJY29uLCBJbmZvSWNvbiwgQ2xvc2VJY29uLCBBbGVydEljb24gfSBmcm9tICcuL2ljb25zJztcbmltcG9ydCAqIGFzIGNvbG9ycyBmcm9tICcuL2NvbG9ycyc7XG5pbXBvcnQgdHlwZSB7IFBsYWNlbWVudCB9IGZyb20gJy4vdHlwZXMnO1xuXG4vLyBjb21tb25cbmV4cG9ydCBjb25zdCBib3JkZXJSYWRpdXMgPSA0O1xuZXhwb3J0IGNvbnN0IGd1dHRlciA9IDg7XG5leHBvcnQgY29uc3QgdG9hc3RXaWR0aCA9IDM2MDtcbmV4cG9ydCBjb25zdCBzaHJpbmsgPSBrZXlmcmFtZXNgZnJvbSB7IGhlaWdodDogMTAwJTsgfSB0byB7IGhlaWdodDogMCUgfWA7XG5cbi8vIGExMXkgaGVscGVyXG5jb25zdCBBMTF5VGV4dCA9ICh7IHRhZzogVGFnLCAuLi5wcm9wcyB9KSA9PiAoXG4gIDxUYWdcbiAgICBjc3M9e3tcbiAgICAgIGJvcmRlcjogMCxcbiAgICAgIGNsaXA6ICdyZWN0KDFweCwgMXB4LCAxcHgsIDFweCknLFxuICAgICAgaGVpZ2h0OiAxLFxuICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgcGFkZGluZzogMCxcbiAgICAgIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICAgICAgd2hpdGVTcGFjZTogJ25vd3JhcCcsXG4gICAgICB3aWR0aDogMSxcbiAgICB9fVxuICAgIHsuLi5wcm9wc31cbiAgLz5cbik7XG5BMTF5VGV4dC5kZWZhdWx0UHJvcHMgPSB7XG4gIHRhZzogJ3NwYW4nLFxufTtcblxuLy8gZGVmYXVsdCBhcHBlYXJhbmNlc1xuXG5jb25zdCBhcHBlYXJhbmNlcyA9IHtcbiAgc3VjY2Vzczoge1xuICAgIGljb246IENoZWNrSWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuRzUwMCxcbiAgICBmZzogY29sb3JzLkczMDAsXG4gICAgYmc6IGNvbG9ycy5HNTAsXG4gIH0sXG4gIGVycm9yOiB7XG4gICAgaWNvbjogRmxhbWVJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5SNTAwLFxuICAgIGZnOiBjb2xvcnMuUjMwMCxcbiAgICBiZzogY29sb3JzLlI1MCxcbiAgfSxcbiAgd2FybmluZzoge1xuICAgIGljb246IEFsZXJ0SWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuWTUwMCxcbiAgICBmZzogY29sb3JzLlkzMDAsXG4gICAgYmc6IGNvbG9ycy5ZNTAsXG4gIH0sXG4gIGluZm86IHtcbiAgICBpY29uOiBJbmZvSWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuTjQwMCxcbiAgICBmZzogY29sb3JzLkIyMDAsXG4gICAgYmc6ICd3aGl0ZScsXG4gIH0sXG59O1xuZXhwb3J0IHR5cGUgQXBwZWFyYW5jZVR5cGVzID0gJEtleXM8dHlwZW9mIGFwcGVhcmFuY2VzPjtcblxuY29uc3QgQnV0dG9uID0gc3R5bGVkLmRpdih7XG4gIGN1cnNvcjogJ3BvaW50ZXInLFxuICBmbGV4U2hyaW5rOiAwLFxuICBvcGFjaXR5OiAwLjUsXG4gIHBhZGRpbmc6IGAke2d1dHRlcn1weCAke2d1dHRlciAqIDEuNX1weGAsXG4gIHRyYW5zaXRpb246ICdvcGFjaXR5IDE1MG1zJyxcblxuICAnOmhvdmVyJzogeyBvcGFjaXR5OiAxIH0sXG59KTtcblxuY29uc3QgQ29udGVudCA9IHN0eWxlZC5kaXYoe1xuICBmbGV4R3JvdzogMSxcbiAgZm9udFNpemU6IDE0LFxuICBsaW5lSGVpZ2h0OiAxLjQsXG4gIG1pbkhlaWdodDogNDAsXG4gIHBhZGRpbmc6IGAke2d1dHRlcn1weCAke2d1dHRlciAqIDEuNX1weGAsXG59KTtcblxuLy8gTk9URTogaW52b2tlIGFuaW1hdGlvbiB3aGVuIE5PVCBgYXV0b0Rpc21pc3NgIHdpdGggb3BhY2l0eSBvZiAwIHRvIGF2b2lkIGFcbi8vIHBhaW50IGJ1ZyBpbiBGaXJlRm94LlxuLy8gaHR0cHM6Ly9idWd6aWxsYS5tb3ppbGxhLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9NjI1Mjg5XG5jb25zdCBDb3VudGRvd24gPSBzdHlsZWQuZGl2KCh7IGF1dG9EaXNtaXNzVGltZW91dCwgb3BhY2l0eSB9KSA9PiAoe1xuICBhbmltYXRpb246IGAke3Nocmlua30gJHthdXRvRGlzbWlzc1RpbWVvdXR9bXMgbGluZWFyYCxcbiAgYmFja2dyb3VuZENvbG9yOiAncmdiYSgwLDAsMCwwLjEpJyxcbiAgYm90dG9tOiAwLFxuICBoZWlnaHQ6IDAsXG4gIGxlZnQ6IDAsXG4gIG9wYWNpdHksXG4gIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICB3aWR0aDogJzEwMCUnLFxufSkpO1xuY29uc3QgSWNvbiA9ICh7IGFwcGVhcmFuY2UsIGF1dG9EaXNtaXNzLCBhdXRvRGlzbWlzc1RpbWVvdXQgfSkgPT4ge1xuICBjb25zdCBtZXRhID0gYXBwZWFyYW5jZXNbYXBwZWFyYW5jZV07XG4gIGNvbnN0IEdseXBoID0gbWV0YS5pY29uO1xuXG4gIHJldHVybiAoXG4gICAgPGRpdlxuICAgICAgY3NzPXt7XG4gICAgICAgIGJhY2tncm91bmRDb2xvcjogbWV0YS5mZyxcbiAgICAgICAgYm9yZGVyVG9wTGVmdFJhZGl1czogYm9yZGVyUmFkaXVzLFxuICAgICAgICBib3JkZXJCb3R0b21MZWZ0UmFkaXVzOiBib3JkZXJSYWRpdXMsXG4gICAgICAgIGNvbG9yOiBtZXRhLmJnLFxuICAgICAgICBmbGV4U2hyaW5rOiAwLFxuICAgICAgICBwYWRkaW5nQm90dG9tOiBndXR0ZXIsXG4gICAgICAgIHBhZGRpbmdUb3A6IGd1dHRlcixcbiAgICAgICAgcG9zaXRpb246ICdyZWxhdGl2ZScsXG4gICAgICAgIG92ZXJmbG93OiAnaGlkZGVuJyxcbiAgICAgICAgdGV4dEFsaWduOiAnY2VudGVyJyxcbiAgICAgICAgd2lkdGg6IDMwLFxuICAgICAgfX1cbiAgICA+XG4gICAgICA8Q291bnRkb3duXG4gICAgICAgIG9wYWNpdHk9e2F1dG9EaXNtaXNzID8gMSA6IDB9XG4gICAgICAgIGF1dG9EaXNtaXNzVGltZW91dD17YXV0b0Rpc21pc3NUaW1lb3V0fVxuICAgICAgLz5cbiAgICAgIDxHbHlwaCBjc3M9e3sgcG9zaXRpb246ICdyZWxhdGl2ZScsIHpJbmRleDogMSB9fSAvPlxuICAgIDwvZGl2PlxuICApO1xufTtcbmZ1bmN0aW9uIGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIHtcbiAgY29uc3QgcG9zID0gcGxhY2VtZW50LnNwbGl0KCctJyk7XG4gIGNvbnN0IHJlbGV2YW50UGxhY2VtZW50ID0gcG9zWzFdID09PSAnY2VudGVyJyA/IHBvc1swXSA6IHBvc1sxXTtcbiAgY29uc3QgdHJhbnNsYXRlTWFwID0ge1xuICAgIHJpZ2h0OiAndHJhbnNsYXRlM2QoMTIwJSwgMCwgMCknLFxuICAgIGxlZnQ6ICd0cmFuc2xhdGUzZCgtMTIwJSwgMCwgMCknLFxuICAgIGJvdHRvbTogJ3RyYW5zbGF0ZTNkKDAsIDEyMCUsIDApJyxcbiAgICB0b3A6ICd0cmFuc2xhdGUzZCgwLCAtMTIwJSwgMCknLFxuICB9O1xuXG4gIHJldHVybiB0cmFuc2xhdGVNYXBbcmVsZXZhbnRQbGFjZW1lbnRdO1xufVxuZXhwb3J0IHR5cGUgVHJhbnNpdGlvblN0YXRlID0gJ2VudGVyaW5nJyB8ICdlbnRlcmVkJyB8ICdleGl0aW5nJyB8ICdleGl0ZWQnO1xuY29uc3QgdG9hc3RTdGF0ZXMgPSAocGxhY2VtZW50OiBQbGFjZW1lbnQpID0+ICh7XG4gIGVudGVyaW5nOiB7IHRyYW5zZm9ybTogZ2V0VHJhbnNsYXRlKHBsYWNlbWVudCkgfSxcbiAgZW50ZXJlZDogeyB0cmFuc2Zvcm06ICd0cmFuc2xhdGUzZCgwLDAsMCknIH0sXG4gIGV4aXRpbmc6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxuICBleGl0ZWQ6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxufSk7XG5jb25zdCBUb2FzdEVsZW1lbnQgPSBzdHlsZWQuZGl2KFxuICAoeyBhcHBlYXJhbmNlLCBwbGFjZW1lbnQsIHRyYW5zaXRpb25EdXJhdGlvbiwgdHJhbnNpdGlvblN0YXRlIH0pID0+IHtcbiAgICByZXR1cm4ge1xuICAgICAgYmFja2dyb3VuZENvbG9yOiBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXS5iZyxcbiAgICAgIGJvcmRlclJhZGl1cyxcbiAgICAgIGJveFNoYWRvdzogJzAgM3B4IDhweCByZ2JhKDAsIDAsIDAsIDAuMTc1KScsXG4gICAgICBjb2xvcjogYXBwZWFyYW5jZXNbYXBwZWFyYW5jZV0udGV4dCxcbiAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgIG1hcmdpbkJvdHRvbTogZ3V0dGVyLFxuICAgICAgdHJhbnNpdGlvbjogYHRyYW5zZm9ybSAke3RyYW5zaXRpb25EdXJhdGlvbn1tcyBjdWJpYy1iZXppZXIoMC4yLCAwLCAwLCAxKWAsXG4gICAgICB3aWR0aDogdG9hc3RXaWR0aCxcbiAgICAgIC4uLnRvYXN0U3RhdGVzKHBsYWNlbWVudClbdHJhbnNpdGlvblN0YXRlXSxcbiAgICB9O1xuICB9XG4pO1xuXG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbi8vIERlZmF1bHRUb2FzdFxuLy8gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XG5cbmV4cG9ydCB0eXBlIFRvYXN0UHJvcHMgPSB7XG4gIGFwcGVhcmFuY2U6IEFwcGVhcmFuY2VUeXBlcyxcbiAgYXV0b0Rpc21pc3M6IGJvb2xlYW4gfCBudW1iZXIsXG4gIGF1dG9EaXNtaXNzVGltZW91dDogbnVtYmVyLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG4gIGNoaWxkcmVuOiBOb2RlLFxuICBvbkRpc21pc3M6IEV2ZW50ID0+ICosXG4gIHBsYWNlbWVudDogUGxhY2VtZW50LFxuICB0cmFuc2l0aW9uRHVyYXRpb246IG51bWJlciwgLy8gaW5oZXJpdGVkIGZyb20gVG9hc3RQcm92aWRlclxuICB0cmFuc2l0aW9uU3RhdGU6IFRyYW5zaXRpb25TdGF0ZSwgLy8gaW5oZXJpdGVkIGZyb20gVG9hc3RQcm92aWRlclxufTtcblxuZXhwb3J0IGNvbnN0IERlZmF1bHRUb2FzdCA9ICh7XG4gIGFwcGVhcmFuY2UsXG4gIGF1dG9EaXNtaXNzLFxuICBhdXRvRGlzbWlzc1RpbWVvdXQsXG4gIGNoaWxkcmVuLFxuICBvbkRpc21pc3MsXG4gIHBsYWNlbWVudCxcbiAgdHJhbnNpdGlvbkR1cmF0aW9uLFxuICB0cmFuc2l0aW9uU3RhdGUsXG59OiBUb2FzdFByb3BzKSA9PiAoXG4gIDxUb2FzdEVsZW1lbnRcbiAgICBhcHBlYXJhbmNlPXthcHBlYXJhbmNlfVxuICAgIHBsYWNlbWVudD17cGxhY2VtZW50fVxuICAgIHRyYW5zaXRpb25TdGF0ZT17dHJhbnNpdGlvblN0YXRlfVxuICAgIHRyYW5zaXRpb25EdXJhdGlvbj17dHJhbnNpdGlvbkR1cmF0aW9ufVxuICA+XG4gICAgPEljb25cbiAgICAgIGFwcGVhcmFuY2U9e2FwcGVhcmFuY2V9XG4gICAgICBhdXRvRGlzbWlzcz17YXV0b0Rpc21pc3N9XG4gICAgICBhdXRvRGlzbWlzc1RpbWVvdXQ9e2F1dG9EaXNtaXNzVGltZW91dH1cbiAgICAvPlxuICAgIDxDb250ZW50PntjaGlsZHJlbn08L0NvbnRlbnQ+XG4gICAge29uRGlzbWlzcyA/IChcbiAgICAgIDxCdXR0b24gb25DbGljaz17b25EaXNtaXNzfSByb2xlPVwiYnV0dG9uXCI+XG4gICAgICAgIDxDbG9zZUljb24gLz5cbiAgICAgICAgPEExMXlUZXh0PkNsb3NlPC9BMTF5VGV4dD5cbiAgICAgIDwvQnV0dG9uPlxuICAgICkgOiBudWxsfVxuICA8L1RvYXN0RWxlbWVudD5cbik7XG4iXX0= */');
+var Icon = function Icon(_ref3) {
+  var appearance = _ref3.appearance,
+      autoDismiss = _ref3.autoDismiss,
+      autoDismissTimeout = _ref3.autoDismissTimeout;
+
+  var meta = appearances[appearance];
+  var Glyph = meta.icon;
+
+  return _react2.default.createElement(
+    'div',
+    {
+      className: (0, _emotion.css)({
+        backgroundColor: meta.fg,
+        borderTopLeftRadius: borderRadius,
+        borderBottomLeftRadius: borderRadius,
+        color: meta.bg,
+        flexShrink: 0,
+        paddingBottom: gutter,
+        paddingTop: gutter,
+        position: 'relative',
+        overflow: 'hidden',
+        textAlign: 'center',
+        width: 30
+      }, '\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBdUdNIiwiZmlsZSI6Ii4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBAZmxvd1xuXG5pbXBvcnQgUmVhY3QsIHsgQ2hpbGRyZW4sIENvbXBvbmVudCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCBzdHlsZWQsIHsga2V5ZnJhbWVzIH0gZnJvbSAncmVhY3QtZW1vdGlvbic7XG5pbXBvcnQgeyBUcmFuc2l0aW9uLCBUcmFuc2l0aW9uR3JvdXAgfSBmcm9tICdyZWFjdC10cmFuc2l0aW9uLWdyb3VwJztcblxuaW1wb3J0IHsgQ2hlY2tJY29uLCBGbGFtZUljb24sIEluZm9JY29uLCBDbG9zZUljb24sIEFsZXJ0SWNvbiB9IGZyb20gJy4vaWNvbnMnO1xuaW1wb3J0ICogYXMgY29sb3JzIGZyb20gJy4vY29sb3JzJztcbmltcG9ydCB0eXBlIHsgUGxhY2VtZW50IH0gZnJvbSAnLi90eXBlcyc7XG5cbi8vIGNvbW1vblxuZXhwb3J0IGNvbnN0IGJvcmRlclJhZGl1cyA9IDQ7XG5leHBvcnQgY29uc3QgZ3V0dGVyID0gODtcbmV4cG9ydCBjb25zdCB0b2FzdFdpZHRoID0gMzYwO1xuZXhwb3J0IGNvbnN0IHNocmluayA9IGtleWZyYW1lc2Bmcm9tIHsgaGVpZ2h0OiAxMDAlOyB9IHRvIHsgaGVpZ2h0OiAwJSB9YDtcblxuLy8gYTExeSBoZWxwZXJcbmNvbnN0IEExMXlUZXh0ID0gKHsgdGFnOiBUYWcsIC4uLnByb3BzIH0pID0+IChcbiAgPFRhZ1xuICAgIGNzcz17e1xuICAgICAgYm9yZGVyOiAwLFxuICAgICAgY2xpcDogJ3JlY3QoMXB4LCAxcHgsIDFweCwgMXB4KScsXG4gICAgICBoZWlnaHQ6IDEsXG4gICAgICBvdmVyZmxvdzogJ2hpZGRlbicsXG4gICAgICBwYWRkaW5nOiAwLFxuICAgICAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gICAgICB3aGl0ZVNwYWNlOiAnbm93cmFwJyxcbiAgICAgIHdpZHRoOiAxLFxuICAgIH19XG4gICAgey4uLnByb3BzfVxuICAvPlxuKTtcbkExMXlUZXh0LmRlZmF1bHRQcm9wcyA9IHtcbiAgdGFnOiAnc3BhbicsXG59O1xuXG4vLyBkZWZhdWx0IGFwcGVhcmFuY2VzXG5cbmNvbnN0IGFwcGVhcmFuY2VzID0ge1xuICBzdWNjZXNzOiB7XG4gICAgaWNvbjogQ2hlY2tJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5HNTAwLFxuICAgIGZnOiBjb2xvcnMuRzMwMCxcbiAgICBiZzogY29sb3JzLkc1MCxcbiAgfSxcbiAgZXJyb3I6IHtcbiAgICBpY29uOiBGbGFtZUljb24sXG4gICAgdGV4dDogY29sb3JzLlI1MDAsXG4gICAgZmc6IGNvbG9ycy5SMzAwLFxuICAgIGJnOiBjb2xvcnMuUjUwLFxuICB9LFxuICB3YXJuaW5nOiB7XG4gICAgaWNvbjogQWxlcnRJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ZNTAwLFxuICAgIGZnOiBjb2xvcnMuWTMwMCxcbiAgICBiZzogY29sb3JzLlk1MCxcbiAgfSxcbiAgaW5mbzoge1xuICAgIGljb246IEluZm9JY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ONDAwLFxuICAgIGZnOiBjb2xvcnMuQjIwMCxcbiAgICBiZzogJ3doaXRlJyxcbiAgfSxcbn07XG5leHBvcnQgdHlwZSBBcHBlYXJhbmNlVHlwZXMgPSAkS2V5czx0eXBlb2YgYXBwZWFyYW5jZXM+O1xuXG5jb25zdCBCdXR0b24gPSBzdHlsZWQuZGl2KHtcbiAgY3Vyc29yOiAncG9pbnRlcicsXG4gIGZsZXhTaHJpbms6IDAsXG4gIG9wYWNpdHk6IDAuNSxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbiAgdHJhbnNpdGlvbjogJ29wYWNpdHkgMTUwbXMnLFxuXG4gICc6aG92ZXInOiB7IG9wYWNpdHk6IDEgfSxcbn0pO1xuXG5jb25zdCBDb250ZW50ID0gc3R5bGVkLmRpdih7XG4gIGZsZXhHcm93OiAxLFxuICBmb250U2l6ZTogMTQsXG4gIGxpbmVIZWlnaHQ6IDEuNCxcbiAgbWluSGVpZ2h0OiA0MCxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbn0pO1xuXG4vLyBOT1RFOiBpbnZva2UgYW5pbWF0aW9uIHdoZW4gTk9UIGBhdXRvRGlzbWlzc2Agd2l0aCBvcGFjaXR5IG9mIDAgdG8gYXZvaWQgYVxuLy8gcGFpbnQgYnVnIGluIEZpcmVGb3guXG4vLyBodHRwczovL2J1Z3ppbGxhLm1vemlsbGEub3JnL3Nob3dfYnVnLmNnaT9pZD02MjUyODlcbmNvbnN0IENvdW50ZG93biA9IHN0eWxlZC5kaXYoKHsgYXV0b0Rpc21pc3NUaW1lb3V0LCBvcGFjaXR5IH0pID0+ICh7XG4gIGFuaW1hdGlvbjogYCR7c2hyaW5rfSAke2F1dG9EaXNtaXNzVGltZW91dH1tcyBsaW5lYXJgLFxuICBiYWNrZ3JvdW5kQ29sb3I6ICdyZ2JhKDAsMCwwLDAuMSknLFxuICBib3R0b206IDAsXG4gIGhlaWdodDogMCxcbiAgbGVmdDogMCxcbiAgb3BhY2l0eSxcbiAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gIHdpZHRoOiAnMTAwJScsXG59KSk7XG5jb25zdCBJY29uID0gKHsgYXBwZWFyYW5jZSwgYXV0b0Rpc21pc3MsIGF1dG9EaXNtaXNzVGltZW91dCB9KSA9PiB7XG4gIGNvbnN0IG1ldGEgPSBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXTtcbiAgY29uc3QgR2x5cGggPSBtZXRhLmljb247XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2XG4gICAgICBjc3M9e3tcbiAgICAgICAgYmFja2dyb3VuZENvbG9yOiBtZXRhLmZnLFxuICAgICAgICBib3JkZXJUb3BMZWZ0UmFkaXVzOiBib3JkZXJSYWRpdXMsXG4gICAgICAgIGJvcmRlckJvdHRvbUxlZnRSYWRpdXM6IGJvcmRlclJhZGl1cyxcbiAgICAgICAgY29sb3I6IG1ldGEuYmcsXG4gICAgICAgIGZsZXhTaHJpbms6IDAsXG4gICAgICAgIHBhZGRpbmdCb3R0b206IGd1dHRlcixcbiAgICAgICAgcGFkZGluZ1RvcDogZ3V0dGVyLFxuICAgICAgICBwb3NpdGlvbjogJ3JlbGF0aXZlJyxcbiAgICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgICB0ZXh0QWxpZ246ICdjZW50ZXInLFxuICAgICAgICB3aWR0aDogMzAsXG4gICAgICB9fVxuICAgID5cbiAgICAgIDxDb3VudGRvd25cbiAgICAgICAgb3BhY2l0eT17YXV0b0Rpc21pc3MgPyAxIDogMH1cbiAgICAgICAgYXV0b0Rpc21pc3NUaW1lb3V0PXthdXRvRGlzbWlzc1RpbWVvdXR9XG4gICAgICAvPlxuICAgICAgPEdseXBoIGNzcz17eyBwb3NpdGlvbjogJ3JlbGF0aXZlJywgekluZGV4OiAxIH19IC8+XG4gICAgPC9kaXY+XG4gICk7XG59O1xuZnVuY3Rpb24gZ2V0VHJhbnNsYXRlKHBsYWNlbWVudCkge1xuICBjb25zdCBwb3MgPSBwbGFjZW1lbnQuc3BsaXQoJy0nKTtcbiAgY29uc3QgcmVsZXZhbnRQbGFjZW1lbnQgPSBwb3NbMV0gPT09ICdjZW50ZXInID8gcG9zWzBdIDogcG9zWzFdO1xuICBjb25zdCB0cmFuc2xhdGVNYXAgPSB7XG4gICAgcmlnaHQ6ICd0cmFuc2xhdGUzZCgxMjAlLCAwLCAwKScsXG4gICAgbGVmdDogJ3RyYW5zbGF0ZTNkKC0xMjAlLCAwLCAwKScsXG4gICAgYm90dG9tOiAndHJhbnNsYXRlM2QoMCwgMTIwJSwgMCknLFxuICAgIHRvcDogJ3RyYW5zbGF0ZTNkKDAsIC0xMjAlLCAwKScsXG4gIH07XG5cbiAgcmV0dXJuIHRyYW5zbGF0ZU1hcFtyZWxldmFudFBsYWNlbWVudF07XG59XG5leHBvcnQgdHlwZSBUcmFuc2l0aW9uU3RhdGUgPSAnZW50ZXJpbmcnIHwgJ2VudGVyZWQnIHwgJ2V4aXRpbmcnIHwgJ2V4aXRlZCc7XG5jb25zdCB0b2FzdFN0YXRlcyA9IChwbGFjZW1lbnQ6IFBsYWNlbWVudCkgPT4gKHtcbiAgZW50ZXJpbmc6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxuICBlbnRlcmVkOiB7IHRyYW5zZm9ybTogJ3RyYW5zbGF0ZTNkKDAsMCwwKScgfSxcbiAgZXhpdGluZzogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG4gIGV4aXRlZDogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG59KTtcbmNvbnN0IFRvYXN0RWxlbWVudCA9IHN0eWxlZC5kaXYoXG4gICh7IGFwcGVhcmFuY2UsIHBsYWNlbWVudCwgdHJhbnNpdGlvbkR1cmF0aW9uLCB0cmFuc2l0aW9uU3RhdGUgfSkgPT4ge1xuICAgIHJldHVybiB7XG4gICAgICBiYWNrZ3JvdW5kQ29sb3I6IGFwcGVhcmFuY2VzW2FwcGVhcmFuY2VdLmJnLFxuICAgICAgYm9yZGVyUmFkaXVzLFxuICAgICAgYm94U2hhZG93OiAnMCAzcHggOHB4IHJnYmEoMCwgMCwgMCwgMC4xNzUpJyxcbiAgICAgIGNvbG9yOiBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXS50ZXh0LFxuICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgbWFyZ2luQm90dG9tOiBndXR0ZXIsXG4gICAgICB0cmFuc2l0aW9uOiBgdHJhbnNmb3JtICR7dHJhbnNpdGlvbkR1cmF0aW9ufW1zIGN1YmljLWJlemllcigwLjIsIDAsIDAsIDEpYCxcbiAgICAgIHdpZHRoOiB0b2FzdFdpZHRoLFxuICAgICAgLi4udG9hc3RTdGF0ZXMocGxhY2VtZW50KVt0cmFuc2l0aW9uU3RhdGVdLFxuICAgIH07XG4gIH1cbik7XG5cbi8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuLy8gRGVmYXVsdFRvYXN0XG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cblxuZXhwb3J0IHR5cGUgVG9hc3RQcm9wcyA9IHtcbiAgYXBwZWFyYW5jZTogQXBwZWFyYW5jZVR5cGVzLFxuICBhdXRvRGlzbWlzczogYm9vbGVhbiB8IG51bWJlcixcbiAgYXV0b0Rpc21pc3NUaW1lb3V0OiBudW1iZXIsIC8vIGluaGVyaXRlZCBmcm9tIFRvYXN0UHJvdmlkZXJcbiAgY2hpbGRyZW46IE5vZGUsXG4gIG9uRGlzbWlzczogRXZlbnQgPT4gKixcbiAgcGxhY2VtZW50OiBQbGFjZW1lbnQsXG4gIHRyYW5zaXRpb25EdXJhdGlvbjogbnVtYmVyLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG4gIHRyYW5zaXRpb25TdGF0ZTogVHJhbnNpdGlvblN0YXRlLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG59O1xuXG5leHBvcnQgY29uc3QgRGVmYXVsdFRvYXN0ID0gKHtcbiAgYXBwZWFyYW5jZSxcbiAgYXV0b0Rpc21pc3MsXG4gIGF1dG9EaXNtaXNzVGltZW91dCxcbiAgY2hpbGRyZW4sXG4gIG9uRGlzbWlzcyxcbiAgcGxhY2VtZW50LFxuICB0cmFuc2l0aW9uRHVyYXRpb24sXG4gIHRyYW5zaXRpb25TdGF0ZSxcbn06IFRvYXN0UHJvcHMpID0+IChcbiAgPFRvYXN0RWxlbWVudFxuICAgIGFwcGVhcmFuY2U9e2FwcGVhcmFuY2V9XG4gICAgcGxhY2VtZW50PXtwbGFjZW1lbnR9XG4gICAgdHJhbnNpdGlvblN0YXRlPXt0cmFuc2l0aW9uU3RhdGV9XG4gICAgdHJhbnNpdGlvbkR1cmF0aW9uPXt0cmFuc2l0aW9uRHVyYXRpb259XG4gID5cbiAgICA8SWNvblxuICAgICAgYXBwZWFyYW5jZT17YXBwZWFyYW5jZX1cbiAgICAgIGF1dG9EaXNtaXNzPXthdXRvRGlzbWlzc31cbiAgICAgIGF1dG9EaXNtaXNzVGltZW91dD17YXV0b0Rpc21pc3NUaW1lb3V0fVxuICAgIC8+XG4gICAgPENvbnRlbnQ+e2NoaWxkcmVufTwvQ29udGVudD5cbiAgICB7b25EaXNtaXNzID8gKFxuICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtvbkRpc21pc3N9IHJvbGU9XCJidXR0b25cIj5cbiAgICAgICAgPENsb3NlSWNvbiAvPlxuICAgICAgICA8QTExeVRleHQ+Q2xvc2U8L0ExMXlUZXh0PlxuICAgICAgPC9CdXR0b24+XG4gICAgKSA6IG51bGx9XG4gIDwvVG9hc3RFbGVtZW50PlxuKTtcbiJdfQ== */')
+    },
+    _react2.default.createElement(Countdown, {
+      opacity: autoDismiss ? 1 : 0,
+      autoDismissTimeout: autoDismissTimeout
+    }),
+    _react2.default.createElement(Glyph, {
+      className: (0, _emotion.css)({ position: 'relative', zIndex: 1 }, '\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBeUhhIiwiZmlsZSI6Ii4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBAZmxvd1xuXG5pbXBvcnQgUmVhY3QsIHsgQ2hpbGRyZW4sIENvbXBvbmVudCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCBzdHlsZWQsIHsga2V5ZnJhbWVzIH0gZnJvbSAncmVhY3QtZW1vdGlvbic7XG5pbXBvcnQgeyBUcmFuc2l0aW9uLCBUcmFuc2l0aW9uR3JvdXAgfSBmcm9tICdyZWFjdC10cmFuc2l0aW9uLWdyb3VwJztcblxuaW1wb3J0IHsgQ2hlY2tJY29uLCBGbGFtZUljb24sIEluZm9JY29uLCBDbG9zZUljb24sIEFsZXJ0SWNvbiB9IGZyb20gJy4vaWNvbnMnO1xuaW1wb3J0ICogYXMgY29sb3JzIGZyb20gJy4vY29sb3JzJztcbmltcG9ydCB0eXBlIHsgUGxhY2VtZW50IH0gZnJvbSAnLi90eXBlcyc7XG5cbi8vIGNvbW1vblxuZXhwb3J0IGNvbnN0IGJvcmRlclJhZGl1cyA9IDQ7XG5leHBvcnQgY29uc3QgZ3V0dGVyID0gODtcbmV4cG9ydCBjb25zdCB0b2FzdFdpZHRoID0gMzYwO1xuZXhwb3J0IGNvbnN0IHNocmluayA9IGtleWZyYW1lc2Bmcm9tIHsgaGVpZ2h0OiAxMDAlOyB9IHRvIHsgaGVpZ2h0OiAwJSB9YDtcblxuLy8gYTExeSBoZWxwZXJcbmNvbnN0IEExMXlUZXh0ID0gKHsgdGFnOiBUYWcsIC4uLnByb3BzIH0pID0+IChcbiAgPFRhZ1xuICAgIGNzcz17e1xuICAgICAgYm9yZGVyOiAwLFxuICAgICAgY2xpcDogJ3JlY3QoMXB4LCAxcHgsIDFweCwgMXB4KScsXG4gICAgICBoZWlnaHQ6IDEsXG4gICAgICBvdmVyZmxvdzogJ2hpZGRlbicsXG4gICAgICBwYWRkaW5nOiAwLFxuICAgICAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gICAgICB3aGl0ZVNwYWNlOiAnbm93cmFwJyxcbiAgICAgIHdpZHRoOiAxLFxuICAgIH19XG4gICAgey4uLnByb3BzfVxuICAvPlxuKTtcbkExMXlUZXh0LmRlZmF1bHRQcm9wcyA9IHtcbiAgdGFnOiAnc3BhbicsXG59O1xuXG4vLyBkZWZhdWx0IGFwcGVhcmFuY2VzXG5cbmNvbnN0IGFwcGVhcmFuY2VzID0ge1xuICBzdWNjZXNzOiB7XG4gICAgaWNvbjogQ2hlY2tJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5HNTAwLFxuICAgIGZnOiBjb2xvcnMuRzMwMCxcbiAgICBiZzogY29sb3JzLkc1MCxcbiAgfSxcbiAgZXJyb3I6IHtcbiAgICBpY29uOiBGbGFtZUljb24sXG4gICAgdGV4dDogY29sb3JzLlI1MDAsXG4gICAgZmc6IGNvbG9ycy5SMzAwLFxuICAgIGJnOiBjb2xvcnMuUjUwLFxuICB9LFxuICB3YXJuaW5nOiB7XG4gICAgaWNvbjogQWxlcnRJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ZNTAwLFxuICAgIGZnOiBjb2xvcnMuWTMwMCxcbiAgICBiZzogY29sb3JzLlk1MCxcbiAgfSxcbiAgaW5mbzoge1xuICAgIGljb246IEluZm9JY29uLFxuICAgIHRleHQ6IGNvbG9ycy5ONDAwLFxuICAgIGZnOiBjb2xvcnMuQjIwMCxcbiAgICBiZzogJ3doaXRlJyxcbiAgfSxcbn07XG5leHBvcnQgdHlwZSBBcHBlYXJhbmNlVHlwZXMgPSAkS2V5czx0eXBlb2YgYXBwZWFyYW5jZXM+O1xuXG5jb25zdCBCdXR0b24gPSBzdHlsZWQuZGl2KHtcbiAgY3Vyc29yOiAncG9pbnRlcicsXG4gIGZsZXhTaHJpbms6IDAsXG4gIG9wYWNpdHk6IDAuNSxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbiAgdHJhbnNpdGlvbjogJ29wYWNpdHkgMTUwbXMnLFxuXG4gICc6aG92ZXInOiB7IG9wYWNpdHk6IDEgfSxcbn0pO1xuXG5jb25zdCBDb250ZW50ID0gc3R5bGVkLmRpdih7XG4gIGZsZXhHcm93OiAxLFxuICBmb250U2l6ZTogMTQsXG4gIGxpbmVIZWlnaHQ6IDEuNCxcbiAgbWluSGVpZ2h0OiA0MCxcbiAgcGFkZGluZzogYCR7Z3V0dGVyfXB4ICR7Z3V0dGVyICogMS41fXB4YCxcbn0pO1xuXG4vLyBOT1RFOiBpbnZva2UgYW5pbWF0aW9uIHdoZW4gTk9UIGBhdXRvRGlzbWlzc2Agd2l0aCBvcGFjaXR5IG9mIDAgdG8gYXZvaWQgYVxuLy8gcGFpbnQgYnVnIGluIEZpcmVGb3guXG4vLyBodHRwczovL2J1Z3ppbGxhLm1vemlsbGEub3JnL3Nob3dfYnVnLmNnaT9pZD02MjUyODlcbmNvbnN0IENvdW50ZG93biA9IHN0eWxlZC5kaXYoKHsgYXV0b0Rpc21pc3NUaW1lb3V0LCBvcGFjaXR5IH0pID0+ICh7XG4gIGFuaW1hdGlvbjogYCR7c2hyaW5rfSAke2F1dG9EaXNtaXNzVGltZW91dH1tcyBsaW5lYXJgLFxuICBiYWNrZ3JvdW5kQ29sb3I6ICdyZ2JhKDAsMCwwLDAuMSknLFxuICBib3R0b206IDAsXG4gIGhlaWdodDogMCxcbiAgbGVmdDogMCxcbiAgb3BhY2l0eSxcbiAgcG9zaXRpb246ICdhYnNvbHV0ZScsXG4gIHdpZHRoOiAnMTAwJScsXG59KSk7XG5jb25zdCBJY29uID0gKHsgYXBwZWFyYW5jZSwgYXV0b0Rpc21pc3MsIGF1dG9EaXNtaXNzVGltZW91dCB9KSA9PiB7XG4gIGNvbnN0IG1ldGEgPSBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXTtcbiAgY29uc3QgR2x5cGggPSBtZXRhLmljb247XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2XG4gICAgICBjc3M9e3tcbiAgICAgICAgYmFja2dyb3VuZENvbG9yOiBtZXRhLmZnLFxuICAgICAgICBib3JkZXJUb3BMZWZ0UmFkaXVzOiBib3JkZXJSYWRpdXMsXG4gICAgICAgIGJvcmRlckJvdHRvbUxlZnRSYWRpdXM6IGJvcmRlclJhZGl1cyxcbiAgICAgICAgY29sb3I6IG1ldGEuYmcsXG4gICAgICAgIGZsZXhTaHJpbms6IDAsXG4gICAgICAgIHBhZGRpbmdCb3R0b206IGd1dHRlcixcbiAgICAgICAgcGFkZGluZ1RvcDogZ3V0dGVyLFxuICAgICAgICBwb3NpdGlvbjogJ3JlbGF0aXZlJyxcbiAgICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgICB0ZXh0QWxpZ246ICdjZW50ZXInLFxuICAgICAgICB3aWR0aDogMzAsXG4gICAgICB9fVxuICAgID5cbiAgICAgIDxDb3VudGRvd25cbiAgICAgICAgb3BhY2l0eT17YXV0b0Rpc21pc3MgPyAxIDogMH1cbiAgICAgICAgYXV0b0Rpc21pc3NUaW1lb3V0PXthdXRvRGlzbWlzc1RpbWVvdXR9XG4gICAgICAvPlxuICAgICAgPEdseXBoIGNzcz17eyBwb3NpdGlvbjogJ3JlbGF0aXZlJywgekluZGV4OiAxIH19IC8+XG4gICAgPC9kaXY+XG4gICk7XG59O1xuZnVuY3Rpb24gZ2V0VHJhbnNsYXRlKHBsYWNlbWVudCkge1xuICBjb25zdCBwb3MgPSBwbGFjZW1lbnQuc3BsaXQoJy0nKTtcbiAgY29uc3QgcmVsZXZhbnRQbGFjZW1lbnQgPSBwb3NbMV0gPT09ICdjZW50ZXInID8gcG9zWzBdIDogcG9zWzFdO1xuICBjb25zdCB0cmFuc2xhdGVNYXAgPSB7XG4gICAgcmlnaHQ6ICd0cmFuc2xhdGUzZCgxMjAlLCAwLCAwKScsXG4gICAgbGVmdDogJ3RyYW5zbGF0ZTNkKC0xMjAlLCAwLCAwKScsXG4gICAgYm90dG9tOiAndHJhbnNsYXRlM2QoMCwgMTIwJSwgMCknLFxuICAgIHRvcDogJ3RyYW5zbGF0ZTNkKDAsIC0xMjAlLCAwKScsXG4gIH07XG5cbiAgcmV0dXJuIHRyYW5zbGF0ZU1hcFtyZWxldmFudFBsYWNlbWVudF07XG59XG5leHBvcnQgdHlwZSBUcmFuc2l0aW9uU3RhdGUgPSAnZW50ZXJpbmcnIHwgJ2VudGVyZWQnIHwgJ2V4aXRpbmcnIHwgJ2V4aXRlZCc7XG5jb25zdCB0b2FzdFN0YXRlcyA9IChwbGFjZW1lbnQ6IFBsYWNlbWVudCkgPT4gKHtcbiAgZW50ZXJpbmc6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxuICBlbnRlcmVkOiB7IHRyYW5zZm9ybTogJ3RyYW5zbGF0ZTNkKDAsMCwwKScgfSxcbiAgZXhpdGluZzogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG4gIGV4aXRlZDogeyB0cmFuc2Zvcm06IGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIH0sXG59KTtcbmNvbnN0IFRvYXN0RWxlbWVudCA9IHN0eWxlZC5kaXYoXG4gICh7IGFwcGVhcmFuY2UsIHBsYWNlbWVudCwgdHJhbnNpdGlvbkR1cmF0aW9uLCB0cmFuc2l0aW9uU3RhdGUgfSkgPT4ge1xuICAgIHJldHVybiB7XG4gICAgICBiYWNrZ3JvdW5kQ29sb3I6IGFwcGVhcmFuY2VzW2FwcGVhcmFuY2VdLmJnLFxuICAgICAgYm9yZGVyUmFkaXVzLFxuICAgICAgYm94U2hhZG93OiAnMCAzcHggOHB4IHJnYmEoMCwgMCwgMCwgMC4xNzUpJyxcbiAgICAgIGNvbG9yOiBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXS50ZXh0LFxuICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgbWFyZ2luQm90dG9tOiBndXR0ZXIsXG4gICAgICB0cmFuc2l0aW9uOiBgdHJhbnNmb3JtICR7dHJhbnNpdGlvbkR1cmF0aW9ufW1zIGN1YmljLWJlemllcigwLjIsIDAsIDAsIDEpYCxcbiAgICAgIHdpZHRoOiB0b2FzdFdpZHRoLFxuICAgICAgLi4udG9hc3RTdGF0ZXMocGxhY2VtZW50KVt0cmFuc2l0aW9uU3RhdGVdLFxuICAgIH07XG4gIH1cbik7XG5cbi8vID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuLy8gRGVmYXVsdFRvYXN0XG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cblxuZXhwb3J0IHR5cGUgVG9hc3RQcm9wcyA9IHtcbiAgYXBwZWFyYW5jZTogQXBwZWFyYW5jZVR5cGVzLFxuICBhdXRvRGlzbWlzczogYm9vbGVhbiB8IG51bWJlcixcbiAgYXV0b0Rpc21pc3NUaW1lb3V0OiBudW1iZXIsIC8vIGluaGVyaXRlZCBmcm9tIFRvYXN0UHJvdmlkZXJcbiAgY2hpbGRyZW46IE5vZGUsXG4gIG9uRGlzbWlzczogRXZlbnQgPT4gKixcbiAgcGxhY2VtZW50OiBQbGFjZW1lbnQsXG4gIHRyYW5zaXRpb25EdXJhdGlvbjogbnVtYmVyLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG4gIHRyYW5zaXRpb25TdGF0ZTogVHJhbnNpdGlvblN0YXRlLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG59O1xuXG5leHBvcnQgY29uc3QgRGVmYXVsdFRvYXN0ID0gKHtcbiAgYXBwZWFyYW5jZSxcbiAgYXV0b0Rpc21pc3MsXG4gIGF1dG9EaXNtaXNzVGltZW91dCxcbiAgY2hpbGRyZW4sXG4gIG9uRGlzbWlzcyxcbiAgcGxhY2VtZW50LFxuICB0cmFuc2l0aW9uRHVyYXRpb24sXG4gIHRyYW5zaXRpb25TdGF0ZSxcbn06IFRvYXN0UHJvcHMpID0+IChcbiAgPFRvYXN0RWxlbWVudFxuICAgIGFwcGVhcmFuY2U9e2FwcGVhcmFuY2V9XG4gICAgcGxhY2VtZW50PXtwbGFjZW1lbnR9XG4gICAgdHJhbnNpdGlvblN0YXRlPXt0cmFuc2l0aW9uU3RhdGV9XG4gICAgdHJhbnNpdGlvbkR1cmF0aW9uPXt0cmFuc2l0aW9uRHVyYXRpb259XG4gID5cbiAgICA8SWNvblxuICAgICAgYXBwZWFyYW5jZT17YXBwZWFyYW5jZX1cbiAgICAgIGF1dG9EaXNtaXNzPXthdXRvRGlzbWlzc31cbiAgICAgIGF1dG9EaXNtaXNzVGltZW91dD17YXV0b0Rpc21pc3NUaW1lb3V0fVxuICAgIC8+XG4gICAgPENvbnRlbnQ+e2NoaWxkcmVufTwvQ29udGVudD5cbiAgICB7b25EaXNtaXNzID8gKFxuICAgICAgPEJ1dHRvbiBvbkNsaWNrPXtvbkRpc21pc3N9IHJvbGU9XCJidXR0b25cIj5cbiAgICAgICAgPENsb3NlSWNvbiAvPlxuICAgICAgICA8QTExeVRleHQ+Q2xvc2U8L0ExMXlUZXh0PlxuICAgICAgPC9CdXR0b24+XG4gICAgKSA6IG51bGx9XG4gIDwvVG9hc3RFbGVtZW50PlxuKTtcbiJdfQ== */')
+    })
+  );
+};
+function getTranslate(placement) {
+  var pos = placement.split('-');
+  var relevantPlacement = pos[1] === 'center' ? pos[0] : pos[1];
+  var translateMap = {
+    right: 'translate3d(120%, 0, 0)',
+    left: 'translate3d(-120%, 0, 0)',
+    bottom: 'translate3d(0, 120%, 0)',
+    top: 'translate3d(0, -120%, 0)'
+  };
+
+  return translateMap[relevantPlacement];
+}
+
+var toastStates = function toastStates(placement) {
+  return {
+    entering: { transform: getTranslate(placement) },
+    entered: { transform: 'translate3d(0,0,0)' },
+    exiting: { transform: getTranslate(placement) },
+    exited: { transform: getTranslate(placement) }
+  };
+};
+var ToastElement = /*#__PURE__*/(0, _reactEmotion2.default)('div', {
+  target: 'e1rce5zx3',
+  label: 'ToastElement'
+})(function (_ref4) {
+  var appearance = _ref4.appearance,
+      placement = _ref4.placement,
+      transitionDuration = _ref4.transitionDuration,
+      transitionState = _ref4.transitionState;
+
+  return _extends({
+    backgroundColor: appearances[appearance].bg,
+    borderRadius: borderRadius,
+    boxShadow: '0 3px 8px rgba(0, 0, 0, 0.175)',
+    color: appearances[appearance].text,
+    display: 'flex',
+    marginBottom: gutter,
+    transition: 'transform ' + transitionDuration + 'ms cubic-bezier(0.2, 0, 0, 1)',
+    width: toastWidth
+  }, toastStates(placement)[transitionState]);
+}, '\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9Ub2FzdEVsZW1lbnQuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBZ0pxQiIsImZpbGUiOiIuLi9zcmMvVG9hc3RFbGVtZW50LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQGZsb3dcblxuaW1wb3J0IFJlYWN0LCB7IENoaWxkcmVuLCBDb21wb25lbnQgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgc3R5bGVkLCB7IGtleWZyYW1lcyB9IGZyb20gJ3JlYWN0LWVtb3Rpb24nO1xuaW1wb3J0IHsgVHJhbnNpdGlvbiwgVHJhbnNpdGlvbkdyb3VwIH0gZnJvbSAncmVhY3QtdHJhbnNpdGlvbi1ncm91cCc7XG5cbmltcG9ydCB7IENoZWNrSWNvbiwgRmxhbWVJY29uLCBJbmZvSWNvbiwgQ2xvc2VJY29uLCBBbGVydEljb24gfSBmcm9tICcuL2ljb25zJztcbmltcG9ydCAqIGFzIGNvbG9ycyBmcm9tICcuL2NvbG9ycyc7XG5pbXBvcnQgdHlwZSB7IFBsYWNlbWVudCB9IGZyb20gJy4vdHlwZXMnO1xuXG4vLyBjb21tb25cbmV4cG9ydCBjb25zdCBib3JkZXJSYWRpdXMgPSA0O1xuZXhwb3J0IGNvbnN0IGd1dHRlciA9IDg7XG5leHBvcnQgY29uc3QgdG9hc3RXaWR0aCA9IDM2MDtcbmV4cG9ydCBjb25zdCBzaHJpbmsgPSBrZXlmcmFtZXNgZnJvbSB7IGhlaWdodDogMTAwJTsgfSB0byB7IGhlaWdodDogMCUgfWA7XG5cbi8vIGExMXkgaGVscGVyXG5jb25zdCBBMTF5VGV4dCA9ICh7IHRhZzogVGFnLCAuLi5wcm9wcyB9KSA9PiAoXG4gIDxUYWdcbiAgICBjc3M9e3tcbiAgICAgIGJvcmRlcjogMCxcbiAgICAgIGNsaXA6ICdyZWN0KDFweCwgMXB4LCAxcHgsIDFweCknLFxuICAgICAgaGVpZ2h0OiAxLFxuICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgcGFkZGluZzogMCxcbiAgICAgIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICAgICAgd2hpdGVTcGFjZTogJ25vd3JhcCcsXG4gICAgICB3aWR0aDogMSxcbiAgICB9fVxuICAgIHsuLi5wcm9wc31cbiAgLz5cbik7XG5BMTF5VGV4dC5kZWZhdWx0UHJvcHMgPSB7XG4gIHRhZzogJ3NwYW4nLFxufTtcblxuLy8gZGVmYXVsdCBhcHBlYXJhbmNlc1xuXG5jb25zdCBhcHBlYXJhbmNlcyA9IHtcbiAgc3VjY2Vzczoge1xuICAgIGljb246IENoZWNrSWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuRzUwMCxcbiAgICBmZzogY29sb3JzLkczMDAsXG4gICAgYmc6IGNvbG9ycy5HNTAsXG4gIH0sXG4gIGVycm9yOiB7XG4gICAgaWNvbjogRmxhbWVJY29uLFxuICAgIHRleHQ6IGNvbG9ycy5SNTAwLFxuICAgIGZnOiBjb2xvcnMuUjMwMCxcbiAgICBiZzogY29sb3JzLlI1MCxcbiAgfSxcbiAgd2FybmluZzoge1xuICAgIGljb246IEFsZXJ0SWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuWTUwMCxcbiAgICBmZzogY29sb3JzLlkzMDAsXG4gICAgYmc6IGNvbG9ycy5ZNTAsXG4gIH0sXG4gIGluZm86IHtcbiAgICBpY29uOiBJbmZvSWNvbixcbiAgICB0ZXh0OiBjb2xvcnMuTjQwMCxcbiAgICBmZzogY29sb3JzLkIyMDAsXG4gICAgYmc6ICd3aGl0ZScsXG4gIH0sXG59O1xuZXhwb3J0IHR5cGUgQXBwZWFyYW5jZVR5cGVzID0gJEtleXM8dHlwZW9mIGFwcGVhcmFuY2VzPjtcblxuY29uc3QgQnV0dG9uID0gc3R5bGVkLmRpdih7XG4gIGN1cnNvcjogJ3BvaW50ZXInLFxuICBmbGV4U2hyaW5rOiAwLFxuICBvcGFjaXR5OiAwLjUsXG4gIHBhZGRpbmc6IGAke2d1dHRlcn1weCAke2d1dHRlciAqIDEuNX1weGAsXG4gIHRyYW5zaXRpb246ICdvcGFjaXR5IDE1MG1zJyxcblxuICAnOmhvdmVyJzogeyBvcGFjaXR5OiAxIH0sXG59KTtcblxuY29uc3QgQ29udGVudCA9IHN0eWxlZC5kaXYoe1xuICBmbGV4R3JvdzogMSxcbiAgZm9udFNpemU6IDE0LFxuICBsaW5lSGVpZ2h0OiAxLjQsXG4gIG1pbkhlaWdodDogNDAsXG4gIHBhZGRpbmc6IGAke2d1dHRlcn1weCAke2d1dHRlciAqIDEuNX1weGAsXG59KTtcblxuLy8gTk9URTogaW52b2tlIGFuaW1hdGlvbiB3aGVuIE5PVCBgYXV0b0Rpc21pc3NgIHdpdGggb3BhY2l0eSBvZiAwIHRvIGF2b2lkIGFcbi8vIHBhaW50IGJ1ZyBpbiBGaXJlRm94LlxuLy8gaHR0cHM6Ly9idWd6aWxsYS5tb3ppbGxhLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9NjI1Mjg5XG5jb25zdCBDb3VudGRvd24gPSBzdHlsZWQuZGl2KCh7IGF1dG9EaXNtaXNzVGltZW91dCwgb3BhY2l0eSB9KSA9PiAoe1xuICBhbmltYXRpb246IGAke3Nocmlua30gJHthdXRvRGlzbWlzc1RpbWVvdXR9bXMgbGluZWFyYCxcbiAgYmFja2dyb3VuZENvbG9yOiAncmdiYSgwLDAsMCwwLjEpJyxcbiAgYm90dG9tOiAwLFxuICBoZWlnaHQ6IDAsXG4gIGxlZnQ6IDAsXG4gIG9wYWNpdHksXG4gIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICB3aWR0aDogJzEwMCUnLFxufSkpO1xuY29uc3QgSWNvbiA9ICh7IGFwcGVhcmFuY2UsIGF1dG9EaXNtaXNzLCBhdXRvRGlzbWlzc1RpbWVvdXQgfSkgPT4ge1xuICBjb25zdCBtZXRhID0gYXBwZWFyYW5jZXNbYXBwZWFyYW5jZV07XG4gIGNvbnN0IEdseXBoID0gbWV0YS5pY29uO1xuXG4gIHJldHVybiAoXG4gICAgPGRpdlxuICAgICAgY3NzPXt7XG4gICAgICAgIGJhY2tncm91bmRDb2xvcjogbWV0YS5mZyxcbiAgICAgICAgYm9yZGVyVG9wTGVmdFJhZGl1czogYm9yZGVyUmFkaXVzLFxuICAgICAgICBib3JkZXJCb3R0b21MZWZ0UmFkaXVzOiBib3JkZXJSYWRpdXMsXG4gICAgICAgIGNvbG9yOiBtZXRhLmJnLFxuICAgICAgICBmbGV4U2hyaW5rOiAwLFxuICAgICAgICBwYWRkaW5nQm90dG9tOiBndXR0ZXIsXG4gICAgICAgIHBhZGRpbmdUb3A6IGd1dHRlcixcbiAgICAgICAgcG9zaXRpb246ICdyZWxhdGl2ZScsXG4gICAgICAgIG92ZXJmbG93OiAnaGlkZGVuJyxcbiAgICAgICAgdGV4dEFsaWduOiAnY2VudGVyJyxcbiAgICAgICAgd2lkdGg6IDMwLFxuICAgICAgfX1cbiAgICA+XG4gICAgICA8Q291bnRkb3duXG4gICAgICAgIG9wYWNpdHk9e2F1dG9EaXNtaXNzID8gMSA6IDB9XG4gICAgICAgIGF1dG9EaXNtaXNzVGltZW91dD17YXV0b0Rpc21pc3NUaW1lb3V0fVxuICAgICAgLz5cbiAgICAgIDxHbHlwaCBjc3M9e3sgcG9zaXRpb246ICdyZWxhdGl2ZScsIHpJbmRleDogMSB9fSAvPlxuICAgIDwvZGl2PlxuICApO1xufTtcbmZ1bmN0aW9uIGdldFRyYW5zbGF0ZShwbGFjZW1lbnQpIHtcbiAgY29uc3QgcG9zID0gcGxhY2VtZW50LnNwbGl0KCctJyk7XG4gIGNvbnN0IHJlbGV2YW50UGxhY2VtZW50ID0gcG9zWzFdID09PSAnY2VudGVyJyA/IHBvc1swXSA6IHBvc1sxXTtcbiAgY29uc3QgdHJhbnNsYXRlTWFwID0ge1xuICAgIHJpZ2h0OiAndHJhbnNsYXRlM2QoMTIwJSwgMCwgMCknLFxuICAgIGxlZnQ6ICd0cmFuc2xhdGUzZCgtMTIwJSwgMCwgMCknLFxuICAgIGJvdHRvbTogJ3RyYW5zbGF0ZTNkKDAsIDEyMCUsIDApJyxcbiAgICB0b3A6ICd0cmFuc2xhdGUzZCgwLCAtMTIwJSwgMCknLFxuICB9O1xuXG4gIHJldHVybiB0cmFuc2xhdGVNYXBbcmVsZXZhbnRQbGFjZW1lbnRdO1xufVxuZXhwb3J0IHR5cGUgVHJhbnNpdGlvblN0YXRlID0gJ2VudGVyaW5nJyB8ICdlbnRlcmVkJyB8ICdleGl0aW5nJyB8ICdleGl0ZWQnO1xuY29uc3QgdG9hc3RTdGF0ZXMgPSAocGxhY2VtZW50OiBQbGFjZW1lbnQpID0+ICh7XG4gIGVudGVyaW5nOiB7IHRyYW5zZm9ybTogZ2V0VHJhbnNsYXRlKHBsYWNlbWVudCkgfSxcbiAgZW50ZXJlZDogeyB0cmFuc2Zvcm06ICd0cmFuc2xhdGUzZCgwLDAsMCknIH0sXG4gIGV4aXRpbmc6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxuICBleGl0ZWQ6IHsgdHJhbnNmb3JtOiBnZXRUcmFuc2xhdGUocGxhY2VtZW50KSB9LFxufSk7XG5jb25zdCBUb2FzdEVsZW1lbnQgPSBzdHlsZWQuZGl2KFxuICAoeyBhcHBlYXJhbmNlLCBwbGFjZW1lbnQsIHRyYW5zaXRpb25EdXJhdGlvbiwgdHJhbnNpdGlvblN0YXRlIH0pID0+IHtcbiAgICByZXR1cm4ge1xuICAgICAgYmFja2dyb3VuZENvbG9yOiBhcHBlYXJhbmNlc1thcHBlYXJhbmNlXS5iZyxcbiAgICAgIGJvcmRlclJhZGl1cyxcbiAgICAgIGJveFNoYWRvdzogJzAgM3B4IDhweCByZ2JhKDAsIDAsIDAsIDAuMTc1KScsXG4gICAgICBjb2xvcjogYXBwZWFyYW5jZXNbYXBwZWFyYW5jZV0udGV4dCxcbiAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgIG1hcmdpbkJvdHRvbTogZ3V0dGVyLFxuICAgICAgdHJhbnNpdGlvbjogYHRyYW5zZm9ybSAke3RyYW5zaXRpb25EdXJhdGlvbn1tcyBjdWJpYy1iZXppZXIoMC4yLCAwLCAwLCAxKWAsXG4gICAgICB3aWR0aDogdG9hc3RXaWR0aCxcbiAgICAgIC4uLnRvYXN0U3RhdGVzKHBsYWNlbWVudClbdHJhbnNpdGlvblN0YXRlXSxcbiAgICB9O1xuICB9XG4pO1xuXG4vLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbi8vIERlZmF1bHRUb2FzdFxuLy8gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XG5cbmV4cG9ydCB0eXBlIFRvYXN0UHJvcHMgPSB7XG4gIGFwcGVhcmFuY2U6IEFwcGVhcmFuY2VUeXBlcyxcbiAgYXV0b0Rpc21pc3M6IGJvb2xlYW4gfCBudW1iZXIsXG4gIGF1dG9EaXNtaXNzVGltZW91dDogbnVtYmVyLCAvLyBpbmhlcml0ZWQgZnJvbSBUb2FzdFByb3ZpZGVyXG4gIGNoaWxkcmVuOiBOb2RlLFxuICBvbkRpc21pc3M6IEV2ZW50ID0+ICosXG4gIHBsYWNlbWVudDogUGxhY2VtZW50LFxuICB0cmFuc2l0aW9uRHVyYXRpb246IG51bWJlciwgLy8gaW5oZXJpdGVkIGZyb20gVG9hc3RQcm92aWRlclxuICB0cmFuc2l0aW9uU3RhdGU6IFRyYW5zaXRpb25TdGF0ZSwgLy8gaW5oZXJpdGVkIGZyb20gVG9hc3RQcm92aWRlclxufTtcblxuZXhwb3J0IGNvbnN0IERlZmF1bHRUb2FzdCA9ICh7XG4gIGFwcGVhcmFuY2UsXG4gIGF1dG9EaXNtaXNzLFxuICBhdXRvRGlzbWlzc1RpbWVvdXQsXG4gIGNoaWxkcmVuLFxuICBvbkRpc21pc3MsXG4gIHBsYWNlbWVudCxcbiAgdHJhbnNpdGlvbkR1cmF0aW9uLFxuICB0cmFuc2l0aW9uU3RhdGUsXG59OiBUb2FzdFByb3BzKSA9PiAoXG4gIDxUb2FzdEVsZW1lbnRcbiAgICBhcHBlYXJhbmNlPXthcHBlYXJhbmNlfVxuICAgIHBsYWNlbWVudD17cGxhY2VtZW50fVxuICAgIHRyYW5zaXRpb25TdGF0ZT17dHJhbnNpdGlvblN0YXRlfVxuICAgIHRyYW5zaXRpb25EdXJhdGlvbj17dHJhbnNpdGlvbkR1cmF0aW9ufVxuICA+XG4gICAgPEljb25cbiAgICAgIGFwcGVhcmFuY2U9e2FwcGVhcmFuY2V9XG4gICAgICBhdXRvRGlzbWlzcz17YXV0b0Rpc21pc3N9XG4gICAgICBhdXRvRGlzbWlzc1RpbWVvdXQ9e2F1dG9EaXNtaXNzVGltZW91dH1cbiAgICAvPlxuICAgIDxDb250ZW50PntjaGlsZHJlbn08L0NvbnRlbnQ+XG4gICAge29uRGlzbWlzcyA/IChcbiAgICAgIDxCdXR0b24gb25DbGljaz17b25EaXNtaXNzfSByb2xlPVwiYnV0dG9uXCI+XG4gICAgICAgIDxDbG9zZUljb24gLz5cbiAgICAgICAgPEExMXlUZXh0PkNsb3NlPC9BMTF5VGV4dD5cbiAgICAgIDwvQnV0dG9uPlxuICAgICkgOiBudWxsfVxuICA8L1RvYXN0RWxlbWVudD5cbik7XG4iXX0= */');
+
+// ==============================
+// DefaultToast
+// ==============================
+
+var DefaultToast = exports.DefaultToast = function DefaultToast(_ref5) {
+  var appearance = _ref5.appearance,
+      autoDismiss = _ref5.autoDismiss,
+      autoDismissTimeout = _ref5.autoDismissTimeout,
+      children = _ref5.children,
+      onDismiss = _ref5.onDismiss,
+      placement = _ref5.placement,
+      transitionDuration = _ref5.transitionDuration,
+      transitionState = _ref5.transitionState;
+  return _react2.default.createElement(
+    ToastElement,
+    {
+      appearance: appearance,
+      placement: placement,
+      transitionState: transitionState,
+      transitionDuration: transitionDuration
+    },
+    _react2.default.createElement(Icon, {
+      appearance: appearance,
+      autoDismiss: autoDismiss,
+      autoDismissTimeout: autoDismissTimeout
+    }),
+    _react2.default.createElement(
+      Content,
+      null,
+      children
+    ),
+    onDismiss ? _react2.default.createElement(
+      Button,
+      { onClick: onDismiss, role: 'button' },
+      _react2.default.createElement(_icons.CloseIcon, null),
+      _react2.default.createElement(
+        A11yText,
+        null,
+        'Close'
+      )
+    ) : null
+  );
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/ToastProvider.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/ToastProvider.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.withToastManager = exports.ToastConsumer = exports.ToastProvider = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+var _ToastController = __webpack_require__(/*! ./ToastController */ "./node_modules/react-toast-notifications/dist/ToastController.js");
+
+var _ToastContainer = __webpack_require__(/*! ./ToastContainer */ "./node_modules/react-toast-notifications/dist/ToastContainer.js");
+
+var _ToastElement = __webpack_require__(/*! ./ToastElement */ "./node_modules/react-toast-notifications/dist/ToastElement.js");
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/react-toast-notifications/dist/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var defaultComponents = { Toast: _ToastElement.DefaultToast, ToastContainer: _ToastContainer.ToastContainer };
+
+// $FlowFixMe
+var _React$createContext = _react2.default.createContext(),
+    Consumer = _React$createContext.Consumer,
+    Provider = _React$createContext.Provider;
+
+var NOOP = function NOOP() {};
+var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+// Provider
+// ==============================
+
+var ToastProvider = exports.ToastProvider = function (_Component) {
+  _inherits(ToastProvider, _Component);
+
+  function ToastProvider(props) {
+    _classCallCheck(this, ToastProvider);
+
+    var _this = _possibleConstructorReturn(this, (ToastProvider.__proto__ || Object.getPrototypeOf(ToastProvider)).call(this, props));
+
+    _this.cacheComponents = function (components) {
+      _this.components = _extends({}, defaultComponents, components);
+    };
+
+    _this.add = function (content) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var cb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : NOOP;
+
+      var id = (0, _utils.generateUEID)();
+      var callback = function callback() {
+        return cb(id);
+      };
+
+      _this.setState(function (state) {
+        var toasts = state.toasts.slice(0);
+        var toast = Object.assign({}, { content: content, id: id }, options);
+
+        toasts.push(toast);
+
+        return { toasts: toasts };
+      }, callback);
+    };
+
+    _this.remove = function (id) {
+      var cb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : NOOP;
+
+      var callback = function callback() {
+        return cb(id);
+      };
+
+      _this.setState(function (state) {
+        var toasts = state.toasts.filter(function (t) {
+          return t.id !== id;
+        });
+        return { toasts: toasts };
+      }, callback);
+    };
+
+    _this.onDismiss = function (id) {
+      return function () {
+        return _this.remove(id);
+      };
+    };
+
+    _this.cacheComponents(props.components);
+    _this.state = { toasts: [] };
+    return _this;
+  }
+
+  _createClass(ToastProvider, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.components !== this.props.components) {
+        this.cacheComponents(nextProps.components);
+      }
+    }
+    // avoid creating a new fn on every render
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          children = _props.children,
+          components = _props.components,
+          props = _objectWithoutProperties(_props, ['children', 'components']);
+
+      var _components = this.components,
+          Toast = _components.Toast,
+          ToastContainer = _components.ToastContainer;
+      var toasts = this.state.toasts;
+      var add = this.add,
+          remove = this.remove;
+
+
+      return _react2.default.createElement(
+        Provider,
+        { value: { add: add, remove: remove, toasts: toasts } },
+        children,
+        canUseDOM ? (0, _reactDom.createPortal)(_react2.default.createElement(
+          ToastContainer,
+          props,
+          toasts.map(function (_ref) {
+            var content = _ref.content,
+                id = _ref.id,
+                rest = _objectWithoutProperties(_ref, ['content', 'id']);
+
+            return _react2.default.createElement(
+              _ToastController.ToastController,
+              _extends({
+                key: id,
+                Toast: Toast,
+                onDismiss: _this2.onDismiss(id)
+              }, props, rest),
+              content
+            );
+          })
+        ), document.body) : _react2.default.createElement(ToastContainer, props) // keep ReactDOM.hydrate happy
+
+      );
+    }
+  }]);
+
+  return ToastProvider;
+}(_react.Component);
+
+ToastProvider.defaultProps = {
+  autoDismissTimeout: 5000,
+  components: defaultComponents,
+  placement: 'top-right',
+  transitionDuration: 220
+};
+var ToastConsumer = exports.ToastConsumer = function ToastConsumer(_ref2) {
+  var children = _ref2.children;
+  return _react2.default.createElement(
+    Consumer,
+    null,
+    function (context) {
+      return children(context);
+    }
+  );
+};
+
+var withToastManager = exports.withToastManager = function withToastManager(Comp) {
+  return function (props) {
+    return _react2.default.createElement(
+      ToastConsumer,
+      null,
+      function (context) {
+        return _react2.default.createElement(Comp, _extends({ toastManager: context }, props));
+      }
+    );
+  };
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/colors.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/colors.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// Reds
+var R50 = exports.R50 = '#FFEBE6';
+var R75 = exports.R75 = '#FFBDAD';
+var R100 = exports.R100 = '#FF8F73';
+var R200 = exports.R200 = '#FF7452';
+var R300 = exports.R300 = '#FF5630';
+var R400 = exports.R400 = '#DE350B';
+var R500 = exports.R500 = '#BF2600';
+
+// Yellows
+var Y50 = exports.Y50 = '#FFFAE6';
+var Y75 = exports.Y75 = '#FFF0B3';
+var Y100 = exports.Y100 = '#FFE380';
+var Y200 = exports.Y200 = '#FFC400';
+var Y300 = exports.Y300 = '#FFAB00';
+var Y400 = exports.Y400 = '#FF991F';
+var Y500 = exports.Y500 = '#FF8B00';
+
+// Greens
+var G50 = exports.G50 = '#E3FCEF';
+var G75 = exports.G75 = '#ABF5D1';
+var G100 = exports.G100 = '#79F2C0';
+var G200 = exports.G200 = '#57D9A3';
+var G300 = exports.G300 = '#36B37E';
+var G400 = exports.G400 = '#00875A';
+var G500 = exports.G500 = '#006644';
+
+// Blues
+var B50 = exports.B50 = '#DEEBFF';
+var B75 = exports.B75 = '#B3D4FF';
+var B100 = exports.B100 = '#4C9AFF';
+var B200 = exports.B200 = '#2684FF';
+var B300 = exports.B300 = '#0065FF';
+var B400 = exports.B400 = '#0052CC';
+var B500 = exports.B500 = '#0747A6';
+
+// Purples
+var P50 = exports.P50 = '#EAE6FF';
+var P75 = exports.P75 = '#C0B6F2';
+var P100 = exports.P100 = '#998DD9';
+var P200 = exports.P200 = '#8777D9';
+var P300 = exports.P300 = '#6554C0';
+var P400 = exports.P400 = '#5243AA';
+var P500 = exports.P500 = '#403294';
+
+// Teals
+var T50 = exports.T50 = '#E6FCFF';
+var T75 = exports.T75 = '#B3F5FF';
+var T100 = exports.T100 = '#79E2F2';
+var T200 = exports.T200 = '#00C7E6';
+var T300 = exports.T300 = '#00B8D9';
+var T400 = exports.T400 = '#00A3BF';
+var T500 = exports.T500 = '#008DA6';
+
+// Neutrals
+var N0 = exports.N0 = '#FFFFFF';
+var N10 = exports.N10 = '#FAFBFC';
+var N20 = exports.N20 = '#F4F5F7';
+var N30 = exports.N30 = '#EBECF0';
+var N40 = exports.N40 = '#DFE1E6';
+var N50 = exports.N50 = '#C1C7D0';
+var N60 = exports.N60 = '#B3BAC5';
+var N70 = exports.N70 = '#A5ADBA';
+var N80 = exports.N80 = '#97A0AF';
+var N90 = exports.N90 = '#8993A4';
+var N100 = exports.N100 = '#7A869A';
+var N200 = exports.N200 = '#6B778C';
+var N300 = exports.N300 = '#5E6C84';
+var N400 = exports.N400 = '#505F79';
+var N500 = exports.N500 = '#42526E';
+var N600 = exports.N600 = '#344563';
+var N700 = exports.N700 = '#253858';
+var N800 = exports.N800 = '#172B4D';
+
+// ATTENTION: update the tints if you update this
+var N900 = exports.N900 = '#091E42';
+
+// Each tint is made of N900 and an alpha channel
+var N10A = exports.N10A = 'rgba(9, 30, 66, 0.02)';
+var N20A = exports.N20A = 'rgba(9, 30, 66, 0.04)';
+var N30A = exports.N30A = 'rgba(9, 30, 66, 0.08)';
+var N40A = exports.N40A = 'rgba(9, 30, 66, 0.13)';
+var N50A = exports.N50A = 'rgba(9, 30, 66, 0.25)';
+var N60A = exports.N60A = 'rgba(9, 30, 66, 0.31)';
+var N70A = exports.N70A = 'rgba(9, 30, 66, 0.36)';
+var N80A = exports.N80A = 'rgba(9, 30, 66, 0.42)';
+var N90A = exports.N90A = 'rgba(9, 30, 66, 0.48)';
+var N100A = exports.N100A = 'rgba(9, 30, 66, 0.54)';
+var N200A = exports.N200A = 'rgba(9, 30, 66, 0.60)';
+var N300A = exports.N300A = 'rgba(9, 30, 66, 0.66)';
+var N400A = exports.N400A = 'rgba(9, 30, 66, 0.71)';
+var N500A = exports.N500A = 'rgba(9, 30, 66, 0.77)';
+var N600A = exports.N600A = 'rgba(9, 30, 66, 0.82)';
+var N700A = exports.N700A = 'rgba(9, 30, 66, 0.89)';
+var N800A = exports.N800A = 'rgba(9, 30, 66, 0.95)';
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/icons.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/icons.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CloseIcon = exports.InfoIcon = exports.FlameIcon = exports.CheckIcon = exports.AlertIcon = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getDefaultProps(width) {
+  return {
+    'aria-hidden': true,
+    height: 16,
+    width: width,
+    viewBox: '0 0 ' + width + ' 16',
+    style: {
+      display: 'inline-block',
+      verticalAlign: 'text-top',
+      fill: 'currentColor'
+    }
+  };
+}
+
+var AlertIcon = exports.AlertIcon = function AlertIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(16), props),
+    _react2.default.createElement('path', {
+      fillRule: 'evenodd',
+      d: 'M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z'
+    })
+  );
+};
+var CheckIcon = exports.CheckIcon = function CheckIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(12), props),
+    _react2.default.createElement('path', { fillRule: 'evenodd', d: 'M12 5.5l-8 8-4-4L1.5 8 4 10.5 10.5 4 12 5.5z' })
+  );
+};
+var FlameIcon = exports.FlameIcon = function FlameIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(12), props),
+    _react2.default.createElement('path', {
+      fillRule: 'evenodd',
+      d: 'M5.05.01c.81 2.17.41 3.38-.52 4.31C3.55 5.37 1.98 6.15.9 7.68c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.01 8.68 2.15 5.05.02L5.03 0l.02.01z'
+    })
+  );
+};
+var InfoIcon = exports.InfoIcon = function InfoIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(14), props),
+    _react2.default.createElement('path', {
+      fillRule: 'evenodd',
+      d: 'M6.3 5.71a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 8.01c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V8v.01zM7 2.32C3.86 2.32 1.3 4.86 1.3 8c0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 1c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z'
+    })
+  );
+};
+var CloseIcon = exports.CloseIcon = function CloseIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(14), props),
+    _react2.default.createElement('path', {
+      fillRule: 'evenodd',
+      d: 'M7.71 8.23l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75L1 11.98l3.75-3.75L1 4.48 2.48 3l3.75 3.75L9.98 3l1.48 1.48-3.75 3.75z'
+    })
+  );
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ToastProvider = __webpack_require__(/*! ./ToastProvider */ "./node_modules/react-toast-notifications/dist/ToastProvider.js");
+
+Object.defineProperty(exports, 'ToastConsumer', {
+  enumerable: true,
+  get: function get() {
+    return _ToastProvider.ToastConsumer;
+  }
+});
+Object.defineProperty(exports, 'ToastProvider', {
+  enumerable: true,
+  get: function get() {
+    return _ToastProvider.ToastProvider;
+  }
+});
+Object.defineProperty(exports, 'withToastManager', {
+  enumerable: true,
+  get: function get() {
+    return _ToastProvider.withToastManager;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/utils.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/utils.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.generateUEID = generateUEID;
+function generateUEID() {
+  var first = Math.random() * 46656 | 0;
+  var second = Math.random() * 46656 | 0;
+  first = ('000' + first.toString(36)).slice(-3);
+  second = ('000' + second.toString(36)).slice(-3);
+  return first + second;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/CSSTransition.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-transition-group/CSSTransition.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var PropTypes = _interopRequireWildcard(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _addClass = _interopRequireDefault(__webpack_require__(/*! dom-helpers/class/addClass */ "./node_modules/dom-helpers/class/addClass.js"));
+
+var _removeClass = _interopRequireDefault(__webpack_require__(/*! dom-helpers/class/removeClass */ "./node_modules/dom-helpers/class/removeClass.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _Transition = _interopRequireDefault(__webpack_require__(/*! ./Transition */ "./node_modules/react-transition-group/Transition.js"));
+
+var _PropTypes = __webpack_require__(/*! ./utils/PropTypes */ "./node_modules/react-transition-group/utils/PropTypes.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var addClass = function addClass(node, classes) {
+  return node && classes && classes.split(' ').forEach(function (c) {
+    return (0, _addClass.default)(node, c);
+  });
+};
+
+var removeClass = function removeClass(node, classes) {
+  return node && classes && classes.split(' ').forEach(function (c) {
+    return (0, _removeClass.default)(node, c);
+  });
+};
+/**
+ * A `Transition` component using CSS transitions and animations.
+ * It's inspired by the excellent [ng-animate](http://www.nganimate.org/) library.
+ *
+ * `CSSTransition` applies a pair of class names during the `appear`, `enter`,
+ * and `exit` stages of the transition. The first class is applied and then a
+ * second "active" class in order to activate the css animation. After the animation,
+ * matching `done` class names are applied to persist the animation state.
+ *
+ * When the `in` prop is toggled to `true` the Component will get
+ * the `example-enter` CSS class and the `example-enter-active` CSS class
+ * added in the next tick. This is a convention based on the `classNames` prop.
+ */
+
+
+var CSSTransition =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(CSSTransition, _React$Component);
+
+  function CSSTransition() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+
+    _this.onEnter = function (node, appearing) {
+      var _this$getClassNames = _this.getClassNames(appearing ? 'appear' : 'enter'),
+          className = _this$getClassNames.className;
+
+      _this.removeClasses(node, 'exit');
+
+      addClass(node, className);
+
+      if (_this.props.onEnter) {
+        _this.props.onEnter(node, appearing);
+      }
+    };
+
+    _this.onEntering = function (node, appearing) {
+      var _this$getClassNames2 = _this.getClassNames(appearing ? 'appear' : 'enter'),
+          activeClassName = _this$getClassNames2.activeClassName;
+
+      _this.reflowAndAddClass(node, activeClassName);
+
+      if (_this.props.onEntering) {
+        _this.props.onEntering(node, appearing);
+      }
+    };
+
+    _this.onEntered = function (node, appearing) {
+      var _this$getClassNames3 = _this.getClassNames('enter'),
+          doneClassName = _this$getClassNames3.doneClassName;
+
+      _this.removeClasses(node, appearing ? 'appear' : 'enter');
+
+      addClass(node, doneClassName);
+
+      if (_this.props.onEntered) {
+        _this.props.onEntered(node, appearing);
+      }
+    };
+
+    _this.onExit = function (node) {
+      var _this$getClassNames4 = _this.getClassNames('exit'),
+          className = _this$getClassNames4.className;
+
+      _this.removeClasses(node, 'appear');
+
+      _this.removeClasses(node, 'enter');
+
+      addClass(node, className);
+
+      if (_this.props.onExit) {
+        _this.props.onExit(node);
+      }
+    };
+
+    _this.onExiting = function (node) {
+      var _this$getClassNames5 = _this.getClassNames('exit'),
+          activeClassName = _this$getClassNames5.activeClassName;
+
+      _this.reflowAndAddClass(node, activeClassName);
+
+      if (_this.props.onExiting) {
+        _this.props.onExiting(node);
+      }
+    };
+
+    _this.onExited = function (node) {
+      var _this$getClassNames6 = _this.getClassNames('exit'),
+          doneClassName = _this$getClassNames6.doneClassName;
+
+      _this.removeClasses(node, 'exit');
+
+      addClass(node, doneClassName);
+
+      if (_this.props.onExited) {
+        _this.props.onExited(node);
+      }
+    };
+
+    _this.getClassNames = function (type) {
+      var classNames = _this.props.classNames;
+      var className = typeof classNames !== 'string' ? classNames[type] : classNames + '-' + type;
+      var activeClassName = typeof classNames !== 'string' ? classNames[type + 'Active'] : className + '-active';
+      var doneClassName = typeof classNames !== 'string' ? classNames[type + 'Done'] : className + '-done';
+      return {
+        className: className,
+        activeClassName: activeClassName,
+        doneClassName: doneClassName
+      };
+    };
+
+    return _this;
+  }
+
+  var _proto = CSSTransition.prototype;
+
+  _proto.removeClasses = function removeClasses(node, type) {
+    var _this$getClassNames7 = this.getClassNames(type),
+        className = _this$getClassNames7.className,
+        activeClassName = _this$getClassNames7.activeClassName,
+        doneClassName = _this$getClassNames7.doneClassName;
+
+    className && removeClass(node, className);
+    activeClassName && removeClass(node, activeClassName);
+    doneClassName && removeClass(node, doneClassName);
+  };
+
+  _proto.reflowAndAddClass = function reflowAndAddClass(node, className) {
+    // This is for to force a repaint,
+    // which is necessary in order to transition styles when adding a class name.
+    if (className) {
+      /* eslint-disable no-unused-expressions */
+      node && node.scrollTop;
+      /* eslint-enable no-unused-expressions */
+
+      addClass(node, className);
+    }
+  };
+
+  _proto.render = function render() {
+    var props = _extends({}, this.props);
+
+    delete props.classNames;
+    return _react.default.createElement(_Transition.default, _extends({}, props, {
+      onEnter: this.onEnter,
+      onEntered: this.onEntered,
+      onEntering: this.onEntering,
+      onExit: this.onExit,
+      onExiting: this.onExiting,
+      onExited: this.onExited
+    }));
+  };
+
+  return CSSTransition;
+}(_react.default.Component);
+
+CSSTransition.propTypes =  true ? _extends({}, _Transition.default.propTypes, {
+  /**
+   * The animation classNames applied to the component as it enters, exits or has finished the transition.
+   * A single name can be provided and it will be suffixed for each stage: e.g.
+   *
+   * `classNames="fade"` applies `fade-enter`, `fade-enter-active`, `fade-enter-done`,
+   * `fade-exit`, `fade-exit-active`, `fade-exit-done`, `fade-appear`, and `fade-appear-active`.
+   * Each individual classNames can also be specified independently like:
+   *
+   * ```js
+   * classNames={{
+   *  appear: 'my-appear',
+   *  appearActive: 'my-active-appear',
+   *  enter: 'my-enter',
+   *  enterActive: 'my-active-enter',
+   *  enterDone: 'my-done-enter',
+   *  exit: 'my-exit',
+   *  exitActive: 'my-active-exit',
+   *  exitDone: 'my-done-exit',
+   * }}
+   * ```
+   *
+   * If you want to set these classes using CSS Modules:
+   *
+   * ```js
+   * import styles from './styles.css';
+   * ```
+   *
+   * you might want to use camelCase in your CSS file, that way could simply spread
+   * them instead of listing them one by one:
+   *
+   * ```js
+   * classNames={{ ...styles }}
+   * ```
+   *
+   * @type {string | {
+   *  appear?: string,
+   *  appearActive?: string,
+   *  enter?: string,
+   *  enterActive?: string,
+   *  enterDone?: string,
+   *  exit?: string,
+   *  exitActive?: string,
+   *  exitDone?: string,
+   * }}
+   */
+  classNames: _PropTypes.classNamesShape,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter' or 'appear' class is
+   * applied.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEnter: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter-active' or
+   * 'appear-active' class is applied.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter' or
+   * 'appear' classes are **removed** and the `done` class is added to the DOM node.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntered: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit' class is
+   * applied.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExit: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit-active' is applied.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExiting: PropTypes.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit' classes
+   * are **removed** and the `exit-done` class is added to the DOM node.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExited: PropTypes.func
+}) : undefined;
+var _default = CSSTransition;
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/ReplaceTransition.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-transition-group/ReplaceTransition.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+var _TransitionGroup = _interopRequireDefault(__webpack_require__(/*! ./TransitionGroup */ "./node_modules/react-transition-group/TransitionGroup.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+/**
+ * The `<ReplaceTransition>` component is a specialized `Transition` component
+ * that animates between two children.
+ *
+ * ```jsx
+ * <ReplaceTransition in>
+ *   <Fade><div>I appear first</div></Fade>
+ *   <Fade><div>I replace the above</div></Fade>
+ * </ReplaceTransition>
+ * ```
+ */
+var ReplaceTransition =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(ReplaceTransition, _React$Component);
+
+  function ReplaceTransition() {
+    var _this;
+
+    for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
+      _args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(_args)) || this;
+
+    _this.handleEnter = function () {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return _this.handleLifecycle('onEnter', 0, args);
+    };
+
+    _this.handleEntering = function () {
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      return _this.handleLifecycle('onEntering', 0, args);
+    };
+
+    _this.handleEntered = function () {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
+      return _this.handleLifecycle('onEntered', 0, args);
+    };
+
+    _this.handleExit = function () {
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
+      }
+
+      return _this.handleLifecycle('onExit', 1, args);
+    };
+
+    _this.handleExiting = function () {
+      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        args[_key6] = arguments[_key6];
+      }
+
+      return _this.handleLifecycle('onExiting', 1, args);
+    };
+
+    _this.handleExited = function () {
+      for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+        args[_key7] = arguments[_key7];
+      }
+
+      return _this.handleLifecycle('onExited', 1, args);
+    };
+
+    return _this;
+  }
+
+  var _proto = ReplaceTransition.prototype;
+
+  _proto.handleLifecycle = function handleLifecycle(handler, idx, originalArgs) {
+    var _child$props;
+
+    var children = this.props.children;
+
+    var child = _react.default.Children.toArray(children)[idx];
+
+    if (child.props[handler]) (_child$props = child.props)[handler].apply(_child$props, originalArgs);
+    if (this.props[handler]) this.props[handler]((0, _reactDom.findDOMNode)(this));
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        inProp = _this$props.in,
+        props = _objectWithoutPropertiesLoose(_this$props, ["children", "in"]);
+
+    var _React$Children$toArr = _react.default.Children.toArray(children),
+        first = _React$Children$toArr[0],
+        second = _React$Children$toArr[1];
+
+    delete props.onEnter;
+    delete props.onEntering;
+    delete props.onEntered;
+    delete props.onExit;
+    delete props.onExiting;
+    delete props.onExited;
+    return _react.default.createElement(_TransitionGroup.default, props, inProp ? _react.default.cloneElement(first, {
+      key: 'first',
+      onEnter: this.handleEnter,
+      onEntering: this.handleEntering,
+      onEntered: this.handleEntered
+    }) : _react.default.cloneElement(second, {
+      key: 'second',
+      onEnter: this.handleExit,
+      onEntering: this.handleExiting,
+      onEntered: this.handleExited
+    }));
+  };
+
+  return ReplaceTransition;
+}(_react.default.Component);
+
+ReplaceTransition.propTypes =  true ? {
+  in: _propTypes.default.bool.isRequired,
+  children: function children(props, propName) {
+    if (_react.default.Children.count(props[propName]) !== 2) return new Error("\"" + propName + "\" must be exactly two transition components.");
+    return null;
+  }
+} : undefined;
+var _default = ReplaceTransition;
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/Transition.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-transition-group/Transition.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = exports.EXITING = exports.ENTERED = exports.ENTERING = exports.EXITED = exports.UNMOUNTED = void 0;
+
+var PropTypes = _interopRequireWildcard(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _reactDom = _interopRequireDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
+
+var _reactLifecyclesCompat = __webpack_require__(/*! react-lifecycles-compat */ "./node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js");
+
+var _PropTypes = __webpack_require__(/*! ./utils/PropTypes */ "./node_modules/react-transition-group/utils/PropTypes.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var UNMOUNTED = 'unmounted';
+exports.UNMOUNTED = UNMOUNTED;
+var EXITED = 'exited';
+exports.EXITED = EXITED;
+var ENTERING = 'entering';
+exports.ENTERING = ENTERING;
+var ENTERED = 'entered';
+exports.ENTERED = ENTERED;
+var EXITING = 'exiting';
+/**
+ * The Transition component lets you describe a transition from one component
+ * state to another _over time_ with a simple declarative API. Most commonly
+ * it's used to animate the mounting and unmounting of a component, but can also
+ * be used to describe in-place transition states as well.
+ *
+ * By default the `Transition` component does not alter the behavior of the
+ * component it renders, it only tracks "enter" and "exit" states for the components.
+ * It's up to you to give meaning and effect to those states. For example we can
+ * add styles to a component when it enters or exits:
+ *
+ * ```jsx
+ * import Transition from 'react-transition-group/Transition';
+ *
+ * const duration = 300;
+ *
+ * const defaultStyle = {
+ *   transition: `opacity ${duration}ms ease-in-out`,
+ *   opacity: 0,
+ * }
+ *
+ * const transitionStyles = {
+ *   entering: { opacity: 0 },
+ *   entered:  { opacity: 1 },
+ * };
+ *
+ * const Fade = ({ in: inProp }) => (
+ *   <Transition in={inProp} timeout={duration}>
+ *     {(state) => (
+ *       <div style={{
+ *         ...defaultStyle,
+ *         ...transitionStyles[state]
+ *       }}>
+ *         I'm a fade Transition!
+ *       </div>
+ *     )}
+ *   </Transition>
+ * );
+ * ```
+ *
+ * As noted the `Transition` component doesn't _do_ anything by itself to its child component.
+ * What it does do is track transition states over time so you can update the
+ * component (such as by adding styles or classes) when it changes states.
+ *
+ * There are 4 main states a Transition can be in:
+ *  - `'entering'`
+ *  - `'entered'`
+ *  - `'exiting'`
+ *  - `'exited'`
+ *
+ * Transition state is toggled via the `in` prop. When `true` the component begins the
+ * "Enter" stage. During this stage, the component will shift from its current transition state,
+ * to `'entering'` for the duration of the transition and then to the `'entered'` stage once
+ * it's complete. Let's take the following example:
+ *
+ * ```jsx
+ * state = { in: false };
+ *
+ * toggleEnterState = () => {
+ *   this.setState({ in: true });
+ * }
+ *
+ * render() {
+ *   return (
+ *     <div>
+ *       <Transition in={this.state.in} timeout={500} />
+ *       <button onClick={this.toggleEnterState}>Click to Enter</button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the button is clicked the component will shift to the `'entering'` state and
+ * stay there for 500ms (the value of `timeout`) before it finally switches to `'entered'`.
+ *
+ * When `in` is `false` the same thing happens except the state moves from `'exiting'` to `'exited'`.
+ *
+ * ## Timing
+ *
+ * Timing is often the trickiest part of animation, mistakes can result in slight delays
+ * that are hard to pin down. A common example is when you want to add an exit transition,
+ * you should set the desired final styles when the state is `'exiting'`. That's when the
+ * transition to those styles will start and, if you matched the `timeout` prop with the
+ * CSS Transition duration, it will end exactly when the state changes to `'exited'`.
+ *
+ * > **Note**: For simpler transitions the `Transition` component might be enough, but
+ * > take into account that it's platform-agnostic, while the `CSSTransition` component
+ * > [forces reflows](https://github.com/reactjs/react-transition-group/blob/5007303e729a74be66a21c3e2205e4916821524b/src/CSSTransition.js#L208-L215)
+ * > in order to make more complex transitions more predictable. For example, even though
+ * > classes `example-enter` and `example-enter-active` are applied immediately one after
+ * > another, you can still transition from one to the other because of the forced reflow
+ * > (read [this issue](https://github.com/reactjs/react-transition-group/issues/159#issuecomment-322761171)
+ * > for more info). Take this into account when choosing between `Transition` and
+ * > `CSSTransition`.
+ */
+
+exports.EXITING = EXITING;
+
+var Transition =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(Transition, _React$Component);
+
+  function Transition(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+    var parentGroup = context.transitionGroup; // In the context of a TransitionGroup all enters are really appears
+
+    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
+    var initialStatus;
+    _this.appearStatus = null;
+
+    if (props.in) {
+      if (appear) {
+        initialStatus = EXITED;
+        _this.appearStatus = ENTERING;
+      } else {
+        initialStatus = ENTERED;
+      }
+    } else {
+      if (props.unmountOnExit || props.mountOnEnter) {
+        initialStatus = UNMOUNTED;
+      } else {
+        initialStatus = EXITED;
+      }
+    }
+
+    _this.state = {
+      status: initialStatus
+    };
+    _this.nextCallback = null;
+    return _this;
+  }
+
+  var _proto = Transition.prototype;
+
+  _proto.getChildContext = function getChildContext() {
+    return {
+      transitionGroup: null // allows for nested Transitions
+
+    };
+  };
+
+  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
+    var nextIn = _ref.in;
+
+    if (nextIn && prevState.status === UNMOUNTED) {
+      return {
+        status: EXITED
+      };
+    }
+
+    return null;
+  }; // getSnapshotBeforeUpdate(prevProps) {
+  //   let nextStatus = null
+  //   if (prevProps !== this.props) {
+  //     const { status } = this.state
+  //     if (this.props.in) {
+  //       if (status !== ENTERING && status !== ENTERED) {
+  //         nextStatus = ENTERING
+  //       }
+  //     } else {
+  //       if (status === ENTERING || status === ENTERED) {
+  //         nextStatus = EXITING
+  //       }
+  //     }
+  //   }
+  //   return { nextStatus }
+  // }
+
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.updateStatus(true, this.appearStatus);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var nextStatus = null;
+
+    if (prevProps !== this.props) {
+      var status = this.state.status;
+
+      if (this.props.in) {
+        if (status !== ENTERING && status !== ENTERED) {
+          nextStatus = ENTERING;
+        }
+      } else {
+        if (status === ENTERING || status === ENTERED) {
+          nextStatus = EXITING;
+        }
+      }
+    }
+
+    this.updateStatus(false, nextStatus);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.cancelNextCallback();
+  };
+
+  _proto.getTimeouts = function getTimeouts() {
+    var timeout = this.props.timeout;
+    var exit, enter, appear;
+    exit = enter = appear = timeout;
+
+    if (timeout != null && typeof timeout !== 'number') {
+      exit = timeout.exit;
+      enter = timeout.enter;
+      appear = timeout.appear;
+    }
+
+    return {
+      exit: exit,
+      enter: enter,
+      appear: appear
+    };
+  };
+
+  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
+    if (mounting === void 0) {
+      mounting = false;
+    }
+
+    if (nextStatus !== null) {
+      // nextStatus will always be ENTERING or EXITING.
+      this.cancelNextCallback();
+
+      var node = _reactDom.default.findDOMNode(this);
+
+      if (nextStatus === ENTERING) {
+        this.performEnter(node, mounting);
+      } else {
+        this.performExit(node);
+      }
+    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
+      this.setState({
+        status: UNMOUNTED
+      });
+    }
+  };
+
+  _proto.performEnter = function performEnter(node, mounting) {
+    var _this2 = this;
+
+    var enter = this.props.enter;
+    var appearing = this.context.transitionGroup ? this.context.transitionGroup.isMounting : mounting;
+    var timeouts = this.getTimeouts(); // no enter animation skip right to ENTERED
+    // if we are mounting and running this it means appear _must_ be set
+
+    if (!mounting && !enter) {
+      this.safeSetState({
+        status: ENTERED
+      }, function () {
+        _this2.props.onEntered(node);
+      });
+      return;
+    }
+
+    this.props.onEnter(node, appearing);
+    this.safeSetState({
+      status: ENTERING
+    }, function () {
+      _this2.props.onEntering(node, appearing); // FIXME: appear timeout?
+
+
+      _this2.onTransitionEnd(node, timeouts.enter, function () {
+        _this2.safeSetState({
+          status: ENTERED
+        }, function () {
+          _this2.props.onEntered(node, appearing);
+        });
+      });
+    });
+  };
+
+  _proto.performExit = function performExit(node) {
+    var _this3 = this;
+
+    var exit = this.props.exit;
+    var timeouts = this.getTimeouts(); // no exit animation skip right to EXITED
+
+    if (!exit) {
+      this.safeSetState({
+        status: EXITED
+      }, function () {
+        _this3.props.onExited(node);
+      });
+      return;
+    }
+
+    this.props.onExit(node);
+    this.safeSetState({
+      status: EXITING
+    }, function () {
+      _this3.props.onExiting(node);
+
+      _this3.onTransitionEnd(node, timeouts.exit, function () {
+        _this3.safeSetState({
+          status: EXITED
+        }, function () {
+          _this3.props.onExited(node);
+        });
+      });
+    });
+  };
+
+  _proto.cancelNextCallback = function cancelNextCallback() {
+    if (this.nextCallback !== null) {
+      this.nextCallback.cancel();
+      this.nextCallback = null;
+    }
+  };
+
+  _proto.safeSetState = function safeSetState(nextState, callback) {
+    // This shouldn't be necessary, but there are weird race conditions with
+    // setState callbacks and unmounting in testing, so always make sure that
+    // we can cancel any pending setState callbacks after we unmount.
+    callback = this.setNextCallback(callback);
+    this.setState(nextState, callback);
+  };
+
+  _proto.setNextCallback = function setNextCallback(callback) {
+    var _this4 = this;
+
+    var active = true;
+
+    this.nextCallback = function (event) {
+      if (active) {
+        active = false;
+        _this4.nextCallback = null;
+        callback(event);
+      }
+    };
+
+    this.nextCallback.cancel = function () {
+      active = false;
+    };
+
+    return this.nextCallback;
+  };
+
+  _proto.onTransitionEnd = function onTransitionEnd(node, timeout, handler) {
+    this.setNextCallback(handler);
+
+    if (node) {
+      if (this.props.addEndListener) {
+        this.props.addEndListener(node, this.nextCallback);
+      }
+
+      if (timeout != null) {
+        setTimeout(this.nextCallback, timeout);
+      }
+    } else {
+      setTimeout(this.nextCallback, 0);
+    }
+  };
+
+  _proto.render = function render() {
+    var status = this.state.status;
+
+    if (status === UNMOUNTED) {
+      return null;
+    }
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        childProps = _objectWithoutPropertiesLoose(_this$props, ["children"]); // filter props for Transtition
+
+
+    delete childProps.in;
+    delete childProps.mountOnEnter;
+    delete childProps.unmountOnExit;
+    delete childProps.appear;
+    delete childProps.enter;
+    delete childProps.exit;
+    delete childProps.timeout;
+    delete childProps.addEndListener;
+    delete childProps.onEnter;
+    delete childProps.onEntering;
+    delete childProps.onEntered;
+    delete childProps.onExit;
+    delete childProps.onExiting;
+    delete childProps.onExited;
+
+    if (typeof children === 'function') {
+      return children(status, childProps);
+    }
+
+    var child = _react.default.Children.only(children);
+
+    return _react.default.cloneElement(child, childProps);
+  };
+
+  return Transition;
+}(_react.default.Component);
+
+Transition.contextTypes = {
+  transitionGroup: PropTypes.object
+};
+Transition.childContextTypes = {
+  transitionGroup: function transitionGroup() {}
+};
+Transition.propTypes =  true ? {
+  /**
+   * A `function` child can be used instead of a React element.
+   * This function is called with the current transition status
+   * ('entering', 'entered', 'exiting', 'exited', 'unmounted'), which can be used
+   * to apply context specific props to a component.
+   *
+   * ```jsx
+   * <Transition timeout={150}>
+   *   {(status) => (
+   *     <MyComponent className={`fade fade-${status}`} />
+   *   )}
+   * </Transition>
+   * ```
+   */
+  children: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.element.isRequired]).isRequired,
+
+  /**
+   * Show the component; triggers the enter or exit states
+   */
+  in: PropTypes.bool,
+
+  /**
+   * By default the child component is mounted immediately along with
+   * the parent `Transition` component. If you want to "lazy mount" the component on the
+   * first `in={true}` you can set `mountOnEnter`. After the first enter transition the component will stay
+   * mounted, even on "exited", unless you also specify `unmountOnExit`.
+   */
+  mountOnEnter: PropTypes.bool,
+
+  /**
+   * By default the child component stays mounted after it reaches the `'exited'` state.
+   * Set `unmountOnExit` if you'd prefer to unmount the component after it finishes exiting.
+   */
+  unmountOnExit: PropTypes.bool,
+
+  /**
+   * Normally a component is not transitioned if it is shown when the `<Transition>` component mounts.
+   * If you want to transition on the first mount set `appear` to `true`, and the
+   * component will transition in as soon as the `<Transition>` mounts.
+   *
+   * > Note: there are no specific "appear" states. `appear` only adds an additional `enter` transition.
+   */
+  appear: PropTypes.bool,
+
+  /**
+   * Enable or disable enter transitions.
+   */
+  enter: PropTypes.bool,
+
+  /**
+   * Enable or disable exit transitions.
+   */
+  exit: PropTypes.bool,
+
+  /**
+   * The duration of the transition, in milliseconds.
+   * Required unless `addEndListener` is provided
+   *
+   * You may specify a single timeout for all transitions like: `timeout={500}`,
+   * or individually like:
+   *
+   * ```jsx
+   * timeout={{
+   *  enter: 300,
+   *  exit: 500,
+   * }}
+   * ```
+   *
+   * @type {number | { enter?: number, exit?: number }}
+   */
+  timeout: function timeout(props) {
+    var pt =  true ? _PropTypes.timeoutsShape : undefined;;
+    if (!props.addEndListener) pt = pt.isRequired;
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return pt.apply(void 0, [props].concat(args));
+  },
+
+  /**
+   * Add a custom transition end trigger. Called with the transitioning
+   * DOM node and a `done` callback. Allows for more fine grained transition end
+   * logic. **Note:** Timeouts are still used as a fallback if provided.
+   *
+   * ```jsx
+   * addEndListener={(node, done) => {
+   *   // use the css transitionend event to mark the finish of a transition
+   *   node.addEventListener('transitionend', done, false);
+   * }}
+   * ```
+   */
+  addEndListener: PropTypes.func,
+
+  /**
+   * Callback fired before the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEnter: PropTypes.func,
+
+  /**
+   * Callback fired after the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: PropTypes.func,
+
+  /**
+   * Callback fired after the "entered" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEntered: PropTypes.func,
+
+  /**
+   * Callback fired before the "exiting" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExit: PropTypes.func,
+
+  /**
+   * Callback fired after the "exiting" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExiting: PropTypes.func,
+
+  /**
+   * Callback fired after the "exited" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExited: PropTypes.func // Name the function so it is clearer in the documentation
+
+} : undefined;
+
+function noop() {}
+
+Transition.defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false,
+  enter: true,
+  exit: true,
+  onEnter: noop,
+  onEntering: noop,
+  onEntered: noop,
+  onExit: noop,
+  onExiting: noop,
+  onExited: noop
+};
+Transition.UNMOUNTED = 0;
+Transition.EXITED = 1;
+Transition.ENTERING = 2;
+Transition.ENTERED = 3;
+Transition.EXITING = 4;
+
+var _default = (0, _reactLifecyclesCompat.polyfill)(Transition);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/TransitionGroup.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-transition-group/TransitionGroup.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _reactLifecyclesCompat = __webpack_require__(/*! react-lifecycles-compat */ "./node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js");
+
+var _ChildMapping = __webpack_require__(/*! ./utils/ChildMapping */ "./node_modules/react-transition-group/utils/ChildMapping.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+var values = Object.values || function (obj) {
+  return Object.keys(obj).map(function (k) {
+    return obj[k];
+  });
+};
+
+var defaultProps = {
+  component: 'div',
+  childFactory: function childFactory(child) {
+    return child;
+  }
+  /**
+   * The `<TransitionGroup>` component manages a set of transition components
+   * (`<Transition>` and `<CSSTransition>`) in a list. Like with the transition
+   * components, `<TransitionGroup>` is a state machine for managing the mounting
+   * and unmounting of components over time.
+   *
+   * Consider the example below. As items are removed or added to the TodoList the
+   * `in` prop is toggled automatically by the `<TransitionGroup>`.
+   *
+   * Note that `<TransitionGroup>`  does not define any animation behavior!
+   * Exactly _how_ a list item animates is up to the individual transition
+   * component. This means you can mix and match animations across different list
+   * items.
+   */
+
+};
+
+var TransitionGroup =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(TransitionGroup, _React$Component);
+
+  function TransitionGroup(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+
+    var handleExited = _this.handleExited.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Initial children should all be entering, dependent on appear
+
+
+    _this.state = {
+      handleExited: handleExited,
+      firstRender: true
+    };
+    return _this;
+  }
+
+  var _proto = TransitionGroup.prototype;
+
+  _proto.getChildContext = function getChildContext() {
+    return {
+      transitionGroup: {
+        isMounting: !this.appeared
+      }
+    };
+  };
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.appeared = true;
+    this.mounted = true;
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.mounted = false;
+  };
+
+  TransitionGroup.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, _ref) {
+    var prevChildMapping = _ref.children,
+        handleExited = _ref.handleExited,
+        firstRender = _ref.firstRender;
+    return {
+      children: firstRender ? (0, _ChildMapping.getInitialChildMapping)(nextProps, handleExited) : (0, _ChildMapping.getNextChildMapping)(nextProps, prevChildMapping, handleExited),
+      firstRender: false
+    };
+  };
+
+  _proto.handleExited = function handleExited(child, node) {
+    var currentChildMapping = (0, _ChildMapping.getChildMapping)(this.props.children);
+    if (child.key in currentChildMapping) return;
+
+    if (child.props.onExited) {
+      child.props.onExited(node);
+    }
+
+    if (this.mounted) {
+      this.setState(function (state) {
+        var children = _extends({}, state.children);
+
+        delete children[child.key];
+        return {
+          children: children
+        };
+      });
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        Component = _this$props.component,
+        childFactory = _this$props.childFactory,
+        props = _objectWithoutPropertiesLoose(_this$props, ["component", "childFactory"]);
+
+    var children = values(this.state.children).map(childFactory);
+    delete props.appear;
+    delete props.enter;
+    delete props.exit;
+
+    if (Component === null) {
+      return children;
+    }
+
+    return _react.default.createElement(Component, props, children);
+  };
+
+  return TransitionGroup;
+}(_react.default.Component);
+
+TransitionGroup.childContextTypes = {
+  transitionGroup: _propTypes.default.object.isRequired
+};
+TransitionGroup.propTypes =  true ? {
+  /**
+   * `<TransitionGroup>` renders a `<div>` by default. You can change this
+   * behavior by providing a `component` prop.
+   * If you use React v16+ and would like to avoid a wrapping `<div>` element
+   * you can pass in `component={null}`. This is useful if the wrapping div
+   * borks your css styles.
+   */
+  component: _propTypes.default.any,
+
+  /**
+   * A set of `<Transition>` components, that are toggled `in` and out as they
+   * leave. the `<TransitionGroup>` will inject specific transition props, so
+   * remember to spread them through if you are wrapping the `<Transition>` as
+   * with our `<Fade>` example.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * A convenience prop that enables or disables appear animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  appear: _propTypes.default.bool,
+
+  /**
+   * A convenience prop that enables or disables enter animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  enter: _propTypes.default.bool,
+
+  /**
+   * A convenience prop that enables or disables exit animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  exit: _propTypes.default.bool,
+
+  /**
+   * You may need to apply reactive updates to a child as it is exiting.
+   * This is generally done by using `cloneElement` however in the case of an exiting
+   * child the element has already been removed and not accessible to the consumer.
+   *
+   * If you do need to update a child as it leaves you can provide a `childFactory`
+   * to wrap every child, even the ones that are leaving.
+   *
+   * @type Function(child: ReactElement) -> ReactElement
+   */
+  childFactory: _propTypes.default.func
+} : undefined;
+TransitionGroup.defaultProps = defaultProps;
+
+var _default = (0, _reactLifecyclesCompat.polyfill)(TransitionGroup);
+
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-transition-group/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _CSSTransition = _interopRequireDefault(__webpack_require__(/*! ./CSSTransition */ "./node_modules/react-transition-group/CSSTransition.js"));
+
+var _ReplaceTransition = _interopRequireDefault(__webpack_require__(/*! ./ReplaceTransition */ "./node_modules/react-transition-group/ReplaceTransition.js"));
+
+var _TransitionGroup = _interopRequireDefault(__webpack_require__(/*! ./TransitionGroup */ "./node_modules/react-transition-group/TransitionGroup.js"));
+
+var _Transition = _interopRequireDefault(__webpack_require__(/*! ./Transition */ "./node_modules/react-transition-group/Transition.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+  Transition: _Transition.default,
+  TransitionGroup: _TransitionGroup.default,
+  ReplaceTransition: _ReplaceTransition.default,
+  CSSTransition: _CSSTransition.default
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/utils/ChildMapping.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-transition-group/utils/ChildMapping.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.getChildMapping = getChildMapping;
+exports.mergeChildMappings = mergeChildMappings;
+exports.getInitialChildMapping = getInitialChildMapping;
+exports.getNextChildMapping = getNextChildMapping;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+/**
+ * Given `this.props.children`, return an object mapping key to child.
+ *
+ * @param {*} children `this.props.children`
+ * @return {object} Mapping of key to child
+ */
+function getChildMapping(children, mapFn) {
+  var mapper = function mapper(child) {
+    return mapFn && (0, _react.isValidElement)(child) ? mapFn(child) : child;
+  };
+
+  var result = Object.create(null);
+  if (children) _react.Children.map(children, function (c) {
+    return c;
+  }).forEach(function (child) {
+    // run the map function here instead so that the key is the computed one
+    result[child.key] = mapper(child);
+  });
+  return result;
+}
+/**
+ * When you're adding or removing children some may be added or removed in the
+ * same render pass. We want to show *both* since we want to simultaneously
+ * animate elements in and out. This function takes a previous set of keys
+ * and a new set of keys and merges them with its best guess of the correct
+ * ordering. In the future we may expose some of the utilities in
+ * ReactMultiChild to make this easy, but for now React itself does not
+ * directly have this concept of the union of prevChildren and nextChildren
+ * so we implement it here.
+ *
+ * @param {object} prev prev children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @param {object} next next children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @return {object} a key set that contains all keys in `prev` and all keys
+ * in `next` in a reasonable order.
+ */
+
+
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    return key in next ? next[key] : prev[key];
+  } // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+
+
+  var nextKeysPending = Object.create(null);
+  var pendingKeys = [];
+
+  for (var prevKey in prev) {
+    if (prevKey in next) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i;
+  var childMapping = {};
+
+  for (var nextKey in next) {
+    if (nextKeysPending[nextKey]) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    }
+
+    childMapping[nextKey] = getValueForKey(nextKey);
+  } // Finally, add the keys which didn't appear before any key in `next`
+
+
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
+}
+
+function getProp(child, prop, props) {
+  return props[prop] != null ? props[prop] : child.props[prop];
+}
+
+function getInitialChildMapping(props, onExited) {
+  return getChildMapping(props.children, function (child) {
+    return (0, _react.cloneElement)(child, {
+      onExited: onExited.bind(null, child),
+      in: true,
+      appear: getProp(child, 'appear', props),
+      enter: getProp(child, 'enter', props),
+      exit: getProp(child, 'exit', props)
+    });
+  });
+}
+
+function getNextChildMapping(nextProps, prevChildMapping, onExited) {
+  var nextChildMapping = getChildMapping(nextProps.children);
+  var children = mergeChildMappings(prevChildMapping, nextChildMapping);
+  Object.keys(children).forEach(function (key) {
+    var child = children[key];
+    if (!(0, _react.isValidElement)(child)) return;
+    var hasPrev = key in prevChildMapping;
+    var hasNext = key in nextChildMapping;
+    var prevChild = prevChildMapping[key];
+    var isLeaving = (0, _react.isValidElement)(prevChild) && !prevChild.props.in; // item is new (entering)
+
+    if (hasNext && (!hasPrev || isLeaving)) {
+      // console.log('entering', key)
+      children[key] = (0, _react.cloneElement)(child, {
+        onExited: onExited.bind(null, child),
+        in: true,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    } else if (!hasNext && hasPrev && !isLeaving) {
+      // item is old (exiting)
+      // console.log('leaving', key)
+      children[key] = (0, _react.cloneElement)(child, {
+        in: false
+      });
+    } else if (hasNext && hasPrev && (0, _react.isValidElement)(prevChild)) {
+      // item hasn't changed transition states
+      // copy over the last transition props;
+      // console.log('unchanged', key)
+      children[key] = (0, _react.cloneElement)(child, {
+        onExited: onExited.bind(null, child),
+        in: prevChild.props.in,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    }
+  });
+  return children;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/utils/PropTypes.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-transition-group/utils/PropTypes.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.classNamesShape = exports.timeoutsShape = void 0;
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var timeoutsShape =  true ? _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.shape({
+  enter: _propTypes.default.number,
+  exit: _propTypes.default.number
+}).isRequired]) : undefined;
+exports.timeoutsShape = timeoutsShape;
+var classNamesShape =  true ? _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.shape({
+  enter: _propTypes.default.string,
+  exit: _propTypes.default.string,
+  active: _propTypes.default.string
+}), _propTypes.default.shape({
+  enter: _propTypes.default.string,
+  enterDone: _propTypes.default.string,
+  enterActive: _propTypes.default.string,
+  exit: _propTypes.default.string,
+  exitDone: _propTypes.default.string,
+  exitActive: _propTypes.default.string
+})]) : undefined;
+exports.classNamesShape = classNamesShape;
+
+/***/ }),
+
 /***/ "./node_modules/react/cjs/react.development.js":
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
@@ -75636,6 +79808,64 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/stylis-rule-sheet/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/stylis-rule-sheet/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (factory) {
+	 true ? (module['exports'] = factory()) :
+		undefined
+}(function () {
+
+	'use strict'
+
+	return function (insertRule) {
+		var delimiter = '/*|*/'
+		var needle = delimiter+'}'
+
+		function toSheet (block) {
+			if (block)
+				try {
+					insertRule(block + '}')
+				} catch (e) {}
+		}
+
+		return function ruleSheet (context, content, selectors, parents, line, column, length, ns, depth, at) {
+			switch (context) {
+				// property
+				case 1:
+					// @import
+					if (depth === 0 && content.charCodeAt(0) === 64)
+						return insertRule(content+';'), ''
+					break
+				// selector
+				case 2:
+					if (ns === 0)
+						return content + delimiter
+					break
+				// at-rule
+				case 3:
+					switch (ns) {
+						// @font-face, @page
+						case 102:
+						case 112:
+							return insertRule(selectors[0]+content), ''
+						default:
+							return content + (at === 0 ? delimiter : '')
+					}
+				case -2:
+					content.split(needle).forEach(toSheet)
+			}
+		}
+	}
+}))
+
+
+/***/ }),
+
 /***/ "./node_modules/value-equal/index.js":
 /*!*******************************************!*\
   !*** ./node_modules/value-equal/index.js ***!
@@ -75826,38 +80056,22 @@ module.exports = function(module) {
 /*!************************************!*\
   !*** ./resources/js/ProjectApp.js ***!
   \************************************/
-/*! exports provided: default */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProjectApp; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _components_ProjectList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ProjectList */ "./resources/js/components/ProjectList.js");
-/* harmony import */ var _components_NewProject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/NewProject */ "./resources/js/components/NewProject.js");
-/* harmony import */ var _components_TaskList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/TaskList */ "./resources/js/components/TaskList.js");
-/* harmony import */ var _components_PublicProjects__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/PublicProjects */ "./resources/js/components/PublicProjects.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toast-notifications */ "./node_modules/react-toast-notifications/dist/index.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_toast_notifications__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_ProjectList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ProjectList */ "./resources/js/components/ProjectList.js");
+/* harmony import */ var _components_NewProject__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/NewProject */ "./resources/js/components/NewProject.js");
+/* harmony import */ var _components_TaskList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/TaskList */ "./resources/js/components/TaskList.js");
+/* harmony import */ var _components_PublicProjects__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/PublicProjects */ "./resources/js/components/PublicProjects.js");
 
 
 
@@ -75867,42 +80081,23 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var ProjectApp =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(ProjectApp, _Component);
-
-  function ProjectApp() {
-    _classCallCheck(this, ProjectApp);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(ProjectApp).apply(this, arguments));
-  }
-
-  _createClass(ProjectApp, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        exact: true,
-        path: "/projects",
-        component: _components_ProjectList__WEBPACK_IMPORTED_MODULE_3__["default"]
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/projects/create",
-        component: _components_NewProject__WEBPACK_IMPORTED_MODULE_4__["default"]
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/projects/:project/tasks",
-        component: _components_TaskList__WEBPACK_IMPORTED_MODULE_5__["default"]
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        exact: true,
-        path: "/",
-        component: _components_PublicProjects__WEBPACK_IMPORTED_MODULE_6__["default"]
-      })));
-    }
-  }]);
-
-  return ProjectApp;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
+var ProjectApp = function ProjectApp() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_toast_notifications__WEBPACK_IMPORTED_MODULE_3__["ToastProvider"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/",
+    component: _components_PublicProjects__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/projects",
+    component: _components_ProjectList__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    path: "/projects/create",
+    component: _components_NewProject__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    path: "/projects/:project/tasks",
+    component: _components_TaskList__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }))));
+};
 
 if (document.getElementById('root')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProjectApp, null), document.getElementById('root'));
@@ -76201,6 +80396,197 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/ImageDropZone.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/ImageDropZone.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ImageDropZone; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var ImageDropZone =
+/*#__PURE__*/
+function (_PureComponent) {
+  _inherits(ImageDropZone, _PureComponent);
+
+  function ImageDropZone(props) {
+    var _this;
+
+    _classCallCheck(this, ImageDropZone);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ImageDropZone).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "checkDragAndDropSupport", function () {
+      var div = document.createElement('div');
+      var dragDropSupport = 'ondragstart' in div && 'ondrop' in div && 'FormData' in window && 'FileReader' in window;
+
+      _this.setState({
+        dragDropSupport: dragDropSupport
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleInputClick", function () {
+      _this.dropzoneInput.current.click();
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onDragOver", function (event) {
+      event.preventDefault();
+      if (!_this.state.dragDropSupport) return;
+
+      _this.setState({
+        dragging: true
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onDragLeave", function () {
+      _this.setState({
+        dragging: false
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onDrop", function (event) {
+      event.preventDefault();
+
+      _this.setState({
+        dragging: false
+      });
+
+      if (!_this.state.dragDropSupport) return;
+
+      _this.addImages(event.dataTransfer.files);
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "addImages", function (images) {
+      var image = images[0];
+      var maxImages = _this.props.maxImages;
+
+      if (_this.state.images.length >= maxImages) {
+        return alert('You already have maximum images...');
+      }
+
+      if (image) {
+        if (_this.acceptableFormat.includes(image.type)) {
+          // const reader = new FileReader();
+          // reader.onload = (e) => {
+          //     console.log(e.target.result)
+          // };
+          // reader.readAsDataURL(image);
+          _this.setState(function (_ref) {
+            var images = _ref.images;
+            return {
+              images: [].concat(_toConsumableArray(images), [image])
+            };
+          });
+        } else {
+          return alert("You uploaded invalid file...");
+        }
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleImageChange", function (event) {
+      _this.addImages(event.target.files);
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "showUploadedImages", function () {
+      var images = _this.state.images;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "my-2 text-center"
+      }, images.length === 1 ? images[0].name : "".concat(images.length, " files selected"));
+    });
+
+    _this.state = {
+      images: [],
+      dragDropSupport: false,
+      dragging: false
+    };
+    _this.acceptableFormat = ['image/jpeg', 'image/jpg', 'image/png'];
+    _this.dropzoneInput = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+    return _this;
+  }
+
+  _createClass(ImageDropZone, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.checkDragAndDropSupport();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$state = this.state,
+          images = _this$state.images,
+          dragging = _this$state.dragging,
+          dragDropSupport = _this$state.dragDropSupport;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: classnames__WEBPACK_IMPORTED_MODULE_1___default()("dropzone", {
+          'draggable': dragDropSupport,
+          'highlight': dragging
+        }),
+        onClick: this.handleInputClick,
+        onDrop: this.onDrop,
+        onDragOver: this.onDragOver,
+        onDragLeave: this.onDragLeave,
+        onChange: this.handleImageChange
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        className: "file-input",
+        ref: this.dropzoneInput,
+        accept: "image/*"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "description"
+      }, "Choose a file ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "drag-description"
+      }, " or drag it here."))), !!images.length && this.showUploadedImages());
+    }
+  }]);
+
+  return ImageDropZone;
+}(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
+
+_defineProperty(ImageDropZone, "defaultProps", {
+  maxImages: 5
+});
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Loading.js":
 /*!********************************************!*\
   !*** ./resources/js/components/Loading.js ***!
@@ -76253,6 +80639,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ImageDropZone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ImageDropZone */ "./resources/js/components/ImageDropZone.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { if (i % 2) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } else { Object.defineProperties(target, Object.getOwnPropertyDescriptors(arguments[i])); } } return target; }
@@ -76274,6 +80661,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -76397,11 +80785,13 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "updateProject", function () {
       var _this$state3 = _this.state,
           name = _this$state3.name,
-          description = _this$state3.description;
+          description = _this$state3.description,
+          makePublic = _this$state3.makePublic;
       var projectID = _this.props.project.id;
       axios.patch("/api/projects/".concat(projectID), {
         name: name,
-        description: description
+        description: description,
+        public: makePublic
       }).then(function (_ref2) {
         var data = _ref2.data;
 
@@ -76432,10 +80822,12 @@ function (_Component) {
       if (this.props.editMode) {
         var _this$props$project = this.props.project,
             name = _this$props$project.name,
-            description = _this$props$project.description;
+            description = _this$props$project.description,
+            makePublic = _this$props$project.public;
         this.setState({
           name: name,
-          description: description
+          description: description,
+          makePublic: makePublic
         });
       }
     }
@@ -76509,6 +80901,8 @@ function (_Component) {
         className: "form-check-label",
         htmlFor: "public-project"
       }, "Make Public Project?")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Upload project image"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ImageDropZone__WEBPACK_IMPORTED_MODULE_3__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
@@ -76685,13 +81079,14 @@ function (_Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PublicProjects; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Loading */ "./resources/js/components/Loading.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toast-notifications */ "./node_modules/react-toast-notifications/dist/index.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_toast_notifications__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Loading */ "./resources/js/components/Loading.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -76719,6 +81114,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -76758,6 +81154,25 @@ function (_Component) {
             projects: [e.project].concat(_toConsumableArray(projects))
           };
         });
+
+        _this.props.toastManager.add('Public Project has been created', {
+          appearance: 'success',
+          autoDismiss: true
+        });
+      }).listen('.project.deleted', function (e) {
+        _this.setState(function (_ref3) {
+          var projects = _ref3.projects;
+          return {
+            projects: projects.filter(function (project) {
+              return project.id !== e.project.id;
+            })
+          };
+        });
+
+        _this.props.toastManager.add("Project deleted: ".concat(e.project.name), {
+          appearance: 'success',
+          autoDismiss: true
+        });
       });
     });
 
@@ -76774,6 +81189,39 @@ function (_Component) {
         error: message,
         loading: false
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderProjects", function (projects) {
+      if (projects.length < 1) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "list-group-item"
+        }, "Project list is empty...");
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "list-unstyled"
+      }, projects.map(function (project) {
+        var id = project.id,
+            name = project.name,
+            description = project.description,
+            owner = project.owner;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/projects/".concat(project.id, "/tasks"),
+          className: "media text-decoration-none mb-3",
+          key: id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: owner.photo,
+          alt: "Creator Image",
+          className: "mr-3",
+          width: "50",
+          height: "50",
+          title: owner.name
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "media-body text-dark"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+          className: "mt-0 mb-1"
+        }, name), description));
+      }));
     });
 
     _this.state = {
@@ -76816,33 +81264,18 @@ function (_Component) {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "list-group list-group-flush"
-      }, loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Loading__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }, loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Loading__WEBPACK_IMPORTED_MODULE_4__["default"], {
         label: "Loading Projects"
       }) : error ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item"
-      }, error) : projects.length < 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "list-group-item"
-      }, "Project list is empty...") : projects.map(function (project) {
-        var id = project.id,
-            name = project.name,
-            tasks_count = project.tasks_count;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          className: "list-group-item list-group-item-action d-flex justify-content-between align-items-center",
-          to: "/projects/".concat(id, "/tasks"),
-          key: id
-        }, name, tasks_count > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "badge badge-primary badge-pill"
-        }, tasks_count), tasks_count === '0' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "badge badge-success badge-pill"
-        }, "Completed"));
-      }))))));
+      }, error) : this.renderProjects(projects))))));
     }
   }]);
 
   return PublicProjects;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_toast_notifications__WEBPACK_IMPORTED_MODULE_3__["withToastManager"])(PublicProjects));
 
 /***/ }),
 
@@ -76917,6 +81350,7 @@ function (_PureComponent) {
 
       var _this$props = this.props,
           task = _this$props.task,
+          editable = _this$props.editable,
           onTaskCompleted = _this$props.onTaskCompleted;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item"
@@ -76924,7 +81358,7 @@ function (_PureComponent) {
         className: "mb-1"
       }, task.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "mb-1"
-      }, task.description), task.completed === 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, task.description), editable ? task.completed === 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "d-flex"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "d-flex flex-grow-1 align-self-center"
@@ -76935,7 +81369,7 @@ function (_PureComponent) {
           return _this2.markAsComplete(task.id, onTaskCompleted);
         },
         className: "btn btn-warning btn-sm btn-block mt-1"
-      }, "Mark as Completed"));
+      }, "Mark as Completed") : null);
     }
   }]);
 
@@ -77027,7 +81461,8 @@ function (_Component) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TaskItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
             task: task,
             key: task.id,
-            onTaskCompleted: _this.handleTaskCompleted
+            onTaskCompleted: _this.handleTaskCompleted,
+            editable: _this.ownsProject()
           });
         }));
       } else {
@@ -77044,6 +81479,11 @@ function (_Component) {
           openNewTaskModal: false
         };
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "ownsProject", function () {
+      var project = _this.state.project;
+      return !!project && project.user_id && project.user_id == window.ProjectManager.id;
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleNewTaskModalOpen", function () {
@@ -77116,14 +81556,16 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleUpdate", function (_ref2) {
       var name = _ref2.name,
-          description = _ref2.description;
+          description = _ref2.description,
+          pub = _ref2.public;
 
       _this.setState(function (_ref3) {
         var project = _ref3.project;
         return {
           project: _objectSpread({}, project, {
             name: name,
-            description: description
+            description: description,
+            public: pub
           }),
           openEditProjectModal: false
         };
@@ -77176,7 +81618,7 @@ function (_Component) {
         className: "card-header d-flex justify-content-between"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "align-self-center"
-      }, "Project Detail"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Project Detail"), this.ownsProject() && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "btn-group",
         role: "group",
         "aria-label": "Basic example"
@@ -77204,10 +81646,10 @@ function (_Component) {
       }, project.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "card-text"
       }, project.description)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-        to: "/projects",
+        to: this.ownsProject() ? "/projects" : '/',
         className: "btn btn-outline-primary btn-sm btn-block"
-      }, "Back to Projects"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card mt-5"
+      }, "Back to Projects"))), this.ownsProject() && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card mt-5 d-none d-md-block"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
       }, "New Task"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -77216,14 +81658,14 @@ function (_Component) {
         projectID: this.props.match.params.project,
         onTaskCreated: this.handleTaskCreated
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-8"
+        className: "col-md-8 mt-md-1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header d-flex justify-content-between"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "align-self-center"
-      }, "Project Task Lists"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Project Task Lists"), this.ownsProject() && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.handleNewTaskModalOpen,
         className: "btn btn-success btn-sm"
       }, "Add Task")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

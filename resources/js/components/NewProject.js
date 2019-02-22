@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import classname from 'classnames';
 
+import ImageDropZone from './ImageDropZone';
+
 export default class NewProject extends Component {
     constructor(props){
         super(props);
@@ -17,9 +19,9 @@ export default class NewProject extends Component {
 
     componentDidMount() {
         if(this.props.editMode){
-            const {name, description} = this.props.project;
+            const {name, description, public: makePublic} = this.props.project;
 
-            this.setState({name, description});
+            this.setState({name, description, makePublic});
         }
     }
 
@@ -102,10 +104,10 @@ export default class NewProject extends Component {
     };
 
     updateProject = () => {
-        const {name, description} = this.state;
+        const {name, description, makePublic} = this.state;
         const projectID = this.props.project.id;
 
-        axios.patch(`/api/projects/${projectID}`, {name, description})
+        axios.patch(`/api/projects/${projectID}`, {name, description, public: makePublic})
             .then(({data}) => {
                 this.props.onUpdate(data);
             }).catch(error => {
@@ -114,7 +116,6 @@ export default class NewProject extends Component {
             }
         });
     };
-
 
     render() {
         const {name, description, makePublic, loading} = this.state;
@@ -172,6 +173,11 @@ export default class NewProject extends Component {
                                         <label className="form-check-label" htmlFor="public-project">
                                             Make Public Project?
                                         </label>
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Upload project image</label>
+                                    <ImageDropZone />
                                 </div>
 
                                 <div className="form-group">

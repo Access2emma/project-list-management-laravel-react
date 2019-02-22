@@ -1,0 +1,36 @@
+.dropzone{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #444141;
+    border-radius: 4px;
+    min-height: 100px;
+    cursor: pointer;
+}
+
+.dropzone.draggable{
+    outline: 2px dashed white;
+    outline-offset: -10px;
+}
+
+.dropzone .description{
+    color: #fff;
+    margin: 0;
+    align-self: center;
+}
+
+.dropzone span.drag-description{
+    display: none;
+}
+
+.dropzone.draggable span.drag-description{
+    display: inline;
+}
+
+.dropzone .file-input{
+    display: none;
+}
+
+.dropzone.highlight{
+    background-color: #1c4465;
+}

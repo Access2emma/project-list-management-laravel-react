@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
+import { withToastManager } from 'react-toast-notifications';
 
 import LoadingComponent from './Loading';
 
-export default class PublicProjects extends Component {
+class PublicProjects extends Component {
     constructor(props){
         super(props);
 
@@ -36,6 +37,19 @@ export default class PublicProjects extends Component {
         Echo.channel('project')
             .listen('NewProjectCreated', (e) => {
                 this.setState(({projects}) => ({projects: [e.project, ...projects]}));
+                this.props.toastManager.add('Public Project has been created', {
+                    appearance: 'success',
+                    autoDismiss: true
+                });
+            })
+            .listen('.project.deleted', (e) => {
+                this.setState( ({projects}) => ({
+                    projects: projects.filter(project => project.id !== e.project.id)
+                }));
+                this.props.toastManager.add(`Project deleted: ${e.project.name}`, {
+                    appearance: 'success',
+                    autoDismiss: true
+                });
             })
     };
 
@@ -49,6 +63,31 @@ export default class PublicProjects extends Component {
 
         this.setState({error: message, loading: false});
     };
+
+    renderProjects = (projects) => {
+        if(projects.length < 1) {
+            return (
+                <li className='list-group-item'>Project list is empty...</li>
+            );
+        }
+
+        return (
+            <ul className="list-unstyled">
+                {projects.map(project => {
+                    const {id, name, description, owner} = project;
+                    return (
+                        <Link to={`/projects/${project.id}/tasks`} className="media text-decoration-none mb-3" key={id}>
+                            <img src={owner.photo} alt="Creator Image" className="mr-3" width="50" height="50" title={owner.name} />
+                            <div className="media-body text-dark">
+                                <h5 className="mt-0 mb-1">{name}</h5>
+                                {description}
+                            </div>
+                        </Link>
+                    )
+                })}
+            </ul>
+        )
+    }
 
     render(){
         const {projects, error, loading} = this.state;
@@ -67,35 +106,7 @@ export default class PublicProjects extends Component {
                                     <LoadingComponent label="Loading Projects" />
                                 ) : error ? (
                                     <li className='list-group-item'>{error}</li>
-                                ) : projects.length < 1 ? (
-                                    <li className='list-group-item'>
-                                        Project list is empty...
-                                    </li>
-                                ) : (
-                                    projects.map(project => {
-                                        const {id, name, tasks_count} = project;
-                                        return (
-                                            <Link
-                                                className='list-group-item list-group-item-action d-flex justify-content-between align-items-center'
-                                                to={`/projects/${id}/tasks`}
-                                                key={id}
-                                            >
-                                                {name}
-                                                {tasks_count > 0 && (
-                                                    <span className='badge badge-primary badge-pill'>
-                                                        {tasks_count}
-                                                    </span>
-                                                )}
-
-                                                {(tasks_count === '0') && (
-                                                    <span className='badge badge-success badge-pill'>
-                                                        Completed
-                                                    </span>
-                                                )}
-                                            </Link>
-                                        )
-                                    })
-                                )}
+                                ) : this.renderProjects(projects)}
                             </ul>
                         </div>
                     </div>
@@ -104,3 +115,5 @@ export default class PublicProjects extends Component {
         );
     }
 }
+
+export default withToastManager(PublicProjects);

@@ -16,3 +16,19 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+    Route::get('/projects/public', 'ProjectController@public');
+
+Route::middleware('auth:api')->group(function(){
+    Route::get('/projects', 'ProjectController@index');
+
+
+    Route::post('/projects', 'ProjectController@store');
+    Route::get('/projects/{project}', 'ProjectController@show');
+    Route::patch('/projects/{project}', 'ProjectController@update');
+    Route::delete('/projects/{project}', 'ProjectController@destroy');
+
+    Route::post('/tasks', 'TaskController@store');
+    Route::patch('/tasks/{task}', 'TaskController@markAsComplete');
+});
+    Route::get('/projects/{project}/tasks', 'TaskController@index');

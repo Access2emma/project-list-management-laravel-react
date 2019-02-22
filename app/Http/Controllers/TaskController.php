@@ -13,6 +13,7 @@ class TaskController extends Controller
 
         return response()->json(['data' => $projectTasks]);
     }
+
     public function store(){
 
         $validated = request()->validate([

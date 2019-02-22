@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewProjectCreated;
 use App\Project;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use App\Events\ProjectDeleted;
 use Illuminate\Validation\Rule;
+use App\Events\NewProjectCreated;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ProjectController extends Controller
 {
@@ -21,7 +22,9 @@ class ProjectController extends Controller
     }
 
     public function public(){
-        $projects = Project::public()->latest()->get();
+        $projects = Project::public()
+            ->with('owner:id,name,email')
+            ->latest()->get();
 
         return response()->json(['data' => $projects]);
     }
@@ -60,7 +63,8 @@ class ProjectController extends Controller
         }
         $validated = $request->validate([
             'name' => ['required', Rule::unique('projects')->ignore($project->id)],
-            'description' => 'required'
+            'description' => 'required',
+            'public' => 'nullable'
         ], ['name.unique' => 'Project with same name already exists']);
 
         $project->fill($validated);
@@ -75,6 +79,10 @@ class ProjectController extends Controller
             $this->authorize('delete', $project);
         }catch(AuthorizationException $e){
             return response()->json(['error' => 'You are not permitted to delete this project'], 404);
+        }
+
+        if($project->public){
+            event(new ProjectDeleted($project));
         }
 
         $project->delete();

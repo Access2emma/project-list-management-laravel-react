@@ -9,9 +9,10 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class NewProjectCreated implements ShouldBroadcast
+class ProjectDeleted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
 
     /** @var \App\Project */
     public $project;
@@ -34,5 +35,9 @@ class NewProjectCreated implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('project');
+    }
+
+    public function broadcastAs(){
+        return 'project.deleted';
     }
 }

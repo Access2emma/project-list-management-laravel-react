@@ -42,6 +42,7 @@ export default class TaskList extends Component {
                             task={task}
                             key={task.id}
                             onTaskCompleted={this.handleTaskCompleted}
+                            editable={this.ownsProject()}
                         />
                     ))}
                 </ul>
@@ -56,6 +57,11 @@ export default class TaskList extends Component {
             project: {...state.project, tasks: [newTask, ...state.project.tasks]},
             openNewTaskModal: false
         }));
+    };
+
+    ownsProject = () => {
+        const {project} = this.state;
+        return !!project && project.user_id && project.user_id == window.ProjectManager.id;
     };
 
     handleNewTaskModalOpen = () => this.setState({openNewTaskModal: true});
@@ -99,9 +105,9 @@ export default class TaskList extends Component {
         });
     };
 
-    handleUpdate = ({name, description}) => {
+    handleUpdate = ({name, description, public: pub}) => {
         this.setState(({project}) =>({
-            project: {...project, name, description},
+            project: {...project, name, description, public: pub},
             openEditProjectModal: false
         }));
     };
@@ -116,10 +122,13 @@ export default class TaskList extends Component {
                         <div className="card-header d-flex justify-content-between">
                             <div className="align-self-center">Project Detail</div>
 
-                            <div className="btn-group" role="group" aria-label="Basic example">
-                                <button onClick={this.openProjectEditModal} type="button" className="btn btn-sm btn-secondary">Edit</button>
-                                <button onClick={this.deleteProject} className='btn btn-danger btn-sm' type="button">Delete</button>
-                            </div>
+                            {this.ownsProject() && (
+                                <div className="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick={this.openProjectEditModal} type="button" className="btn btn-sm btn-secondary">Edit</button>
+                                    <button onClick={this.deleteProject} className='btn btn-danger btn-sm' type="button">Delete</button>
+                                </div>
+                            )}
+
                         </div>
 
                         <div className="card-body">
@@ -136,11 +145,12 @@ export default class TaskList extends Component {
                                 </div>
                             )}
 
-                            <Link to="/projects" className="btn btn-outline-primary btn-sm btn-block">Back to Projects</Link>
+                            <Link to={this.ownsProject() ? "/projects" : '/'} className="btn btn-outline-primary btn-sm btn-block">Back to Projects</Link>
                         </div>
                     </div>
 
-                    <div className="card mt-5">
+                    {this.ownsProject() && (
+                    <div className="card mt-5 d-none d-md-block">
                         <div className="card-header">New Task</div>
                         <div className="card-body">
                             <CreateTask
@@ -149,13 +159,18 @@ export default class TaskList extends Component {
                             />
                         </div>
                     </div>
-
+                    )}
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-8 mt-md-1">
                     <div className="card">
                         <div className="card-header d-flex justify-content-between">
                             <div className="align-self-center">Project Task Lists</div>
-                            <button onClick={this.handleNewTaskModalOpen} className='btn btn-success btn-sm'>Add Task</button>
+                            {this.ownsProject()  && (
+                                <button
+                                    onClick={this.handleNewTaskModalOpen}
+                                    className='btn btn-success btn-sm'
+                                >Add Task</button>
+                            )}
                         </div>
 
                         <div className="card-body">

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Project;
 use App\Task;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Project;
 use Tests\TestCase;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProjectTest extends TestCase
@@ -40,8 +40,8 @@ class ProjectTest extends TestCase
     {
         $project = factory('App\Project')->create(['user_id' => $this->user->id]);
 
-        $this->actingAs($this->user)
-            ->json('GET', '/api/projects')
+        Passport::actingAs($this->user);
+        $this->json('GET', '/api/projects')
             ->assertOk();
     }
 
@@ -51,7 +51,8 @@ class ProjectTest extends TestCase
             'name' => 'Random project'
         ];
 
-        $this->actingAs($this->user)->json('POST', '/api/projects', $project_information)
+        $this->actingAs($this->user, 'api')
+            ->json('POST', '/api/projects', $project_information)
             ->assertJsonValidationErrors('description');
 
         $project_information = [
@@ -70,7 +71,8 @@ class ProjectTest extends TestCase
         $project_information = factory(Project::class)->make()
             ->only(['name', 'description']);
 
-        $this->actingAs($this->user)->json('POST', '/api/projects', $project_information)
+        $this->actingAs($this->user, 'api')
+            ->json('POST', '/api/projects', $project_information)
             ->assertStatus(201);
 
         $this->assertDatabaseHas('projects', $project_information);
@@ -80,7 +82,7 @@ class ProjectTest extends TestCase
     public function authenticated_user_can_view_single_project(){
         $project = factory(Project::class)->create(['user_id' => $this->user->id]);
 
-        $this->actingAs($this->user)->json('GET', "/api/projects/{$project->id}")
+        $this->actingAs($this->user, 'api')->json('GET', "/api/projects/{$project->id}")
             ->assertOk()
             ->assertJson($project->toArray());
     }
@@ -89,36 +91,17 @@ class ProjectTest extends TestCase
     public function it_404_when_viewing_unavailable_project(){
         $project = 100;
 
-        $this->actingAs($this->user)->json('GET', "/api/projects/{$project}")
-            ->assertNotFound();
-    }
-
-    /** @test */
-    public function can_mark_incomplete_project_as_completed(){
-        $project = factory(Project::class)->create();
-
-        $this->json('PATCH', "/api/projects/{$project->id}")
-            ->assertOk();
-
-        $this->assertDatabaseHas('projects', [
-            'id' => $project->id,
-            'completed' => true
-        ]);
-    }
-
-    /** @test */
-    public function completed_project_can_not_be_mark_completed(){
-        $project = factory(Project::class)->create(['completed' => true]);
-
-        $this->json('PATCH', "/api/projects/{$project->id}")
+        $this->actingAs($this->user, 'api')
+            ->json('GET', "/api/projects/{$project}")
             ->assertNotFound();
     }
 
     /** @test */
     public function project_can_be_deleted(){
-        $project = factory(Project::class)->create();
+        $project = factory('App\Project')->create(['user_id' => $this->user->id]);
 
-        $this->json('DELETE', "/api/projects/{$project->id}")
+        $this->actingAs($this->user, 'api')
+            ->json('DELETE', "/api/projects/{$project->id}")
             ->assertOk();
 
         $this->assertDatabaseMissing('projects', ['id' => $project->id]);
@@ -126,10 +109,11 @@ class ProjectTest extends TestCase
 
     /** @test */
     public function delete_all_project_tasks_when_a_project_is_deleted(){
-        $project = factory(Project::class)->create();
+        $project = factory('App\Project')->create(['user_id' => $this->user->id]);
         factory(Task::class, 5)->create(['project_id' => $project->id]);
 
-        $this->json('DELETE', "/api/projects/{$project->id}")
+        $this->actingAs($this->user, 'api')
+            ->json('DELETE', "/api/projects/{$project->id}")
             ->assertOk();
 
         $this->assertDatabaseMissing('tasks', ['project_id' => $project->id]);
